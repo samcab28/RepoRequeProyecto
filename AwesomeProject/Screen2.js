@@ -22,10 +22,6 @@ const Screen2 = ({ navigation }) => {
     setData(newData);
   };
 
-  const navigateToModify = index => {
-    navigation.navigate('Screen3', { index });
-  };
-
   const renderItem = ({ item, index }) => (
     <View style={styles.item}>
       <Text>{item.id}</Text>
@@ -35,7 +31,6 @@ const Screen2 = ({ navigation }) => {
       <Text>{item.precioVenta}</Text>
       <Text>{item.cantVendido}</Text>
       <Button title="Delete" onPress={() => deleteData(index)} />
-      <Button title="Modify" onPress={() => navigateToModify(index)} />
     </View>
   );
 

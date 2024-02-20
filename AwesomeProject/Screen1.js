@@ -38,7 +38,9 @@ const Screen1 = ({ navigation }) => {
     setPrecioCosto('');
     setPrecioVenta('');
     setcantVendido('');
+    navigation.navigate('Screen0'); 
   };
+  
 
   return (
     <View style={styles.container}>
@@ -94,9 +96,6 @@ const Screen1 = ({ navigation }) => {
         />
       </View>
       <Button title="Guardar" onPress={saveData} />
-      <Button title="Ver, Borrar y Modificar" onPress={() => navigation.navigate('Screen2')} />
-      <Button title="Borrar" onPress={() => navigation.navigate('Screen2')} />
-      <Button title="Modificar" onPress={() => navigation.navigate('Screen2')} />
     </View>
   );
 };
