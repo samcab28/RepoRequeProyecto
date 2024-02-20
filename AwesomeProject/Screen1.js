@@ -21,6 +21,11 @@ const Screen1 = ({ navigation }) => {
   }, []);
 
   const saveData = async () => {
+    if (!name || !cantidad || !precioCosto || !precioVenta || !cantVendido) {
+      alert('Por favor llene todos los campos');
+      return;
+    }
+  
     const newId = idCounter + 1;
     const newData = { id: newId.toString(), name, cantidad, precioCosto, precioVenta, cantVendido };
     let data = await AsyncStorage.getItem('data');
@@ -38,9 +43,8 @@ const Screen1 = ({ navigation }) => {
     setPrecioCosto('');
     setPrecioVenta('');
     setcantVendido('');
-    navigation.navigate('Screen0'); 
+    navigation.navigate('Screen0');
   };
-  
 
   return (
     <View style={styles.container}>
@@ -98,6 +102,11 @@ const Screen1 = ({ navigation }) => {
       <Button title="Guardar" onPress={saveData} />
     </View>
   );
+};
+
+// Cambiar el título en la parte superior de la pantalla
+Screen1.navigationOptions = {
+  title: 'Pantalla 1',
 };
 
 const styles = StyleSheet.create({

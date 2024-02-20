@@ -13,11 +13,11 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Screen0">
-      <Stack.Screen name="Screen0" component={Screen0} />
-        <Stack.Screen name="Screen1" component={Screen1} />
-        <Stack.Screen name="Screen2" component={Screen2} />
-        <Stack.Screen name="Screen3" component={Screen3} />
-        <Stack.Screen name="Screen4" component={Screen4} />
+      <Stack.Screen name="Screen0" component={Screen0} options={{ title: 'Inicio' }}/>
+      <Stack.Screen name="Screen1" component={Screen1} options={{ title: 'Guardar Producto' }} />
+        <Stack.Screen name="Screen2" component={Screen2} options={{ title: 'Borrar Producto' }}/>
+        <Stack.Screen name="Screen3" component={Screen3} options={{ title: 'Modificar Producto' }}/>
+        <Stack.Screen name="Screen4" component={Screen4} options={{ title: 'Modifique Producto' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
