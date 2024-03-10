@@ -10,9 +10,6 @@ const ComponentesAdmin = () => {
   return (
     <div style={{ display: 'flex' }}>
       <SidebarAdmin></SidebarAdmin>
-      <Link to="/">
-        <button>Volver al inicio</button>
-      </Link>
     </div>
   );
 };

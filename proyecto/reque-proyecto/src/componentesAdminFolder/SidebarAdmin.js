@@ -22,6 +22,31 @@ const SidebarNav = styled.nav`
   flex-direction: column;
 `;
 
+
+
+const StyledButton = styled.button`
+  width: 50%;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #555;
+  }
+`;
+
+const SidebarButton = () => {
+  return (
+    <StyledButton as={Link} to="/">
+      Volver al inicio
+    </StyledButton>
+  );
+};
+
+
 const Sidebar = () => {
   return (
     <SidebarWrapper>
@@ -45,6 +70,7 @@ const Sidebar = () => {
         <DropDown position='flex' className={'space-x-8'} title={'Foro'} options={[
           { text: 'Foro general', onClick: () => { console.log('hola mundo') } }
         ]} />
+        <SidebarButton />
       </SidebarNav>
     </SidebarWrapper>
   );

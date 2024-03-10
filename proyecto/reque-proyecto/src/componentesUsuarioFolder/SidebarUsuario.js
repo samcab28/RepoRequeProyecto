@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import DropDown from '../componets/common/dropdown';
+
+
 const SidebarWrapper = styled.div`
   width: 250px;
   height: 100vh;
@@ -31,17 +34,50 @@ const SidebarLink = styled(Link)`
   }
 `;
 
+const StyledButton = styled.button`
+  width: 50%;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #555;
+  }
+`;
+
+const SidebarButton = () => {
+  return (
+    <StyledButton as={Link} to="/">
+      Volver al inicio
+    </StyledButton>
+  );
+};
+
 const Sidebar = () => {
   return (
     <SidebarWrapper>
       <SidebarHeader>Sidebar</SidebarHeader>
-      <SidebarNav>
-        <SidebarLink to="/">Mi Proyectos</SidebarLink>
-        <SidebarLink to="/">Mi Equipo</SidebarLink>
-        <SidebarLink to="/">Foro</SidebarLink>
+      <SidebarNav style={{}}>
+        <DropDown position='flex' className={'space-x-8'} title={'Mi Proyecto'} options={[
+          { text: 'Foro', onClick: () => { console.log('hola mundo') } },
+          { text: 'Informe', onClick: () => { console.log('hola mundo') } },
+          { text: 'Burndown Chart', onClick: () => { console.log('hola mundo 2') } },
+          { text: 'Tareas', onClick: () => { console.log('hola mundo') } },
+        ]} />
+        <DropDown position='flex' className={'space-x-8'} title={'Mi Equipo'} options={[
+          { text: 'Equipo', onClick: () => { console.log('hola mundo') } },
+        ]} />
+        <DropDown position='flex' className={'space-x-8'} title={'Foro'} options={[
+          { text: 'Foro general', onClick: () => { console.log('hola mundo') } }
+        ]} />
+        <SidebarButton />
       </SidebarNav>
     </SidebarWrapper>
   );
 };
 
 export default Sidebar;
+
