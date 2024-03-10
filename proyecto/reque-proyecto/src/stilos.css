@@ -1,0 +1,16 @@
+.button {
+  border: none;
+  background: rgba(31, 31, 31, 1);
+  color: rgba(255,255,255); 
+  padding: 8px;
+}
+
+.space-x-8 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.button:hover {
+    background: rgba(19, 103, 139, 1); /* Cambia el valor de opacidad a tu gusto */
+  }
+  

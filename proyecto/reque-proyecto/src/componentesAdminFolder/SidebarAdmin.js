@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import '../stilos.css';
+
+import DropDown from '../componets/common/dropdown';
 
 const SidebarWrapper = styled.div`
   width: 250px;
@@ -19,27 +22,29 @@ const SidebarNav = styled.nav`
   flex-direction: column;
 `;
 
-const SidebarLink = styled(Link)`
-  color: white;
-  text-decoration: none;
-  padding: 10px 20px;
-  margin-bottom: 5px;
-  border-left: 3px solid transparent;
-
-  &:hover {
-    border-left: 3px solid #fff;
-  }
-`;
-
 const Sidebar = () => {
   return (
     <SidebarWrapper>
       <SidebarHeader>Sidebar</SidebarHeader>
-      <SidebarNav>
-        <SidebarLink to="/">Proyectos</SidebarLink>
-        <SidebarLink to="/">Colaboradores</SidebarLink>
-        <SidebarLink to="/">Informes</SidebarLink>
-        <SidebarLink to="/">Foro</SidebarLink>
+      <SidebarNav style={{}}>
+        <DropDown position='flex' className={'space-x-8'} title={'Proyectos'} options={[
+          { text: 'Crear', onClick: () => { console.log('hola mundo') } },
+          { text: 'Consultar', onClick: () => { console.log('hola mundo') } },
+          { text: 'Modificar', onClick: () => { console.log('hola mundo 2') } },
+          { text: 'Crear reunion', onClick: () => { console.log('hola mundo') } },
+          { text: 'Foro', onClick: () => { console.log('hola mundo') } }
+        ]} />
+        <DropDown position='flex' className={'space-x-8'} title={'Colaboradores'} options={[
+          { text: 'Crear', onClick: () => { console.log('hola mundo') } },
+          { text: 'Modificar', onClick: () => { console.log('hola mundo 2') } },
+          { text: 'Consultar', onClick: () => { console.log('hola mundo 3') } }
+        ]} />
+        <DropDown position='flex' className={'space-x-8'} title={'Informes'} options={[
+          { text: 'Informes', onClick: () => { console.log('hola mundo') } }
+        ]} />
+        <DropDown position='flex' className={'space-x-8'} title={'Foro'} options={[
+          { text: 'Foro general', onClick: () => { console.log('hola mundo') } }
+        ]} />
       </SidebarNav>
     </SidebarWrapper>
   );

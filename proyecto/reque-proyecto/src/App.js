@@ -4,9 +4,11 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import AdminNav from './componentesAdminFolder/ComponentesAdmin';
 import UsuarioNav from './componentesUsuarioFolder/ComponentesUsuario';
+import DropDown from '../src/componets/common/dropdown';
 
 const App = () => {
   return (
+    <>
     <Router>
       <Routes>
         <Route
@@ -25,7 +27,7 @@ const App = () => {
         <Route path="/admin" element={<AdminNav />} />
         <Route path="/usuario" element={<UsuarioNav />} />
       </Routes>
-    </Router>
+    </Router></>
   );
 };
 
