@@ -1,15 +1,15 @@
-import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
-
+import React, { useState } from 'react';
 import SidebarAdmin from './SidebarAdmin';
 
-import DropDown from '../componets/common/dropdown';
-
-
 const ComponentesAdmin = () => {
+  const [currentScreen, setCurrentScreen] = useState(null);
+
   return (
     <div style={{ display: 'flex' }}>
-      <SidebarAdmin></SidebarAdmin>
+      <SidebarAdmin setCurrentScreen={setCurrentScreen} />
+      <div style={{ flex: 1 }}>
+        {currentScreen}
+      </div>
     </div>
   );
 };
