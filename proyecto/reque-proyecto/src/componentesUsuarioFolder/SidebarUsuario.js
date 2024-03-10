@@ -76,7 +76,7 @@ const Sidebar = ({ setCurrentScreen }) => {
 
   return (
     <SidebarWrapper>
-      <SidebarHeader>Sidebar</SidebarHeader>
+      <SidebarHeader>Usuarios</SidebarHeader>
       <SidebarNav style={{}}>
         <DropDown position='flex' className={'space-x-8'} title={'Mi Proyecto'} options={[
           { text: 'Foro', onClick: () => { handleOptionClick(ForoProUsu)} },

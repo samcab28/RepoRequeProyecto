@@ -69,7 +69,7 @@ const Sidebar = ({ setCurrentScreen }) => {
 
   return (
     <SidebarWrapper>
-      <SidebarHeader>Sidebar</SidebarHeader>
+      <SidebarHeader>Administradores</SidebarHeader>
       <SidebarNav>
         <DropDown position='flex' title={'Proyectos'} options={[
           { text: 'Crear', onClick: () => { handleOptionClick(<CrearProAd />) } },
