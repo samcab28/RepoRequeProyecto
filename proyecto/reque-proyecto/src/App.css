@@ -36,3 +36,50 @@
     transform: rotate(360deg);
   }
 }
+
+.mainContainer {
+  display: grid;
+  place-items: center; /* Esta propiedad centraliza tanto horizontal como verticalmente */
+  column-gap: 10px;
+  background-color: #282c34;
+  height: 100vh;
+  
+}
+
+.titulo{
+  color: white;
+  font-size: 40px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.labelWithMargin {
+  margin: 10px;
+  color: white;
+  font-size: 20px;
+}
+
+.inputField {
+  width: 100%;
+  max-width: 200px;
+  background-color: rgb(35, 125, 251);
+}
+
+.blueBackground {
+  background-color: rgb(53, 86, 197);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.button {
+  font-size: 20px;
+  padding: 10px 20px;
+  width: 100%;
+  margin-bottom: 10px;
+}

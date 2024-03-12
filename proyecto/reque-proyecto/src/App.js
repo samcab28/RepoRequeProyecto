@@ -1,33 +1,22 @@
 // En App.js
-
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminNav from './componentesAdminFolder/ComponentesAdmin';
 import UsuarioNav from './componentesUsuarioFolder/ComponentesUsuario';
-import DropDown from '../src/componets/common/dropdown';
+import HomeScreen from './HomeScreen/HomeScreen';
+import './App.css';
 
 const App = () => {
   return (
-    <>
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              <Link to="/admin">
-                <button>Ir a Admin</button>
-              </Link>
-              <Link to="/usuario">
-                <button>Ir a Usuario</button>
-              </Link>
-            </div>
-          }
-        />
-        <Route path="/admin" element={<AdminNav />} />
-        <Route path="/usuario" element={<UsuarioNav />} />
-      </Routes>
-    </Router></>
+    <div >
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/admin" element={<AdminNav />} />
+          <Route path="/usuario" element={<UsuarioNav />} />
+        </Routes>
+      </Router>
+    </div>
   );
 };
 
