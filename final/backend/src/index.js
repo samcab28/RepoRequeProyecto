@@ -3,7 +3,6 @@ para inicializacion automatica del usuario:
 
 npm run dev, declaracion en scrips de package.json
 
-
 */
 
 //inicializacion de variables de .env

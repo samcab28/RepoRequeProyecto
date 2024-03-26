@@ -20,8 +20,8 @@ app.use(express.json());
 
 //------------------------------------------------------------------------------
 // routes
-app.get('/api/users',(req,res) => res.send('users routes'));
-app.get('/api/notes',(req,res) => res.send('notes routes'));
+app.use('/api/users',require('./routes/User'));
+app.use('/api/notes',require('./routes/Note'));
 
 
 module.exports = app;
