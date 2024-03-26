@@ -50,4 +50,20 @@ userCtrl.deleteUser = async (req, res) => {
     }
 };
 
+userCtrl.updateUser = async (req, res) => {
+    const { id } = req.params;
+    const { username } = req.body;
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(id, { username }, { new: true });
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json({ message: 'User updated successfully', user: updatedUser });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to update user', error: error.message });
+    }
+};
+
+
 module.exports = userCtrl;
