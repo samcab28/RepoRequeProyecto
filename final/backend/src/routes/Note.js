@@ -4,6 +4,6 @@ const router = Router();
 const { getNotes} = require('../controllers/notes.controllers');
 
 router.route('/')
-    .get(getNotes);
+    .get(getNotes)
 
 module.exports = router;
