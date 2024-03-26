@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 
 console.log(process.env.MONGODB_URI);
 // MongoDB Atlas connection string
-const URI = process.env.MONGODB_URI;
+const URI = process.env.MONGODB_URI
+    ? process.env.MONGODB_URI :
+    'mongodb+srv://reque:123456**..@cluster0.kov0yrj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 
 // Connect to MongoDB Atlas
