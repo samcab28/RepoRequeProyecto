@@ -2,8 +2,26 @@ const userCtrl = {};
 const User = require('../models/UserModel');
 
 userCtrl.getUsers = async (req, res) => {
-    const users = await User.find();
-    res.json(users);
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to get users', error: error.message });
+    }
+};
+
+userCtrl.getUserById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to get user', error: error.message });
+    }
 };
 
 userCtrl.createUser = async (req, res) => {
@@ -15,6 +33,20 @@ userCtrl.createUser = async (req, res) => {
         res.json({ message: 'User created successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Failed to create user', error: error.message });
+    }
+};
+
+userCtrl.deleteUser = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const user = await User.findByIdAndDelete(id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json({ message: 'User deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to delete user', error: error.message });
     }
 };
 
