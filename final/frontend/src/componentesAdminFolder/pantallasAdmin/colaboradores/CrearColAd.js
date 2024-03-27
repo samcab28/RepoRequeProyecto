@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const CrearColAd = () => {
   const [nombre, setNombre] = useState('');
@@ -9,9 +10,14 @@ const CrearColAd = () => {
   const [estado, setEstado] = useState('');
   const [datosGuardados, setDatosGuardados] = useState(null);
 
-  const handleGuardar = () => {
-    const datos = { nombre, cedula, correo, departamento, telefono, estado };
-    setDatosGuardados(datos);
+  const handleGuardar = async () => {
+    const colaborador = { nombre, cedula, correo, departamento, telefono, estado };
+    try {
+      await axios.post('http://localhost:4000/api/colaborador/', colaborador);
+      setDatosGuardados(colaborador);
+    } catch (error) {
+      console.error('Error al guardar el colaborador:', error);
+    }
   };
 
   return (
@@ -34,7 +40,13 @@ const CrearColAd = () => {
       <br />
       <label>
         Departamento:
-        <input type="text" value={departamento} onChange={(e) => setDepartamento(e.target.value)} />
+        <select value={estado} onChange={(e) => setDepartamento(e.target.value)}>
+          <option value="finanzas">finanzas</option>
+          <option value="limpieza">limpieza</option>
+          <option value="recursos humanos">recursos humanos</option>
+          <option value="marketing">marketing</option>
+          <option value="gerencia">erencia</option>
+        </select>
       </label>
       <br />
       <label>
@@ -44,7 +56,10 @@ const CrearColAd = () => {
       <br />
       <label>
         Estado:
-        <input type="text" value={estado} onChange={(e) => setEstado(e.target.value)} />
+        <select value={estado} onChange={(e) => setEstado(e.target.value)}>
+          <option value="disponible">Disponible</option>
+          <option value="ocupado">Ocupado</option>
+        </select>
       </label>
       <br />
       <button onClick={handleGuardar}>Guardar</button>
