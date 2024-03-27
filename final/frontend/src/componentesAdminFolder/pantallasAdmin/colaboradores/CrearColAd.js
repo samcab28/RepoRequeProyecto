@@ -5,13 +5,14 @@ const CrearColAd = () => {
   const [nombre, setNombre] = useState('');
   const [cedula, setCedula] = useState('');
   const [correo, setCorreo] = useState('');
+  const [contrasena, setContrasena] = useState('');
   const [departamento, setDepartamento] = useState('');
   const [telefono, setTelefono] = useState('');
   const [estado, setEstado] = useState('');
   const [datosGuardados, setDatosGuardados] = useState(null);
 
   const handleGuardar = async () => {
-    const colaborador = { nombre, cedula, correo, departamento, telefono, estado };
+    const colaborador = { nombre, cedula, correo, password: contrasena, departamento, telefono, estado };
     try {
       await axios.post('http://localhost:4000/api/colaborador/', colaborador);
       setDatosGuardados(colaborador);
@@ -39,8 +40,13 @@ const CrearColAd = () => {
       </label>
       <br />
       <label>
+        Password:
+        <input type="text" value={contrasena} onChange={(e) => setContrasena(e.target.value)} />
+      </label>
+      <br />
+      <label>
         Departamento:
-        <select value={estado} onChange={(e) => setDepartamento(e.target.value)}>
+        <select value={departamento} onChange={(e) => setDepartamento(e.target.value)}>
           <option value="finanzas">finanzas</option>
           <option value="limpieza">limpieza</option>
           <option value="recursos humanos">recursos humanos</option>
