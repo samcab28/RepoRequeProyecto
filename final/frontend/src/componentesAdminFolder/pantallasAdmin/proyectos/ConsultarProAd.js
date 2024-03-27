@@ -5,14 +5,33 @@ const TareasProAd = () => {
     const [searchId, setSearchId] = useState('');
     const [proyecto, setProyecto] = useState(null);
     const [proyectosList, setProyectosList] = useState([]);
-    const [newTaskName, setNewTaskName] = useState('');
-    const [newTaskDescription, setNewTaskDescription] = useState('');
-    const [selectedTaskAssignee, setSelectedTaskAssignee] = useState('');
     const [colaboradoresList, setColaboradoresList] = useState([]);
     const [editingTask, setEditingTask] = useState(null);
     const [editedTaskName, setEditedTaskName] = useState('');
     const [editedTaskDescription, setEditedTaskDescription] = useState('');
     const [editedTaskAssignee, setEditedTaskAssignee] = useState('');
+
+    const [selectedField, setSelectedField] = useState('');
+    const [newData, setNewData] = useState('');
+
+    const handleUpdate = async () => {
+        try {
+            if (!selectedField) {
+                console.error('No field selected for update');
+                return;
+            }
+            if (!newData) {
+                console.error('No new data provided');
+                return;
+            }
+            await axios.put(`http://localhost:4000/api/proyecto/${proyecto._id}`, { [selectedField]: newData });
+            handleSearch();
+        } catch (error) {
+            console.error('Error updating project:', error);
+        }
+    };
+    
+    
 
     const handleSearch = async () => {
         try {
@@ -65,7 +84,7 @@ const TareasProAd = () => {
 
     return (
         <div>
-            <h1>Asignación de tareas de los proyectos</h1>
+            <h1>Consulta y modificacion de los proyectos</h1>
             <input
                 type="text"
                 placeholder="Search by ID"
@@ -85,6 +104,19 @@ const TareasProAd = () => {
                     <p>Descripción: {proyecto.descripcion}</p>
                     <p>Fecha de Inicio: {proyecto.fecha_inicio}</p>
                     <p>Responsable: {proyecto.responsable}</p>
+                    <div>
+                        <select value={selectedField} onChange={(e) => setSelectedField(e.target.value)}>
+                            <option value="nombre">Nombre</option>
+                            <option value="recursos">Recursos</option>
+                            <option value="presupuesto">Presupuesto</option>
+                            <option value="estado">Estado</option>
+                            <option value="descripcion">Descripcion</option>
+                            <option value="fecha_inicio">Fecha de Inicio</option>
+                            <option value="estado">Estado</option>
+                        </select>
+                        <input type="text" value={newData} onChange={(e) => setNewData(e.target.value)} />
+                        <button onClick={handleUpdate}>Update</button>
+                    </div>
                     <div>
                         <h3>Lista de Tareas:</h3>
                         <ul>
