@@ -14,7 +14,6 @@ import CrearReunionProAd from './pantallasAdmin/proyectos/CrearReunionProAd';
 
 //importaciones de pantalla de consulta 
 import ConsultarColAd from './pantallasAdmin/colaboradores/ConsultarColAd';
-import ModificarColAd from './pantallasAdmin/colaboradores/ModificarColAd';
 import CrearColAd from './pantallasAdmin/colaboradores/CrearColAd';
 
 //importaciones de pantalla de informes
@@ -80,7 +79,6 @@ const Sidebar = ({ setCurrentScreen }) => {
         ]} />
         <DropDown position='flex' title={'Colaboradores'} options={[
           { text: 'Crear', onClick: () => { handleOptionClick(<CrearColAd/>) } },
-          { text: 'Modificar', onClick: () => { handleOptionClick(<ModificarColAd />) } },
           { text: 'Consultar', onClick: () => { handleOptionClick(<ConsultarColAd />) } }
         ]} />
         <DropDown position='flex' title={'Informes'} options={[
