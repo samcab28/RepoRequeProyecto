@@ -1,21 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const CrearProyecto = () => {
   const [nombre, setNombre] = useState('');
   const [recursos, setRecursos] = useState('');
   const [presupuesto, setPresupuesto] = useState('');
-  const [colaboradores, setColaboradores] = useState('');
-  const [tareas, setTareas] = useState('');
+  const [colaboradores, setColaboradores] = useState([]);
   const [estado, setEstado] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  const [fechaInicio, setFechaInicio] = useState('');
-  const [historialCambios, setHistorialCambios] = useState('');
+  const [fecha_inicio, setFecha_inicio] = useState('');
   const [responsable, setResponsable] = useState('');
+  const [colaboradoresDisponibles, setColaboradoresDisponibles] = useState([]);
+  const [responsablesDisponibles, setResponsablesDisponibles] = useState([]);
   const [datosGuardados, setDatosGuardados] = useState(null);
 
+  useEffect(() => {
+    // Obtener la lista de colaboradores disponibles
+    axios.get('http://localhost:4000/api/colaborador')
+      .then(response => {
+        setColaboradoresDisponibles(response.data);
+      })
+      .catch(error => {
+        console.error('Error al obtener los colaboradores:', error);
+      });
+
+    // Obtener la lista de responsables disponibles
+    axios.get('http://localhost:4000/api/Admin')
+      .then(response => {
+        setResponsablesDisponibles(response.data);
+      })
+      .catch(error => {
+        console.error('Error al obtener los responsables:', error);
+      });
+  }, []);
+
   const handleGuardar = () => {
-    const datos = { nombre, recursos, presupuesto, colaboradores, tareas, estado, descripcion, fechaInicio, historialCambios, responsable };
+    const datos = { nombre, recursos, presupuesto, colaboradores, estado, descripcion, fecha_inicio, responsable };
     setDatosGuardados(datos);
+    // Enviar los datos al servidor para crear el proyecto
+    axios.post('http://localhost:4000/api/proyecto/', datos)
+      .then(response => {
+        console.log('Proyecto creado exitosamente:', response.data);
+      })
+      .catch(error => {
+        console.error('Error al crear el proyecto:', error);
+      });
   };
 
   return (
@@ -38,12 +67,11 @@ const CrearProyecto = () => {
       <br />
       <label>
         Colaboradores:
-        <input type="text" value={colaboradores} onChange={(e) => setColaboradores(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Tareas:
-        <input type="text" value={tareas} onChange={(e) => setTareas(e.target.value)} />
+        <select multiple value={colaboradores} onChange={(e) => setColaboradores(Array.from(e.target.selectedOptions, option => option.value))}>
+          {colaboradoresDisponibles.map(colaborador => (
+            <option key={colaborador._id} value={colaborador._id}>{colaborador.nombre} - {colaborador._id}</option>
+          ))}
+        </select>
       </label>
       <br />
       <label>
@@ -58,17 +86,16 @@ const CrearProyecto = () => {
       <br />
       <label>
         Fecha de Inicio:
-        <input type="date" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Historial de Cambios:
-        <textarea value={historialCambios} onChange={(e) => setHistorialCambios(e.target.value)} />
+        <input type="date" value={fecha_inicio} onChange={(e) => setFecha_inicio(e.target.value)} />
       </label>
       <br />
       <label>
         Responsable:
-        <input type="text" value={responsable} onChange={(e) => setResponsable(e.target.value)} />
+        <select value={responsable} onChange={(e) => setResponsable(e.target.value)}>
+          {responsablesDisponibles.map(responsable => (
+            <option key={responsable._id} value={responsable._id}>{responsable.nombre} - {responsable._id}</option>
+          ))}
+        </select>
       </label>
       <br />
       <button onClick={handleGuardar}>Guardar</button>
