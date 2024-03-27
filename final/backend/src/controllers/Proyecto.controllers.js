@@ -66,4 +66,54 @@ proyectoCtrl.updateProyecto = async (req, res) => {
     }
 };
 
+
+proyectoCtrl.addTaskToProyecto = async (req, res) => {
+    const { id } = req.params;
+    const { nombre, descripcion, responsable } = req.body;
+
+    try {
+        const updatedProyecto = await Proyecto.findByIdAndUpdate(id, {
+            $push: { tareas: { nombre, descripcion, responsable } }
+        }, { new: true });
+
+        if (!updatedProyecto) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        res.json({ message: 'Task added to project successfully', proyecto: updatedProyecto });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to add task to project', error: error.message });
+    }
+};
+
+
+proyectoCtrl.editTask = async (req, res) => {
+    const { id, taskId } = req.params;
+    const { nombre, descripcion, responsable } = req.body;
+
+    try {
+        const proyecto = await Proyecto.findById(id);
+        if (!proyecto) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        const tarea = proyecto.tareas.find(t => t._id.toString() === taskId);
+        if (!tarea) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+
+        tarea.nombre = nombre;
+        tarea.descripcion = descripcion;
+        tarea.responsable = responsable;
+
+        await proyecto.save();
+
+        res.json({ message: 'Task updated successfully', proyecto });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to update task', error: error.message });
+    }
+};
+
+
+
 module.exports = proyectoCtrl;

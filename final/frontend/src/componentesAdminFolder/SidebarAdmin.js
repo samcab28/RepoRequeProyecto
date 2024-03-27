@@ -8,7 +8,7 @@ import DropDown from '../componets/common/dropdown';
 //importaciones de pantallas de proyectos
 import CrearProAd from './pantallasAdmin/proyectos/CrearProAd';
 import ConsultarProAd from './pantallasAdmin/proyectos/ConsultarProAd';
-import ModificarProAd from './pantallasAdmin/proyectos/ModificarProAd';
+import ModificarProAd from './pantallasAdmin/proyectos/TareasProAd';
 import ForoProAd from './pantallasAdmin/proyectos/ForoProAd';
 import CrearReunionProAd from './pantallasAdmin/proyectos/CrearReunionProAd';
 
@@ -73,7 +73,7 @@ const Sidebar = ({ setCurrentScreen }) => {
         <DropDown position='flex' title={'Proyectos'} options={[
           { text: 'Crear', onClick: () => { handleOptionClick(<CrearProAd />) } },
           { text: 'Consultar', onClick: () => { handleOptionClick(<ConsultarProAd />) } },
-          { text: 'Modificar', onClick: () => { handleOptionClick(<ModificarProAd />) } },
+          { text: 'Tareas', onClick: () => { handleOptionClick(<ModificarProAd />) } },
           { text: 'Crear reunion', onClick: () => { handleOptionClick(<CrearReunionProAd/>) } },
           { text: 'Foro', onClick: () => {  handleOptionClick(<ForoProAd />) } }
         ]} />
