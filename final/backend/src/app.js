@@ -22,6 +22,7 @@ app.use(express.json());
 // routes
 app.use('/api/users',require('./routes/User'));
 app.use('/api/notes',require('./routes/Note'));
+app.use('/api/colaborador',require('./routes/ColaboradorRoute'));
 
 
 module.exports = app;
