@@ -26,8 +26,8 @@ colaboradorCtrl.getColaboradorById = async (req, res) => {
 };
 
 colaboradorCtrl.createColaborador = async (req, res) => {
-    const { nombre, cedula, correo, departamento, telefono, estado } = req.body;
-    const newColaborador = new Colaborador({ nombre, cedula, correo, departamento, telefono, estado });
+    const { nombre, cedula, correo,password, departamento, telefono, estado } = req.body;
+    const newColaborador = new Colaborador({ nombre, cedula, correo, password,departamento, telefono, estado });
 
     try {
         await newColaborador.save();
@@ -53,10 +53,10 @@ colaboradorCtrl.deleteColaborador = async (req, res) => {
 
 colaboradorCtrl.updateColaborador = async (req, res) => {
     const { id } = req.params;
-    const { nombre, cedula, correo, departamento, telefono, estado } = req.body;
+    const { nombre, cedula, correo, password,departamento, telefono, estado } = req.body;
 
     try {
-        const updatedColaborador = await Colaborador.findByIdAndUpdate(id, { nombre, cedula, correo, departamento, telefono, estado }, { new: true });
+        const updatedColaborador = await Colaborador.findByIdAndUpdate(id, { nombre, cedula, correo,password, departamento, telefono, estado }, { new: true });
         if (!updatedColaborador) {
             return res.status(404).json({ message: 'Colaborador not found' });
         }

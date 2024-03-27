@@ -69,6 +69,7 @@ const ConsultarColAd = () => {
                     <p>Nombre: {colaborador.nombre}</p>
                     <p>Cedula: {colaborador.cedula}</p>
                     <p>Correo: {colaborador.correo}</p>
+                    <p>Password: {colaborador.password}</p>
                     <p>Departamento: {colaborador.departamento}</p>
                     <p>Telefono: {colaborador.telefono}</p>
                     <p>Estado: {colaborador.estado}</p>
@@ -78,6 +79,7 @@ const ConsultarColAd = () => {
                             <option value="nombre">Nombre</option>
                             <option value="cedula">Cedula</option>
                             <option value="correo">Correo</option>
+                            <option value="password">Password</option>
                             <option value="departamento">Departamento</option>
                             <option value="telefono">Telefono</option>
                             <option value="estado">Estado</option>

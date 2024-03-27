@@ -18,6 +18,11 @@ const userSchema = new Schema(
       required: true,
       trim: true,
     },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     departamento: {
       type: String,
       required: true,
