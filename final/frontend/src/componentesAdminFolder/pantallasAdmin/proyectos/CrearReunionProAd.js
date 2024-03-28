@@ -61,42 +61,50 @@ const CrearReunion = () => {
   };
 
   return (
-    <div>
+    <div className= 'SimpleContainer'>
       <h1>Pantalla de Crear Reunión de Proyectos de Administradores</h1>
-      <label>
+      <p>
         ID del Proyecto:
-        <input type="text" value={proyectoId} onChange={(e) => setProyectoId(e.target.value)} />
-      </label>
+        <input className = 'TextField' type="text" value={proyectoId} onChange={(e) => setProyectoId(e.target.value)} />
+      </p>
       <br />
-      <label>
+      <p>
         Tema:
-        <input type="text" value={tema} onChange={(e) => setTema(e.target.value)} />
-      </label>
+        <input className = 'TextField' type="text" value={tema} onChange={(e) => setTema(e.target.value)} />
+      </p>
       <br />
-      <label>
+      <p>
         Medio:
-        <input type="text" value={medio} onChange={(e) => setMedio(e.target.value)} />
-      </label>
+        <input className = 'TextField' type="text" value={medio} onChange={(e) => setMedio(e.target.value)} />
+      </p>
       <br />
-      <label>
+      <p>
         Colaboradores:
-        <select multiple value={colaboradores} onChange={(e) => setColaboradores(Array.from(e.target.selectedOptions, option => option.value))}>
+        <select className = 'DropDownSimple' multiple value={colaboradores} onChange={(e) => setColaboradores(Array.from(e.target.selectedOptions, option => option.value))}>
           {colaboradoresDisponibles.map(colaborador => (
             <option key={colaborador._id} value={colaborador._id}>{colaborador.nombre} - {colaborador._id}</option>
           ))}
         </select>
-      </label>
+      </p>
       <br />
-      <label>
+      <br />
+      <br />
+      <br />
+      <p>
         Administradores:
-        <select multiple value={administradores} onChange={(e) => setAdministradores(Array.from(e.target.selectedOptions, option => option.value))}>
+        <select className = 'DropDownSimple' multiple value={administradores} onChange={(e) => setAdministradores(Array.from(e.target.selectedOptions, option => option.value))}>
           {administradoresDisponibles.map(administrador => (
             <option key={administrador._id} value={administrador._id}>{administrador.nombre} - {administrador._id}</option>
           ))}
         </select>
-      </label>
+      </p>
       <br />
-      <button onClick={handleCrearReunion}>Crear Reunión</button>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <button className='ButtonOffset' onClick={handleCrearReunion}>Crear Reunión</button>
     </div>
   );
 };

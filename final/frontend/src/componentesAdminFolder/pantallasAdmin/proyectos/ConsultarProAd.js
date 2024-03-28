@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../adminStyle.css';
 
 const TareasProAd = () => {
     const [searchId, setSearchId] = useState('');
@@ -103,15 +104,16 @@ const TareasProAd = () => {
     };
 
     return (
-        <div>
+        <div div className= 'SimpleContainer'>
             <h1>Consulta y modificacion de los proyectos</h1>
             <input
+                class = 'SearchBarOffset'
                 type="text"
                 placeholder="Search by ID"
                 value={searchId}
                 onChange={(e) => setSearchId(e.target.value)}
             />
-            <button onClick={handleSearch}>Search</button>
+            <button className= 'Button' onClick={handleSearch}>Search</button>
             {proyecto && (
                 <div>
                     <h3>Información del Proyecto:</h3>
@@ -124,7 +126,9 @@ const TareasProAd = () => {
                     <p>Descripción: {proyecto.descripcion}</p>
                     <p>Fecha de Inicio: {proyecto.fecha_inicio}</p>
                     <p>Responsable: {proyecto.responsable}</p>
-                    <button onClick={handleDelete}>Delete</button>
+                    <button className = 'buttonRojo' onClick={handleDelete}>Delete</button>
+                    <br />
+                    <br />
                     <div>
                         <select value={selectedField} onChange={(e) => setSelectedField(e.target.value)}>
                             <option value="nombre">Nombre</option>
@@ -135,8 +139,8 @@ const TareasProAd = () => {
                             <option value="fecha_inicio">Fecha de Inicio</option>
                             <option value="estado">Estado</option>
                         </select>
-                        <input type="text" value={newData} onChange={(e) => setNewData(e.target.value)} />
-                        <button onClick={handleUpdate}>Update</button>
+                        <input className = 'SearchBar2' type="text" value={newData} onChange={(e) => setNewData(e.target.value)} />
+                        <button className = 'Button' onClick={handleUpdate}>Update</button>
                     </div>
                     <div>
                         <h3>Lista de Tareas:</h3>
@@ -144,16 +148,19 @@ const TareasProAd = () => {
                             {proyecto.tareas.map((tarea) => (
                                 <li key={tarea._id}>
                                     {editingTask === tarea._id ? (
-                                        <div>
+                                        <div className='SimpleContainer'>
+                                            <p>Nombre:</p>
                                             <input
                                                 type="text"
                                                 value={editedTaskName}
                                                 onChange={(e) => setEditedTaskName(e.target.value)}
                                             />
+                                            <p>Descripción:</p>
                                             <textarea
                                                 value={editedTaskDescription}
                                                 onChange={(e) => setEditedTaskDescription(e.target.value)}
                                             />
+                                            <p>Responsable:</p>
                                             <select
                                                 value={editedTaskAssignee}
                                                 onChange={(e) => setEditedTaskAssignee(e.target.value)}
@@ -163,15 +170,17 @@ const TareasProAd = () => {
                                                     <option key={colaborador._id} value={colaborador._id}>{colaborador.nombre}</option>
                                                 ))}
                                             </select>
-                                            <button onClick={() => handleEditTask(tarea._id)}>Guardar cambios</button>
+                                            <br />
+                                            <br />
+                                            <button className = 'ButtonOffset' onClick={() => handleEditTask(tarea._id)}>Guardar cambios</button>
                                         </div>
                                     ) : (
                                         <div>
                                             <p>Nombre: {tarea.nombre}</p>
                                             <p>Descripción: {tarea.descripcion}</p>
                                             <p>Responsable: {tarea.responsable}</p>
-                                            <button onClick={() => handleDeleteTask(tarea._id)}>Borrar tarea</button>
-                                            <button onClick={() => setEditingTask(tarea._id)}>Modificar tarea</button>
+                                            <button className = 'buttonRojo' onClick={() => handleDeleteTask(tarea._id)}>Borrar tarea</button>
+                                            <button className = 'Button' onClick={() => setEditingTask(tarea._id)}>Modificar tarea</button>
                                         </div>
                                     )}
                                 </li>
