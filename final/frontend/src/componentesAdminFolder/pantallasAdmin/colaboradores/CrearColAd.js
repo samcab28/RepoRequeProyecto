@@ -7,9 +7,6 @@ const CrearColAd = () => {
   const [correo, setCorreo] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [departamento, setDepartamento] = useState('');
-
-  const [undefined, setUndefined] = useState('');
-
   const [telefono, setTelefono] = useState('');
   const [estado, setEstado] = useState('');
   const [tipoUsuario, setTipoUsuario] = useState('colaborador'); 
