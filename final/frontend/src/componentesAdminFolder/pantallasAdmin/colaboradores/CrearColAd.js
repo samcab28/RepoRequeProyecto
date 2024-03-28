@@ -35,7 +35,8 @@ const CrearColAd = () => {
 
   return (
     <div className= 'simpleContainer'>
-      <div className='h1' >Pantalla de Crear Usuarios</div>
+    <h1> Pantalla de Crear Usuarios</h1>
+      
       <div className = 'Label'>
         Nombre:
         <input className='TextField' type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
@@ -85,7 +86,7 @@ const CrearColAd = () => {
       
       <div className = 'Label'>
         Tipo de usuario:
-        <select value={tipoUsuario} onChange={(e) => setTipoUsuario(e.target.value)}>
+        <select className='DropDownSimple' value={tipoUsuario} onChange={(e) => setTipoUsuario(e.target.value)}>
           <option value="">---</option> {/* Change value to an empty string */}
           <option value="colaborador">Colaborador</option>
           <option value="administrador">Administrador</option>

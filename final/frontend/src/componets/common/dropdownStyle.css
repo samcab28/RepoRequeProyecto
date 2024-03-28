@@ -74,5 +74,6 @@
   }
   
   .buttonDos:hover {
-    background:rgb(0, 134, 179); 
+    background:rgb(204, 255, 230);
+    color: black;
   }
