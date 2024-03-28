@@ -33,6 +33,7 @@ const TareasProAd = () => {
             );
             setTareasProyecto(tareas);
         } catch (error) {
+            alert('Error: ese ID_Proyecto no existe.');
             console.error('Error searching for project:', error);
         }
     };

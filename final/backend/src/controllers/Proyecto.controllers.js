@@ -21,9 +21,13 @@ proyectoCtrl.getProyectoById = async (req, res) => {
         }
         res.json(proyecto);
     } catch (error) {
+        if (error.name === 'CastError') {
+            return res.status(400).json({ message: 'Invalid project ID' });
+        }
         res.status(500).json({ message: 'Failed to get project', error: error.message });
     }
 };
+
 
 proyectoCtrl.createProyecto = async (req, res) => {
     const { nombre, recursos, presupuesto, colaboradores, tareas, estado, descripcion, fecha_inicio, responsable } = req.body;

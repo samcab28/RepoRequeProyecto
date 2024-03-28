@@ -20,6 +20,7 @@ const ConsultarColAd = () => {
             const response = await axios.get(`http://localhost:4000/api/colaborador/${searchId}`);
             setColaborador(response.data);
         } catch (error) {
+            alert('Error: ese ID de Colaborador no existe');
             console.error('Error searching for collaborator:', error);
         }
     };
@@ -34,6 +35,7 @@ const ConsultarColAd = () => {
             const response = await axios.get(`http://localhost:4000/api/Admin/${searchId}`);
             setAdmin(response.data);
         } catch (error) {
+            alert('Error: ese ID de Administrador no existe');
             console.error('Error searching for admin:', error);
         }
     };
