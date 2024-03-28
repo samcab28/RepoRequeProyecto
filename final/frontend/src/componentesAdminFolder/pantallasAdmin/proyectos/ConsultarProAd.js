@@ -54,6 +54,15 @@ const TareasProAd = () => {
         }
     };
 
+    const handleDeleteTask = async (taskId) => {
+        try {
+            await axios.delete(`http://localhost:4000/api/proyecto/${proyecto._id}/delete-task/${taskId}`);
+            handleSearch();
+        } catch (error) {
+            console.error('Error deleting collaborator:', error);
+        }
+    };
+
     const handleEditTask = async (taskId) => {
         try {
             await axios.put(`http://localhost:4000/api/proyecto/${proyecto._id}/edit-task/${taskId}`, {
@@ -161,6 +170,7 @@ const TareasProAd = () => {
                                             <p>Nombre: {tarea.nombre}</p>
                                             <p>Descripción: {tarea.descripcion}</p>
                                             <p>Responsable: {tarea.responsable}</p>
+                                            <button onClick={() => handleDeleteTask(tarea._id)}>Borrar tarea</button>
                                             <button onClick={() => setEditingTask(tarea._id)}>Modificar tarea</button>
                                         </div>
                                     )}

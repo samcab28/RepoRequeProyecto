@@ -45,6 +45,7 @@ const TareasProAd = () => {
             setSelectedTaskAssignee('');
             setProyecto(response.data.proyecto);
             loadProyectosList();
+            handleSearch();
         } catch (error) {
             console.error('Error adding task:', error);
         }
