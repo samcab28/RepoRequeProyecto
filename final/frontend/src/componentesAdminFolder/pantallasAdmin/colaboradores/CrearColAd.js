@@ -15,6 +15,13 @@ const CrearColAd = () => {
 
   const handleGuardar = async () => {
     const usuario = { nombre, cedula, correo, password: contrasena, departamento, telefono, estado, tipo: tipoUsuario };
+  
+    // Check if departamento, estado, or tipoUsuario is undefined
+    if (!departamento || !estado || !tipoUsuario) {
+      alert('Por favor, completa todos los campos antes de guardar.');
+      return; // Exit the function early
+    }
+  
     try {
       const url = tipoUsuario === 'colaborador' ? 'http://localhost:4000/api/colaborador/' : 'http://localhost:4000/api/admin/';
       await axios.post(url, usuario);
@@ -23,6 +30,8 @@ const CrearColAd = () => {
       console.error('Error al guardar el usuario:', error);
     }
   };
+  
+  
 
   return (
     <div className= 'simpleContainer'>
@@ -50,6 +59,7 @@ const CrearColAd = () => {
       <div className = 'Label'>
         Departamento:
         <select className='DropDownSimple' value={departamento} onChange={(e) => setDepartamento(e.target.value)}>
+          <option value="">---</option>
           <option value="finanzas">Finanzas</option>
           <option value="limpieza">Limpieza</option>
           <option value="recursos humanos">Recursos Humanos</option>
@@ -66,18 +76,22 @@ const CrearColAd = () => {
       <div className = 'Label'>
         Estado:
         <select className='DropDownSimple' value={estado} onChange={(e) => setEstado(e.target.value)}>
+          <option value="">---</option>
           <option value="disponible">Disponible</option>
           <option value="ocupado">Ocupado</option>
         </select>
       </div>
       <br />
+      
       <div className = 'Label'>
         Tipo de usuario:
-        <select className='DropDownSimple' value={tipoUsuario} onChange={(e) => setTipoUsuario(e.target.value)}>
+        <select value={tipoUsuario} onChange={(e) => setTipoUsuario(e.target.value)}>
+          <option value="">---</option> {/* Change value to an empty string */}
           <option value="colaborador">Colaborador</option>
           <option value="administrador">Administrador</option>
         </select>
       </div>
+     
       <br />
       <button className= 'Button' onClick={handleGuardar}>Guardar</button>
       {datosGuardados && (
