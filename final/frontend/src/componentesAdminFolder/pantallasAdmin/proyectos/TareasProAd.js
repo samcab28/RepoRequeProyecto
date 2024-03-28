@@ -75,15 +75,16 @@ const TareasProAd = () => {
     }, []);
 
     return (
-        <div>
+        <div className= 'SimpleContainer'>
             <h1>Asignación de tareas de los proyectos</h1>
             <input
+                class = 'SearchBarOffset'
                 type="text"
                 placeholder="Search by ID"
                 value={searchId}
                 onChange={(e) => setSearchId(e.target.value)}
             />
-            <button onClick={handleSearch}>Search</button>
+            <button className= 'Button' onClick={handleSearch}>Search</button>
             {proyecto && (
                 <div>
                     <h3>Información del Proyecto:</h3>
@@ -106,29 +107,31 @@ const TareasProAd = () => {
                     <p>Descripción: {proyecto.descripcion}</p>
                     <p>Fecha de Inicio: {proyecto.fecha_inicio}</p>
                     <p>Responsable: {proyecto.responsable}</p>
+                  
+                    <br />
                     <div>
                         <h3>Agregar Tarea:</h3>
-                        <label>
+                        <p>
                             Nombre:
-                            <input type="text" value={newTaskName} onChange={(e) => setNewTaskName(e.target.value)} />
-                        </label>
+                            <input className= 'TextField' type="text" value={newTaskName} onChange={(e) => setNewTaskName(e.target.value)} />
+                        </p>
                         <br />
-                        <label>
+                        <p>
                             Descripción:
-                            <textarea value={newTaskDescription} onChange={(e) => setNewTaskDescription(e.target.value)} />
-                        </label>
+                            <textarea className= 'TextField' value={newTaskDescription} onChange={(e) => setNewTaskDescription(e.target.value)} />
+                        </p>
                         <br />
-                        <label>
+                        <p>
                             Encargado:
-                            <select value={selectedTaskAssignee} onChange={(e) => setSelectedTaskAssignee(e.target.value)}>
+                            <select className= 'DropDownSimple' value={selectedTaskAssignee} onChange={(e) => setSelectedTaskAssignee(e.target.value)}>
                                 <option value="">Seleccionar encargado</option>
                                 {colaboradoresList.map((colaborador) => (
                                     <option key={colaborador._id} value={colaborador._id}>{colaborador.nombre}</option>
                                 ))}
                             </select>
-                        </label>
+                        </p>
                         <br />
-                        <button onClick={handleAddTask}>Agregar Tarea</button>
+                        <button className = 'ButtonOffset' onClick={handleAddTask}>Agregar Tarea</button>
                     </div>
                 </div>
             )}
