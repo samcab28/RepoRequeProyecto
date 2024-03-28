@@ -46,6 +46,10 @@ const CrearReunion = () => {
 
   const handleCrearReunion = async () => {
     const datos = { proyecto: proyectoId, tema, medio, colaboradores, administradores };
+    if (!proyectoId || !tema || !medio || !colaboradores || !administradores) {
+    alert('Por favor, completa todos los campos antes de guardar.');
+    return; // Exit the function early
+  }
     try {
       await axios.post('http://localhost:4000/api/reunion', datos);
       console.log('Reunión creada exitosamente');

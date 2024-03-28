@@ -16,7 +16,8 @@ const CrearColAd = () => {
     const usuario = { nombre, cedula, correo, password: contrasena, departamento, telefono, estado, tipo: tipoUsuario };
   
     // Check if departamento, estado, or tipoUsuario is undefined
-    if (!departamento || !estado || !tipoUsuario) {
+    if (!nombre || !cedula || !correo || !contrasena ||
+        !departamento || !telefono || !estado || !tipoUsuario) {
       alert('Por favor, completa todos los campos antes de guardar.');
       return; // Exit the function early
     }

@@ -12,6 +12,10 @@ const TareasProAd = () => {
     const [colaboradoresList, setColaboradoresList] = useState([]);
 
     const handleSearch = async () => {
+        if (!searchId) {
+            alert('Por favor, introduce un ID_Proyecto antes de realizar la búsqueda.');
+            return; // Exit the function early
+        }
         try {
             const response = await axios.get(`http://localhost:4000/api/proyecto/${searchId}`);
             setProyecto(response.data);
