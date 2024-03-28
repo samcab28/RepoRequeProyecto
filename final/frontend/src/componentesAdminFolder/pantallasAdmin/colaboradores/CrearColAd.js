@@ -5,24 +5,36 @@ const CrearColAd = () => {
   const [nombre, setNombre] = useState('');
   const [cedula, setCedula] = useState('');
   const [correo, setCorreo] = useState('');
+  const [contrasena, setContrasena] = useState('');
   const [departamento, setDepartamento] = useState('');
   const [telefono, setTelefono] = useState('');
   const [estado, setEstado] = useState('');
+  const [tipoUsuario, setTipoUsuario] = useState('colaborador'); 
   const [datosGuardados, setDatosGuardados] = useState(null);
 
   const handleGuardar = async () => {
-    const colaborador = { nombre, cedula, correo, departamento, telefono, estado };
+    const usuario = { nombre, cedula, correo, password: contrasena, departamento, telefono, estado, tipo: tipoUsuario };
+  
+    // Check if departamento, estado, or tipoUsuario is undefined
+    if (!departamento || !estado || !tipoUsuario) {
+      alert('Por favor, completa todos los campos antes de guardar.');
+      return; // Exit the function early
+    }
+  
     try {
-      await axios.post('http://localhost:4000/api/colaborador/', colaborador);
-      setDatosGuardados(colaborador);
+      const url = tipoUsuario === 'colaborador' ? 'http://localhost:4000/api/colaborador/' : 'http://localhost:4000/api/admin/';
+      await axios.post(url, usuario);
+      setDatosGuardados(usuario);
     } catch (error) {
-      console.error('Error al guardar el colaborador:', error);
+      console.error('Error al guardar el usuario:', error);
     }
   };
+  
+  
 
   return (
     <div>
-      <h1>Pantalla de Crear Colaboradores de Administradores</h1>
+      <h1>Pantalla de Crear Usuarios</h1>
       <label>
         Nombre:
         <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
@@ -39,13 +51,19 @@ const CrearColAd = () => {
       </label>
       <br />
       <label>
+        Password:
+        <input type="text" value={contrasena} onChange={(e) => setContrasena(e.target.value)} />
+      </label>
+      <br />
+      <label>
         Departamento:
-        <select value={estado} onChange={(e) => setDepartamento(e.target.value)}>
-          <option value="finanzas">finanzas</option>
-          <option value="limpieza">limpieza</option>
-          <option value="recursos humanos">recursos humanos</option>
-          <option value="marketing">marketing</option>
-          <option value="gerencia">erencia</option>
+        <select value={departamento} onChange={(e) => setDepartamento(e.target.value)}>
+          <option value="">---</option>
+          <option value="finanzas">Finanzas</option>
+          <option value="limpieza">Limpieza</option>
+          <option value="recursos humanos">Recursos Humanos</option>
+          <option value="marketing">Marketing</option>
+          <option value="gerencia">Gerencia</option>
         </select>
       </label>
       <br />
@@ -57,9 +75,21 @@ const CrearColAd = () => {
       <label>
         Estado:
         <select value={estado} onChange={(e) => setEstado(e.target.value)}>
+          <option value="">---</option>
           <option value="disponible">Disponible</option>
           <option value="ocupado">Ocupado</option>
         </select>
+      </label>
+      <br />
+      <label>
+      <label>
+        Tipo de usuario:
+        <select value={tipoUsuario} onChange={(e) => setTipoUsuario(e.target.value)}>
+          <option value="">---</option> {/* Change value to an empty string */}
+          <option value="colaborador">Colaborador</option>
+          <option value="administrador">Administrador</option>
+        </select>
+      </label>
       </label>
       <br />
       <button onClick={handleGuardar}>Guardar</button>
