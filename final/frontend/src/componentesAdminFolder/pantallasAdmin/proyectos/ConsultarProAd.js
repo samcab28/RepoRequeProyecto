@@ -14,6 +14,17 @@ const TareasProAd = () => {
     const [selectedField, setSelectedField] = useState('');
     const [newData, setNewData] = useState('');
 
+
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`http://localhost:4000/api/proyecto/${proyecto._id}`);
+            handleSearch();
+        } catch (error) {
+            console.error('Error deleting collaborator:', error);
+        }
+    };
+
+
     const handleUpdate = async () => {
         try {
             if (!selectedField) {
@@ -104,6 +115,7 @@ const TareasProAd = () => {
                     <p>Descripción: {proyecto.descripcion}</p>
                     <p>Fecha de Inicio: {proyecto.fecha_inicio}</p>
                     <p>Responsable: {proyecto.responsable}</p>
+                    <button onClick={handleDelete}>Delete</button>
                     <div>
                         <select value={selectedField} onChange={(e) => setSelectedField(e.target.value)}>
                             <option value="nombre">Nombre</option>
