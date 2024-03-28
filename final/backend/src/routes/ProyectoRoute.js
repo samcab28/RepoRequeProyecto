@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 
-const { getProyectos, createProyecto, getProyectoById, deleteProyecto, updateProyecto,addTaskToProyecto,editTask } = require('../controllers/Proyecto.controllers');
+const { getProyectos, createProyecto, getProyectoById, deleteProyecto, updateProyecto,addTaskToProyecto,editTask, deleteTaskProyecto} = require('../controllers/Proyecto.controllers');
 
 
 router.route('/')
@@ -18,5 +18,8 @@ router.route('/:id/add-task')
 
 router.route('/:id/edit-task/:taskId')
     .put(editTask);
+
+router.route('/:id/delete-task/:taskId')
+    .delete(deleteTaskProyecto);
 
 module.exports = router;

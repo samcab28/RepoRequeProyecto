@@ -115,5 +115,23 @@ proyectoCtrl.editTask = async (req, res) => {
 };
 
 
+proyectoCtrl.deleteTaskProyecto = async (req, res) => {
+    const { id, taskId } = req.params;
+
+    try {
+        const proyecto = await Proyecto.findById(id);
+        if (!proyecto) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        proyecto.tareas = proyecto.tareas.filter(tarea => tarea._id.toString() !== taskId);
+
+        await proyecto.save();
+        res.json({ message: 'Task deleted successfully', proyecto });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to delete task', error: error.message });
+    }
+};
+
 
 module.exports = proyectoCtrl;
