@@ -51,6 +51,11 @@ const TareasProAd = () => {
         }
         try {
             const response = await axios.get(`http://localhost:4000/api/proyecto/${searchId}`);
+            // Check if response data is empty
+            if (!response.data) {
+                alert('No se encontró ningún proyecto con el ID proporcionado.');
+                return; // Exit the function early
+            }
             setProyecto(response.data);
             loadColaboradoresList();
         } catch (error) {
