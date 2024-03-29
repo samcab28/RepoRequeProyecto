@@ -25,9 +25,12 @@ import ForoFoAd from './pantallasAdmin/foroAdmin/ForoFoAd';
 const SidebarWrapper = styled.div`
   width: 250px;
   height: 100vh;
-  background-color: #333;
+  background-color: rgb(31, 31, 31);
+  border-right-style: double;
+  border-right-color: rgb(0, 96, 128);
+  border-right-width: 6px;
   color: #fff;
-  padding: 20px;
+  padding: 25px;
 `;
 
 const SidebarHeader = styled.h2`
@@ -40,23 +43,18 @@ const SidebarNav = styled.nav`
 `;
 
 const StyledButton = styled.button`
-  width: 50%;
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  margin-top: 20px;
   cursor: pointer;
-
-  &:hover {
-    background-color: #555;
+  margin-top:5px;
+  margin-left: 3px;
+  &:hover{
+    background: rgb(102, 0, 0);
   }
 `;
 
 const SidebarButton = () => {
   return (
-    <StyledButton as={Link} to="/">
-      Volver al inicio
+    <StyledButton className = 'botonSalir' as={Link} to="/" >
+      Volver al inicio 
     </StyledButton>
   );
 };
@@ -87,6 +85,7 @@ const Sidebar = ({ setCurrentScreen }) => {
         <DropDown position='flex' title={'Foro'} options={[
           { text: 'Foro general', onClick: () => { handleOptionClick(<ForoFoAd />)} }
         ]} />
+        
         <SidebarButton />
       </SidebarNav>
     </SidebarWrapper>
