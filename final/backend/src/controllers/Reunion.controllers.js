@@ -26,8 +26,8 @@ reunionCtrl.getReunionById = async (req, res) => {
 };
 
 reunionCtrl.createReunion = async (req, res) => {
-    const { proyecto, tema, medio, colaboradores } = req.body;
-    const newReunion = new Reunion({ proyecto, tema, medio, colaboradores });
+    const { proyecto, tema, medio, link, fecha, duracionHoras, colaboradores } = req.body;
+    const newReunion = new Reunion({ proyecto, tema, medio, link, fecha, duracionHoras, colaboradores });
 
     try {
         await newReunion.save();
@@ -53,10 +53,10 @@ reunionCtrl.deleteReunion = async (req, res) => {
 
 reunionCtrl.updateReunion = async (req, res) => {
     const { id } = req.params;
-    const { proyecto, tema, medio, colaboradores } = req.body;
+    const {  proyecto, tema, medio, link, fecha, duracionHoras, colaboradores } = req.body;
 
     try {
-        const updatedReunion = await Reunion.findByIdAndUpdate(id, { proyecto, tema, medio, colaboradores }, { new: true });
+        const updatedReunion = await Reunion.findByIdAndUpdate(id, { proyecto, tema, medio, link, fecha, duracionHoras, colaboradores }, { new: true });
         if (!updatedReunion) {
             return res.status(404).json({ message: 'Meeting not found' });
         }
