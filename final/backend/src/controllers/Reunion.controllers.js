@@ -7,6 +7,7 @@ reunionCtrl.getReuniones = async (req, res) => {
         const reuniones = await Reunion.find();
         res.json(reuniones);
     } catch (error) {
+        
         res.status(500).json({ message: 'Failed to get meetings', error: error.message });
     }
 };
@@ -21,21 +22,28 @@ reunionCtrl.getReunionById = async (req, res) => {
         }
         res.json(reunion);
     } catch (error) {
+        if (error.name === 'CastError') {
+            return res.status(400).json({ message: 'Invalid meeting ID' });
+        }
         res.status(500).json({ message: 'Failed to get meeting', error: error.message });
     }
 };
 
 reunionCtrl.createReunion = async (req, res) => {
-    const { proyecto, tema, medio, link, fecha, duracionHoras, colaboradores } = req.body;
-    const newReunion = new Reunion({ proyecto, tema, medio, link, fecha, duracionHoras, colaboradores });
+    const { proyecto, tema, medio, link, duracionHoras, fecha, colaboradores } = req.body;
+    const newReunion = new Reunion({ proyecto, tema, medio, link, duracionHoras, fecha, colaboradores });
 
     try {
         await newReunion.save();
-        res.json({ message: 'Meeting created successfully' });
+        res.json({ message: 'Reunión creada exitosamente' });
     } catch (error) {
-        res.status(500).json({ message: 'Failed to create meeting', error: error.message });
+        if (error.name === 'AxiosError') {
+            return res.status(400).json({ message: 'ID de proyecto no válido' });
+        }
+        res.status(500).json({ message: 'Error al crear la reunión', error: error.message });
     }
 };
+
 
 reunionCtrl.deleteReunion = async (req, res) => {
     const { id } = req.params;
@@ -54,10 +62,10 @@ reunionCtrl.deleteReunion = async (req, res) => {
 
 reunionCtrl.updateReunion = async (req, res) => {
     const { id } = req.params;
-    const {  proyecto, tema, medio, link, fecha, duracionHoras, colaboradores } = req.body;
+    const { proyecto, tema, medio, link, duracionHoras, fecha, colaboradores } = req.body;
 
     try {
-        const updatedReunion = await Reunion.findByIdAndUpdate(id, { proyecto, tema, medio, link, fecha, duracionHoras, colaboradores }, { new: true });
+        const updatedReunion = await Reunion.findByIdAndUpdate(id, { proyecto, tema, medio, link, duracionHoras, fecha, colaboradores }, { new: true });
         if (!updatedReunion) {
             return res.status(404).json({ message: 'Meeting not found' });
         }
