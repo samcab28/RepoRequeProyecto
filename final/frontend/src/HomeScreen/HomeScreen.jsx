@@ -1,27 +1,38 @@
 // En HomeScreen.js
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 
 const HomeScreen = () => {
-  const [username, setUsername] = useState('');
+  const [nombre, setNombre] = useState('');
   const [password, setPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState({ role: '', authenticated: false });
-  const navigate = useNavigate();
 
-  const usuariosTemporales = [
+  /*const usuariosTemporales = [
     { username: 'admin', password: 'admin123', role: 'admin' },
     { username: 'usuario', password: 'usuario123', role: 'usuario' }
-  ];
+  ];*/
 
-  const handleLogin = () => {
-    // Validar el usuario y contraseña
-    const user = usuariosTemporales.find(user => user.username === username && user.password === password);
-    if (user) {
-      // Si la validación es exitosa, establecer como usuario autenticado
-      setLoggedIn({ role: user.role, authenticated: true });
-    } else {
-      // Si la validación falla, mostrar un mensaje de error
-      alert('Usuario o contraseña incorrectos');
+  const handleLogin = async () => {
+    try {
+        // Realizar la solicitud POST al backend para autenticar al usuario
+        const response = await axios.post('http://localhost:4000/api/login', { nombre, password });
+        //console.log('response', response.data);
+        
+        // Verificar si la solicitud fue exitosa y el usuario está autenticado
+        if (response && response.data !== null) {
+            // Si el usuario está autenticado, establecer el estado correspondiente
+            setLoggedIn({ role: response.data.role, authenticated: true });
+            //console.log("LoggedIn:",loggedIn); 
+        } else {
+            // Si la autenticación falla, mostrar un mensaje de error
+            alert('Usuario o contraseña incorrectos');
+        }
+    } catch (error) {
+      // Manejar cualquier error que pueda ocurrir durante la solicitud
+      console.error('Error al iniciar sesión:', error);
+      alert('Error al iniciar sesión. Por favor, inténtelo de nuevo más tarde.');
     }
   };
 
@@ -36,8 +47,8 @@ return (
                     id="usuario" 
                     name="usuario" 
                     className="labelWithMargin inputField" 
-                    value={username} 
-                    onChange={(e) => setUsername(e.target.value)} 
+                    value={nombre} 
+                    onChange={(e) => setNombre(e.target.value)} 
                 />
             </div>
             <div className='formContainer' >
