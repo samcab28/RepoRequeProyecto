@@ -46,7 +46,7 @@ const TareasProAd = () => {
 
     const handleSearch = async () => {
         if (!searchId) {
-            alert('Por favor, introduce un ID_Proyecto antes de realizar la búsqueda.');
+            alert('Por favor, introduce un ID_Proyecto antes de realizar la búsqueda!');
             return; // Exit the function early
         }
         try {
