@@ -12,19 +12,31 @@ const ConsultarColAd = () => {
     const [newData, setNewData] = useState('');
 
     const handleSearch = async () => {
+        // Check if searchId is empty
+        if (!searchId) {
+            alert('Por favor, introduce un ID antes de realizar la búsqueda.');
+            return; // Exit the function early
+        }
         try {
             const response = await axios.get(`http://localhost:4000/api/colaborador/${searchId}`);
             setColaborador(response.data);
         } catch (error) {
+            alert('Error: ese ID de Colaborador no existe');
             console.error('Error searching for collaborator:', error);
         }
     };
 
     const handleAdminSearch = async () => {
+        // Check if searchId is empty
+        if (!searchId) {
+            alert('Por favor, introduce un ID antes de realizar la búsqueda.');
+            return; // Exit the function early
+        }
         try {
             const response = await axios.get(`http://localhost:4000/api/Admin/${searchId}`);
             setAdmin(response.data);
         } catch (error) {
+            alert('Error: ese ID de Administrador no existe');
             console.error('Error searching for admin:', error);
         }
     };

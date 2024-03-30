@@ -16,11 +16,12 @@ const CrearColAd = () => {
   const handleGuardar = async () => {
     const usuario = { nombre, cedula, correo, password: contrasena, departamento, telefono, estado, tipo: tipoUsuario };
   
-    // Check if departamento, estado, or tipoUsuario is undefined
-    if (!departamento || !estado || !tipoUsuario) {
-      alert('Por favor, completa todos los campos antes de guardar.');
-      return; // Exit the function early
-    }
+     // Check if departamento, estado, or tipoUsuario is undefined
+     if (!nombre || !cedula || !correo || !contrasena ||
+      !departamento || !telefono || !estado || !tipoUsuario) {
+    alert('Por favor, completa todos los campos antes de guardar.');
+    return; // Exit the function early
+  }
   
     try {
       const url = tipoUsuario === 'colaborador' ? 'http://localhost:4000/api/colaborador/' : 'http://localhost:4000/api/admin/';

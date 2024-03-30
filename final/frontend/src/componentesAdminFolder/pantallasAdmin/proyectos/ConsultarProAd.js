@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const TareasProAd = () => {
+const ConsultarProAd = () => {
     const [searchId, setSearchId] = useState('');
     const [proyecto, setProyecto] = useState(null);
     const [proyectosList, setProyectosList] = useState([]);
@@ -202,4 +202,4 @@ const TareasProAd = () => {
     );
 };
 
-export default TareasProAd;
+export default ConsultarProAd;
