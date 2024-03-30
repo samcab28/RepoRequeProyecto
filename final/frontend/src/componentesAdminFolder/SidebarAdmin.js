@@ -11,6 +11,7 @@ import ConsultarProAd from './pantallasAdmin/proyectos/ConsultarProAd';
 import ModificarProAd from './pantallasAdmin/proyectos/TareasProAd';
 import ForoProAd from './pantallasAdmin/proyectos/ForoProAd';
 import CrearReunionProAd from './pantallasAdmin/proyectos/CrearReunionProAd';
+import ConsultaReuPro from './pantallasAdmin/proyectos/ConsultaReunioProAd';
 
 //importaciones de pantalla de consulta 
 import ConsultarColAd from './pantallasAdmin/colaboradores/ConsultarColAd';
@@ -69,10 +70,11 @@ const Sidebar = ({ setCurrentScreen }) => {
       <SidebarHeader>Administradores</SidebarHeader>
       <SidebarNav>
         <DropDown position='flex' title={'Proyectos'} options={[
-          { text: 'Crear', onClick: () => { handleOptionClick(<CrearProAd />) } },
-          { text: 'Consultar', onClick: () => { handleOptionClick(<ConsultarProAd />) } },
+          { text: 'Crear Proyecto', onClick: () => { handleOptionClick(<CrearProAd />) } },
+          { text: 'Consultar Proyecto', onClick: () => { handleOptionClick(<ConsultarProAd />) } },
           { text: 'Tareas', onClick: () => { handleOptionClick(<ModificarProAd />) } },
           { text: 'Crear reunion', onClick: () => { handleOptionClick(<CrearReunionProAd/>) } },
+          { text: 'Consultar reunion', onClick: () => { handleOptionClick(<ConsultaReuPro/>) } },
           { text: 'Foro', onClick: () => {  handleOptionClick(<ForoProAd />) } }
         ]} />
         <DropDown position='flex' title={'Colaboradores'} options={[

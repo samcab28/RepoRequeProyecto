@@ -190,7 +190,7 @@ const TareasProAd = () => {
                 </div>
             )}
             <div>
-                <h3>Proyectos:</h3>
+                <h3>Proyectos disponibles:</h3>
                 <ul>
                     {proyectosList.map((proyecto) => (
                         <li key={proyecto._id}>{proyecto._id} - {proyecto.nombre}</li>
