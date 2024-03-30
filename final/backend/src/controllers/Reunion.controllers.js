@@ -51,6 +51,7 @@ reunionCtrl.deleteReunion = async (req, res) => {
     }
 };
 
+
 reunionCtrl.updateReunion = async (req, res) => {
     const { id } = req.params;
     const {  proyecto, tema, medio, link, fecha, duracionHoras, colaboradores } = req.body;
