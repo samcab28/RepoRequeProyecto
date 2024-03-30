@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../adminStyle.css';
 
 const ConsultarColAd = () => {
     const [searchId, setSearchId] = useState('');
@@ -11,19 +12,31 @@ const ConsultarColAd = () => {
     const [newData, setNewData] = useState('');
 
     const handleSearch = async () => {
+        // Check if searchId is empty
+        if (!searchId) {
+            alert('Por favor, introduce un ID antes de realizar la búsqueda.');
+            return; // Exit the function early
+        }
         try {
             const response = await axios.get(`http://localhost:4000/api/colaborador/${searchId}`);
             setColaborador(response.data);
         } catch (error) {
+            alert('Error: ese ID de Colaborador no existe');
             console.error('Error searching for collaborator:', error);
         }
     };
 
     const handleAdminSearch = async () => {
+        // Check if searchId is empty
+        if (!searchId) {
+            alert('Por favor, introduce un ID antes de realizar la búsqueda.');
+            return; // Exit the function early
+        }
         try {
             const response = await axios.get(`http://localhost:4000/api/Admin/${searchId}`);
             setAdmin(response.data);
         } catch (error) {
+            alert('Error: ese ID de Administrador no existe');
             console.error('Error searching for admin:', error);
         }
     };
@@ -96,15 +109,19 @@ const ConsultarColAd = () => {
     }, [searchId]);
 
     return (
-        <div>
+        <div className= 'simpleContainer'>
+            <div className = 'smallContainer'>
             <input
+                className = 'SearchBar'
                 type="text"
                 placeholder="Search by ID"
                 value={searchId}
                 onChange={(e) => setSearchId(e.target.value)}
             />
-            <button onClick={handleSearch}>Search</button>
-            <button onClick={handleAdminSearch}>Search Admin</button>
+            <button className = 'Button' onClick={handleSearch}>Search</button>
+            <button className = 'Button' onClick={handleAdminSearch}>Search Admin</button>
+            </div>
+            
             {colaborador && (
                 <div>
                     <h3>Información del Colaborador:</h3>
@@ -116,9 +133,9 @@ const ConsultarColAd = () => {
                     <p>Departamento: {colaborador.departamento}</p>
                     <p>Telefono: {colaborador.telefono}</p>
                     <p>Estado: {colaborador.estado}</p>
-                    <button onClick={handleDelete}>Delete</button>
-                    <div>
-                        <select value={selectedField} onChange={(e) => setSelectedField(e.target.value)}>
+                    <button className="buttonRojo" onClick={handleDelete}>Delete</button>
+                    <div className = 'smallContainer'>
+                        <select className = 'DropDownSimpleOffset' value={selectedField} onChange={(e) => setSelectedField(e.target.value)}>
                             <option value="nombre">Nombre</option>
                             <option value="cedula">Cedula</option>
                             <option value="correo">Correo</option>
@@ -127,8 +144,8 @@ const ConsultarColAd = () => {
                             <option value="telefono">Telefono</option>
                             <option value="estado">Estado</option>
                         </select>
-                        <input type="text" value={newData} onChange={(e) => setNewData(e.target.value)} />
-                        <button onClick={handleUpdate}>Update</button>
+                        <input className = 'TextFieldWhite' type="text" value={newData} onChange={(e) => setNewData(e.target.value)} />
+                        <button className = 'Button' onClick={handleUpdate}>Update</button>
                     </div>
                 </div>
             )}
@@ -143,20 +160,19 @@ const ConsultarColAd = () => {
                     <p>Departamento: {admin.departamento}</p>
                     <p>Telefono: {admin.telefono}</p>
                     <p>Estado: {admin.estado}</p>
-                    <button onClick={handleAdminDelete}>Delete</button>
-                    <div>
-                        <select value={selectedField} onChange={(e) => setSelectedField(e.target.value)}>
+                    <button className="buttonRojo" onClick={handleAdminDelete}>Delete</button>
+                    <div className='smallContainer'>
+                        <select className = 'DropDownSimpleOffset' value={selectedField} onChange={(e) => setSelectedField(e.target.value)}>
                             <option value="nombre">Nombre</option>
                             <option value="cedula">Cedula</option>
                             <option value="correo">Correo</option>
                             <option value="password">Password</option>
-                            <option value="departamento">Departamento
-</option>
+                            <option value="departamento">Departamento</option>
                             <option value="telefono">Telefono</option>
                             <option value="estado">Estado</option>
                         </select>
-                        <input type="text" value={newData} onChange={(e) => setNewData(e.target.value)} />
-                        <button onClick={handleAdminUpdate}>Update</button>
+                        <input className = 'TextFieldWhite' type="text" value={newData} onChange={(e) => setNewData(e.target.value)} />
+                        <button className = 'Button' onClick={handleAdminUpdate}>Update</button>
                     </div>
                 </div>
             )}

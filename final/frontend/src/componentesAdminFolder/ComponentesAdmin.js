@@ -5,7 +5,7 @@ const ComponentesAdmin = () => {
   const [currentScreen, setCurrentScreen] = useState(null);
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div className= 'blankContainer' style={{ display: 'flex' }}>
       <SidebarAdmin setCurrentScreen={setCurrentScreen} />
       <div style={{ flex: 1 }}>
         {currentScreen}

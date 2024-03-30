@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../adminStyle.css';
 
 const CrearProyecto = () => {
   const [nombre, setNombre] = useState('');
@@ -35,8 +36,16 @@ const CrearProyecto = () => {
   }, []);
 
   const handleGuardar = () => {
+    // Check if any field is undefined
+    if (!nombre || !recursos || !presupuesto || !colaboradores || !estado || !descripcion ||
+        !fecha_inicio || !responsable    ) {
+      alert('Por favor, completa todos los campos antes de guardar.');
+      return; // Exit the function early
+    }
+  
     const datos = { nombre, recursos, presupuesto, colaboradores, estado, descripcion, fecha_inicio, responsable };
     setDatosGuardados(datos);
+  
     // Enviar los datos al servidor para crear el proyecto
     axios.post('http://localhost:4000/api/proyecto/', datos)
       .then(response => {
@@ -46,59 +55,60 @@ const CrearProyecto = () => {
         console.error('Error al crear el proyecto:', error);
       });
   };
+  ;
 
   return (
-    <div>
+    <div  className= 'SimpleContainer'>
       <h1>Pantalla de Crear Proyectos de Administradores</h1>
-      <label>
+      <div className = 'Label' >
         Nombre:
-        <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
-      </label>
+        <input className='TextField' type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+      </div>
       <br />
-      <label>
+      <div className = 'Label'>
         Recursos:
-        <input type="text" value={recursos} onChange={(e) => setRecursos(e.target.value)} />
-      </label>
+        <input className='TextField' type="text" value={recursos} onChange={(e) => setRecursos(e.target.value)} />
+      </div>
       <br />
-      <label>
+      <div className = 'Label'>
         Presupuesto:
-        <input type="text" value={presupuesto} onChange={(e) => setPresupuesto(e.target.value)} />
-      </label>
+        <input className='TextField' type="text" value={presupuesto} onChange={(e) => setPresupuesto(e.target.value)} />
+      </div>
       <br />
-      <label>
+      <div className = 'Label'>
         Colaboradores:
-        <select multiple value={colaboradores} onChange={(e) => setColaboradores(Array.from(e.target.selectedOptions, option => option.value))}>
+        <select className='DropDownSimple' multiple value={colaboradores} onChange={(e) => setColaboradores(Array.from(e.target.selectedOptions, option => option.value))}>
           {colaboradoresDisponibles.map(colaborador => (
             <option key={colaborador._id} value={colaborador._id}>{colaborador.nombre} - {colaborador._id}</option>
           ))}
         </select>
-      </label>
+      </div>
       <br />
-      <label>
+      <div className = 'Label'>
         Estado:
-        <input type="text" value={estado} onChange={(e) => setEstado(e.target.value)} />
-      </label>
+        <input className='TextField' type="text" value={estado} onChange={(e) => setEstado(e.target.value)} />
+      </div>
       <br />
-      <label>
+      <div className = 'Label'>
         Descripción:
-        <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
-      </label>
+        <textarea className='TextField' value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
+      </div>
       <br />
-      <label>
+      <div className = 'Label'>
         Fecha de Inicio:
-        <input type="date" value={fecha_inicio} onChange={(e) => setFecha_inicio(e.target.value)} />
-      </label>
+        <input className='TextField' type="date" value={fecha_inicio} onChange={(e) => setFecha_inicio(e.target.value)} />
+      </div>
       <br />
-      <label>
+      <div className = 'Label'>
         Responsable:
-        <select value={responsable} onChange={(e) => setResponsable(e.target.value)}>
+        <select className='DropDownSimple' value={responsable} onChange={(e) => setResponsable(e.target.value)}>
           {responsablesDisponibles.map(responsable => (
             <option key={responsable._id} value={responsable._id}>{responsable.nombre} - {responsable._id}</option>
           ))}
         </select>
-      </label>
+      </div>
       <br />
-      <button onClick={handleGuardar}>Guardar</button>
+      <button className = 'Button' onClick={handleGuardar}>Guardar</button>
       {datosGuardados && (
         <div>
           <h2>Datos guardados:</h2>

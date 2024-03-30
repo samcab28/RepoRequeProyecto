@@ -5,11 +5,16 @@ const CrearReunion = () => {
   const [proyectoId, setProyectoId] = useState('');
   const [tema, setTema] = useState('');
   const [medio, setMedio] = useState('');
+  const [link, setLink] = useState('');
+  const [fecha, setFecha] = useState('');
+  const [hora, setHora] = useState('');
+  const [duracionHoras, setDuracionHoras] = useState('');
   const [colaboradores, setColaboradores] = useState([]);
   const [administradores, setAdministradores] = useState([]);
   const [proyectosList, setProyectosList] = useState([]);
   const [colaboradoresDisponibles, setColaboradoresDisponibles] = useState([]);
   const [administradoresDisponibles, setAdministradoresDisponibles] = useState([]);
+  const [datosGuardados, setDatosGuardados] = useState(null);
 
   useEffect(() => {
     loadProyectosList();
@@ -17,12 +22,13 @@ const CrearReunion = () => {
     loadAdministradoresDisponibles();
   }, []);
 
+
   const loadProyectosList = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/proyecto');
-      setProyectosList(response.data);
+        const response = await axios.get('http://localhost:4000/api/proyecto');
+        setProyectosList(response.data);
     } catch (error) {
-      console.error('Error loading projects list:', error);
+        console.error('Error loading projects list:', error);
     }
   };
 
@@ -45,58 +51,142 @@ const CrearReunion = () => {
   };
 
   const handleCrearReunion = async () => {
-    const datos = { proyecto: proyectoId, tema, medio, colaboradores, administradores };
-    try {
-      await axios.post('http://localhost:4000/api/reunion', datos);
-      console.log('Reunión creada exitosamente');
-      // Limpiar los campos después de crear la reunión
-      setProyectoId('');
-      setTema('');
-      setMedio('');
-      setColaboradores([]);
-      setAdministradores([]);
-    } catch (error) {
-      console.error('Error al crear la reunión:', error);
+    if (!proyectoId || !tema || !medio || !link || !fecha || !colaboradores || !administradores || !duracionHoras) {
+      alert('Por favor, completa todos los campos antes de guardar.');
+      return; // Exit the function early
     }
+  
+    const colaboradoresSeleccionados = colaboradores.concat(administradores);
+    const datos = {
+      proyecto: proyectoId,
+      tema,
+      medio,
+      link,
+      fecha: new Date(`${fecha}T${hora}:00`),
+      duracionHoras,
+      colaboradores: colaboradoresSeleccionados,
+      //administradores, // lo puse para la validacion
+    };  
+    
+  
+      try {
+        const response = await axios.get(`http://localhost:4000/api/proyecto/${proyectoId}`);
+        if (response && !response.data) {
+          console.log('holaaaaaaaa');
+          alert('No se encontró ningún proyecto con el ID proporcionado!');
+          return; // Exit the function early
+        }
+        alert('Tarea creada.');
+      
+        // Aquí, si la respuesta contiene datos y un ID de proyecto, puedes proceder con la creación de la reunión
+        setDatosGuardados(datos);
+        await axios.post('http://localhost:4000/api/reunion', datos);
+        console.log('Reunión creada exitosamente');
+        // Limpiar los campos después de crear la reunión
+        setProyectoId('');
+        setTema('');
+        setMedio('');
+        setLink('');
+        setFecha('');
+        setHora('');
+        setDuracionHoras('');
+        setColaboradores([]);
+      } catch (error) {
+        alert('No se encontró ningún proyecto con el ID proporcionado.');
+        setProyectoId('');
+        setTema('');
+        setMedio('');
+        setLink('');
+        setFecha('');
+        setHora('');
+        setDuracionHoras('');
+        setColaboradores([]);
+        console.error('Error al crear la reunión:', error);
+      }
+      
   };
+  
+  
 
   return (
-    <div>
+    <div className='SimpleContainer'>
       <h1>Pantalla de Crear Reunión de Proyectos de Administradores</h1>
-      <label>
+      <p>
         ID del Proyecto:
-        <input type="text" value={proyectoId} onChange={(e) => setProyectoId(e.target.value)} />
-      </label>
+        <input className='TextField' type="text" value={proyectoId} onChange={(e) => setProyectoId(e.target.value)} />
+      </p>
       <br />
-      <label>
+      <p>
         Tema:
-        <input type="text" value={tema} onChange={(e) => setTema(e.target.value)} />
-      </label>
+        <input className='TextField' type="text" value={tema} onChange={(e) => setTema(e.target.value)} />
+      </p>
       <br />
-      <label>
+      <p>
         Medio:
-        <input type="text" value={medio} onChange={(e) => setMedio(e.target.value)} />
-      </label>
+        <input className='TextField' type="text" value={medio} onChange={(e) => setMedio(e.target.value)} />
+      </p>
       <br />
-      <label>
+      <p>
+        Enlace:
+        <input className='TextField' type="text" value={link} onChange={(e) => setLink(e.target.value)} />
+      </p>
+      <br />
+      <p>
+        Fecha:
+        <input className='TextField' type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
+      </p>
+      <br />
+      <p>
+        Hora:
+        <input className='TextField' type="time" value={hora} onChange={(e) => setHora(e.target.value)} />
+      </p>
+      <br />
+      <p>
+        Duración en Horas:
+        <input className='TextField' type="number" value={duracionHoras} onChange={(e) => setDuracionHoras(e.target.value)} />
+      </p>
+      <br />
+      <p>
         Colaboradores:
-        <select multiple value={colaboradores} onChange={(e) => setColaboradores(Array.from(e.target.selectedOptions, option => option.value))}>
+        <select className='DropDownSimple' multiple value={colaboradores} onChange={(e) => setColaboradores(Array.from(e.target.selectedOptions, option => option.value))}>
           {colaboradoresDisponibles.map(colaborador => (
             <option key={colaborador._id} value={colaborador._id}>{colaborador.nombre} - {colaborador._id}</option>
           ))}
         </select>
-      </label>
+      </p>
       <br />
-      <label>
+      <br />
+      <br />
+      <br />
+      <p>
         Administradores:
-        <select multiple value={administradores} onChange={(e) => setAdministradores(Array.from(e.target.selectedOptions, option => option.value))}>
+        <select className='DropDownSimple' multiple value={administradores} onChange={(e) => setAdministradores(Array.from(e.target.selectedOptions, option => option.value))}>
           {administradoresDisponibles.map(administrador => (
             <option key={administrador._id} value={administrador._id}>{administrador.nombre} - {administrador._id}</option>
           ))}
         </select>
-      </label>
+      </p>
       <br />
-      <button onClick={handleCrearReunion}>Crear Reunión</button>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <button className='ButtonOffset' onClick={handleCrearReunion}>Crear Reunión</button>
+      <div>
+          <h3>Proyectos disponibles:</h3>
+          <ul>
+              {proyectosList.map((proyecto) => (
+                  <li key={proyecto._id}>{proyecto._id} - {proyecto.nombre}</li>
+              ))}
+          </ul>
+      </div>
+      {datosGuardados && (
+        <div>
+          <h2>Datos guardados:</h2>
+          <pre>{JSON.stringify(datosGuardados, null, 2)}</pre>
+        </div>
+      )}
     </div>
   );
 };

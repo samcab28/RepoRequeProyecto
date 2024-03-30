@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const TareasProAd = () => {
+const ConsultarProAd = () => {
     const [searchId, setSearchId] = useState('');
     const [proyecto, setProyecto] = useState(null);
     const [proyectosList, setProyectosList] = useState([]);
@@ -45,11 +45,21 @@ const TareasProAd = () => {
     
 
     const handleSearch = async () => {
+        if (!searchId) {
+            alert('Por favor, introduce un ID_Proyecto antes de realizar la búsqueda!');
+            return; // Exit the function early
+        }
         try {
             const response = await axios.get(`http://localhost:4000/api/proyecto/${searchId}`);
+            // Check if response data is empty
+            if (response && !response.data) {
+                alert('No se encontró ningún proyecto con el ID proporcionado.');
+                return; // Exit the function early
+            }
             setProyecto(response.data);
             loadColaboradoresList();
         } catch (error) {
+            alert('No se encontró ningún proyecto con el ID proporcionado.');
             console.error('Error searching for project:', error);
         }
     };
@@ -181,7 +191,7 @@ const TareasProAd = () => {
                 </div>
             )}
             <div>
-                <h3>Proyectos:</h3>
+                <h3>Proyectos disponibles:</h3>
                 <ul>
                     {proyectosList.map((proyecto) => (
                         <li key={proyecto._id}>{proyecto._id} - {proyecto.nombre}</li>
@@ -192,4 +202,4 @@ const TareasProAd = () => {
     );
 };
 
-export default TareasProAd;
+export default ConsultarProAd;
