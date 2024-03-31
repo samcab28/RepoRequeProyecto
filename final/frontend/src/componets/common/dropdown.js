@@ -32,7 +32,13 @@ const DropDown = ({className,buttonStyle,title,options, position}) => {
 
       {isDropDownOpen && (
         <div className = 'ddoptions'>
-          {options.map((option) => {return (<button className='buttonDos' onClick={option.onClick}>{option.text}</button>)})}
+          {options.map((option, index) => {
+            return (
+              <button key={index} className='buttonDos' onClick={option.onClick}>
+                {option.text}
+              </button>
+            );
+          })}
         </div>
       )}
 

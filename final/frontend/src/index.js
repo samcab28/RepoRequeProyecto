@@ -27,10 +27,10 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(express.static(path.resolve("./chat")));
+app.use(express.static(path.resolve("./frontend/proyectos")));
 
 app.get("/", (req, res) => {
-  return res.sendFile("/chat/index.html");
+  return res.sendFile("/frontend/proyectos/ForoProdAd.js");
 });
 
 server.listen(9000, () => console.log(`Server Started at PORT:9000`));*/

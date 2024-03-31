@@ -1,59 +1,53 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client';
 
-const ForoFoAd = () => {
+const Foro = () => {
+  const [messages, setMessages] = useState([]); // Estado para almacenar los mensajes recibidos
+  const [socket, setSocket] = useState(null); // Estado para almacenar la instancia de socket
+
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = '/socket.io/socket.io.js';
-    script.async = true;
-    document.body.appendChild(script);
+    // Crea una instancia de socket y almacénala en el estado
+    const newSocket = io('http://localhost:3000/admin');
+    console.log('LUCAS');
+    // Configura el socket para manejar mensajes entrantes
+    newSocket.on('message', (message) => {
+      console.log('MENSAJE: ',{message});
+      setMessages(prevMessages => [...prevMessages, message]);
+    });
 
+    // Almacena el socket en el estado
+    setSocket(newSocket);
+
+    // Limpia el socket al desmontar el componente
     return () => {
-      document.body.removeChild(script);
+      newSocket.disconnect();
     };
   }, []);
 
-  const chatHtml = `
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Chat APP</title>
-      </head>
-      <body>
-        <h1>Foro General</h1>
+  const handleSend = () => {
     
-        <input type="text" id="message" placeholder="Enter Message" />
-        <button id="sendBtn">Send</button>
-    
-        <div id="messages"></div>
-    
-        <script>
-          const socket = io();
-          const sendBtn = document.getElementById("sendBtn");
-          const messageInput = document.getElementById("message");
-          const allMessages = document.getElementById("messages");
-    
-          socket.on("message", (message) => {
-            const p = document.createElement("p");
-            p.innerText = message;
-            allMessages.appendChild(p);
-          });
-    
-          sendBtn.addEventListener("click", (e) => {
-            const message = messageInput.value;
-            console.log(message);
-            socket.emit("user-message", message);
-          });
-        </script>
-      </body>
-    </html>
-  `;
+    if (socket) { // Asegúrate de que el socket esté definido
+      const messageInput = document.getElementById("message");
+      const message = messageInput.value;
+      console.log(message);
+      socket.emit('user-message', message);
+    }
+  };
 
   return (
-    <div dangerouslySetInnerHTML={{ __html: chatHtml }} />
+    <div>
+      <h1>Foro General</h1>
+      <input type="text" id="message" placeholder="Enter Message" />
+      <button onClick={handleSend}>Send</button>
+      {/* Mostrar los mensajes en el DOM */}
+      <div id="messages">
+        {messages.map((message, index) => (
+          <p key={index}>{message}</p>
+        ))}
+      </div>
+    </div>
   );
 };
 
-export default ForoFoAd;
+export default Foro;
+
