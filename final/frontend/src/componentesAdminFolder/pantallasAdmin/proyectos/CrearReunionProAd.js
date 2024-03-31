@@ -51,33 +51,61 @@ const CrearReunion = () => {
   };
 
   const handleCrearReunion = async () => {
-    const colaboradoresSeleccionados = colaboradores.concat(administradores);
-    const datos = { 
-      proyecto: proyectoId, 
-      tema, 
-      medio, 
-      link, 
-      fecha: new Date(`${fecha}T${hora}:00`), 
-      duracionHoras, 
-      colaboradores: colaboradoresSeleccionados, 
-    };
-    setDatosGuardados(datos);
-    try {
-      await axios.post('http://localhost:4000/api/reunion', datos);
-      console.log('Reunión creada exitosamente');
-      // Limpiar los campos después de crear la reunión
-      setProyectoId('');
-      setTema('');
-      setMedio('');
-      setLink('');
-      setFecha('');
-      setHora('');
-      setDuracionHoras('');
-      setColaboradores([]);
-    } catch (error) {
-      console.error('Error al crear la reunión:', error);
+    if (!proyectoId || !tema || !medio || !link || !fecha || !colaboradores || !administradores || !duracionHoras) {
+      alert('Por favor, completa todos los campos antes de guardar.');
+      return; // Exit the function early
     }
+  
+    const colaboradoresSeleccionados = colaboradores.concat(administradores);
+    const datos = {
+      proyecto: proyectoId,
+      tema,
+      medio,
+      link,
+      fecha: new Date(`${fecha}T${hora}:00`),
+      duracionHoras,
+      colaboradores: colaboradoresSeleccionados,
+      //administradores, // lo puse para la validacion
+    };  
+    
+  
+      try {
+        const response = await axios.get(`http://localhost:4000/api/proyecto/${proyectoId}`);
+        if (response && !response.data) {
+          console.log('holaaaaaaaa');
+          alert('No se encontró ningún proyecto con el ID proporcionado!');
+          return; // Exit the function early
+        }
+        alert('Tarea creada.');
+      
+        // Aquí, si la respuesta contiene datos y un ID de proyecto, puedes proceder con la creación de la reunión
+        setDatosGuardados(datos);
+        await axios.post('http://localhost:4000/api/reunion', datos);
+        console.log('Reunión creada exitosamente');
+        // Limpiar los campos después de crear la reunión
+        setProyectoId('');
+        setTema('');
+        setMedio('');
+        setLink('');
+        setFecha('');
+        setHora('');
+        setDuracionHoras('');
+        setColaboradores([]);
+      } catch (error) {
+        alert('No se encontró ningún proyecto con el ID proporcionado.');
+        setProyectoId('');
+        setTema('');
+        setMedio('');
+        setLink('');
+        setFecha('');
+        setHora('');
+        setDuracionHoras('');
+        setColaboradores([]);
+        console.error('Error al crear la reunión:', error);
+      }
+      
   };
+  
   
 
   return (

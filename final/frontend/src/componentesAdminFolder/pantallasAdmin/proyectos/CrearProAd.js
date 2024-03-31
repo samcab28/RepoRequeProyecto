@@ -36,8 +36,16 @@ const CrearProyecto = () => {
   }, []);
 
   const handleGuardar = () => {
+    // Check if any field is undefined
+    if (!nombre || !recursos || !presupuesto || !colaboradores || !estado || !descripcion ||
+        !fecha_inicio || !responsable    ) {
+      alert('Por favor, completa todos los campos antes de guardar.');
+      return; // Exit the function early
+    }
+  
     const datos = { nombre, recursos, presupuesto, colaboradores, estado, descripcion, fecha_inicio, responsable };
     setDatosGuardados(datos);
+  
     // Enviar los datos al servidor para crear el proyecto
     axios.post('http://localhost:4000/api/proyecto/', datos)
       .then(response => {
@@ -47,6 +55,7 @@ const CrearProyecto = () => {
         console.error('Error al crear el proyecto:', error);
       });
   };
+  ;
 
   return (
     <div  className= 'SimpleContainer'>
