@@ -4,7 +4,8 @@ const { Schema, model } = require('mongoose');
 const tareaSchema = new Schema({
   nombre: { type: String, required: true, trim: true },
   descripcion: { type: String, required: true, trim: true },
-  responsable: { type: Schema.Types.ObjectId, ref: 'Colaborador' }
+  responsable: { type: Schema.Types.ObjectId, ref: 'Colaborador' },
+  estado: { type: String, required: true, trim: true }, // Pendiente, En Proceso, Terminada
 });
 
 // Esquema principal para los proyectos

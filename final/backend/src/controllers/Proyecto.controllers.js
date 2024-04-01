@@ -73,11 +73,11 @@ proyectoCtrl.updateProyecto = async (req, res) => {
 
 proyectoCtrl.addTaskToProyecto = async (req, res) => {
     const { id } = req.params;
-    const { nombre, descripcion, responsable } = req.body;
+    const { nombre, descripcion, responsable, estado } = req.body;
 
     try {
         const updatedProyecto = await Proyecto.findByIdAndUpdate(id, {
-            $push: { tareas: { nombre, descripcion, responsable } }
+            $push: { tareas: { nombre, descripcion, responsable, estado:"Pendiente" } }
         }, { new: true });
 
         if (!updatedProyecto) {
@@ -93,7 +93,7 @@ proyectoCtrl.addTaskToProyecto = async (req, res) => {
 
 proyectoCtrl.editTask = async (req, res) => {
     const { id, taskId } = req.params;
-    const { nombre, descripcion, responsable } = req.body;
+    const { nombre, descripcion, responsable, estado } = req.body;
 
     try {
         const proyecto = await Proyecto.findById(id);
@@ -109,6 +109,7 @@ proyectoCtrl.editTask = async (req, res) => {
         tarea.nombre = nombre;
         tarea.descripcion = descripcion;
         tarea.responsable = responsable;
+        tarea.estado = estado;
 
         await proyecto.save();
 

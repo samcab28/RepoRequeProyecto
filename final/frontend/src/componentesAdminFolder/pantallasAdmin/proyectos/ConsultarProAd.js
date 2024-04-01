@@ -8,6 +8,7 @@ const ConsultarProAd = () => {
     const [colaboradoresList, setColaboradoresList] = useState([]);
     const [editingTask, setEditingTask] = useState(null);
     const [editedTaskName, setEditedTaskName] = useState('');
+    const [editedTaskState, setEditedTaskState] = useState('');
     const [editedTaskDescription, setEditedTaskDescription] = useState('');
     const [editedTaskAssignee, setEditedTaskAssignee] = useState('');
 
@@ -78,10 +79,12 @@ const ConsultarProAd = () => {
             await axios.put(`http://localhost:4000/api/proyecto/${proyecto._id}/edit-task/${taskId}`, {
                 nombre: editedTaskName,
                 descripcion: editedTaskDescription,
-                responsable: editedTaskAssignee
+                responsable: editedTaskAssignee,
+                estado: editedTaskState,
             });
             setEditingTask(null);
             setEditedTaskName('');
+            setEditedTaskState('');
             setEditedTaskDescription('');
             setEditedTaskAssignee('');
             handleSearch();
@@ -172,6 +175,15 @@ const ConsultarProAd = () => {
                                                 {colaboradoresList.map((colaborador) => (
                                                     <option key={colaborador._id} value={colaborador._id}>{colaborador.nombre}</option>
                                                 ))}
+                                            </select>
+                                            <select
+                                                value={editedTaskState}
+                                                onChange={(e) => setEditedTaskState(e.target.value)}
+                                            >
+                                                <option value="">Seleccionar estado</option>
+                                                <option value="Pendiente">Pendiente</option>
+                                                <option value="En Progreso">En Progreso</option>
+                                                <option value="Terminada">Terminada</option>
                                             </select>
                                             <button onClick={() => handleEditTask(tarea._id)}>Guardar cambios</button>
                                         </div>
