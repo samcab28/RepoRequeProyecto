@@ -23,8 +23,7 @@ const BCProUsu = () => {
   const handleProjectSelect = async () => {
     try {
       const response = await axios.get(`http://localhost:4000/api/burndown/${selectedProjectId}`);
-      const burndownData = response.data.burndownData;
-      setBurndownData(burndownData);
+      setBurndownData(response.data);
     } catch (error) {
       console.error('Error fetching burndown data:', error);
     }
@@ -57,17 +56,17 @@ const BurndownChart = ({ burndownData }) => {
   const completedWork = totalWork - remainingWork;
 
   const data = {
-    labels: ['Inicio', 'Fin'],
+    labels: ['Trabajo Restante', 'Trabajo Pendiente'],
     datasets: [
       {
         label: 'Trabajo Restante',
-        data: [totalWork, remainingWork],
+        data: [totalWork, 0], // Se invierten los datos para que la línea empiece desde arriba
         fill: false,
         borderColor: 'red',
       },
       {
-        label: 'Trabajo Completado',
-        data: [0, completedWork],
+        label: 'Trabajo Pendiente',
+        data: [totalWork, -(completedWork) + totalWork  ], // Se invierten los datos para que la línea empiece desde arriba
         fill: false,
         borderColor: 'green',
       },
