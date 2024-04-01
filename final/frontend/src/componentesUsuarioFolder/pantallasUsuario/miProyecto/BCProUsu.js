@@ -52,7 +52,7 @@ const BCProUsu = () => {
 };
 
 const BurndownChart = ({ burndownData }) => {
-  const { totalWork, remainingWork } = burndownData;
+  const { totalWork, remainingWork } = burndownData.burndownData; // Acceder directamente a burndownData
   const completedWork = totalWork - remainingWork;
 
   const data = {
