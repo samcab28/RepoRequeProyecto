@@ -8,4 +8,4 @@ const BCProUsu = () => {
   )
 }
 
-export default BCProUsu
+export default BCProUsu; 

@@ -79,22 +79,23 @@ const Sidebar = ({ setCurrentScreen }) => {
       <SidebarHeader>Usuarios</SidebarHeader>
       <SidebarNav style={{}}>
         <DropDown position='flex' className={'space-x-8'} title={'Mi Proyecto'} options={[
-          { text: 'Foro', onClick: () => { handleOptionClick(ForoProUsu)} },
-          { text: 'Informe', onClick: () => { handleOptionClick(InformeProUsu) } },
-          { text: 'Burndown Chart', onClick: () => { handleOptionClick(BCProUsu) } },
-          { text: 'Tareas', onClick: () => { handleOptionClick(TareasProUsu) } },
+          { text: 'Foro', onClick: () => { handleOptionClick(<ForoProUsu />)} },
+          { text: 'Informe', onClick: () => { handleOptionClick(<InformeProUsu />) } },
+          { text: 'Burndown Chart', onClick: () => { handleOptionClick(<BCProUsu />) } },
+          { text: 'Tareas', onClick: () => { handleOptionClick(<TareasProUsu />) } },
         ]} />
         <DropDown position='flex' className={'space-x-8'} title={'Mi Equipo'} options={[
-          { text: 'Equipo', onClick: () => { handleOptionClick(EquipoEquiUsu)} },
+          { text: 'Equipo', onClick: () => { handleOptionClick(<EquipoEquiUsu />)} },
         ]} />
         <DropDown position='flex' className={'space-x-8'} title={'Foro'} options={[
-          { text: 'Foro general', onClick: () => { handleOptionClick(ForoFoUsu) } }
+          { text: 'Foro general', onClick: () => { handleOptionClick(<ForoFoUsu />) } }
         ]} />
         <SidebarButton />
       </SidebarNav>
     </SidebarWrapper>
   );
 };
+
 
 export default Sidebar;
 
