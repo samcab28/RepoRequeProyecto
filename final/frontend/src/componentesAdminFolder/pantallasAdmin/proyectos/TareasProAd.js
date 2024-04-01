@@ -23,7 +23,8 @@ const TareasProAd = () => {
                     return {
                         nombre: tarea.nombre,
                         descripcion: tarea.descripcion,
-                        responsable: responsableResponse.data.nombre
+                        responsable: responsableResponse.data.nombre,
+                        estado: tarea.estado,
                     };
                 })
             );
@@ -38,7 +39,8 @@ const TareasProAd = () => {
             const response = await axios.put(`http://localhost:4000/api/proyecto/${proyecto._id}/add-task`, {
                 nombre: newTaskName,
                 descripcion: newTaskDescription,
-                responsable: selectedTaskAssignee
+                responsable: selectedTaskAssignee,
+                estado: 'Pendiente',
             });
             setNewTaskName('');
             setNewTaskDescription('');
@@ -92,7 +94,9 @@ const TareasProAd = () => {
                     <p>Nombre: {proyecto.nombre}</p>
                     <p>Recursos: {proyecto.recursos}</p>
                     <p>Presupuesto: {proyecto.presupuesto}</p>
+                    {proyecto && proyecto.colaboradores && (
                     <p>Colaboradores: {proyecto.colaboradores.join(', ')}</p>
+                    )}
                     <p>Tareas:</p>
                     <ul>
                         {tareasProyecto.map((tarea, index) => (

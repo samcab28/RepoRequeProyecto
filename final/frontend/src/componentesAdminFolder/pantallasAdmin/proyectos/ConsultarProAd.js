@@ -129,7 +129,9 @@ const ConsultarProAd = () => {
                     <p>Nombre: {proyecto.nombre}</p>
                     <p>Recursos: {proyecto.recursos}</p>
                     <p>Presupuesto: {proyecto.presupuesto}</p>
+                    {proyecto && proyecto.colaboradores && (
                     <p>Colaboradores: {proyecto.colaboradores.join(', ')}</p>
+                    )}
                     <p>Estado: {proyecto.estado}</p>
                     <p>Descripción: {proyecto.descripcion}</p>
                     <p>Fecha de Inicio: {proyecto.fecha_inicio}</p>
@@ -151,7 +153,7 @@ const ConsultarProAd = () => {
                     <div>
                         <h3>Lista de Tareas:</h3>
                         <ul>
-                            {proyecto.tareas.map((tarea) => (
+                            {proyecto && proyecto.tareas && proyecto.tareas.map((tarea) => (
                                 <li key={tarea._id}>
                                     {editingTask === tarea._id ? (
                                         <div>
