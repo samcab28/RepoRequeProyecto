@@ -22,13 +22,23 @@ const CrearReunion = () => {
     loadAdministradoresDisponibles();
   }, []);
 
+  const enviarCorreo = async (datosCorreo) => {
+    try {
+      const response = await axios.post('http://localhost:4000/api/sendEmail', datosCorreo);
+      console.log('Correo enviado correctamente:', response.data);
+      // Aquí puedes manejar la respuesta del servidor si es necesario
+    } catch (error) {
+      console.error('Error al enviar el correo electrónico:', error);
+      // Aquí puedes manejar cualquier error que ocurra durante la solicitud
+    }
+  };
 
   const loadProyectosList = async () => {
     try {
-        const response = await axios.get('http://localhost:4000/api/proyecto');
-        setProyectosList(response.data);
+      const response = await axios.get('http://localhost:4000/api/proyecto');
+      setProyectosList(response.data);
     } catch (error) {
-        console.error('Error loading projects list:', error);
+      console.error('Error loading projects list:', error);
     }
   };
 
@@ -51,62 +61,74 @@ const CrearReunion = () => {
   };
 
   const handleCrearReunion = async () => {
-    if (!proyectoId || !tema || !medio || !link || !fecha || !colaboradores || !administradores || !duracionHoras) {
+    if (!proyectoId.trim() || !tema || !medio || !link || !fecha || !colaboradores || !administradores || !duracionHoras) {
       alert('Por favor, completa todos los campos antes de guardar.');
-      return; // Exit the function early
+      return; // Salir de la función temprano si falta algún campo
     }
   
     const colaboradoresSeleccionados = colaboradores.concat(administradores);
+    const correosColaboradores = colaboradoresSeleccionados.map(colaborador => colaborador.correo);
+  
     const datos = {
-      proyecto: proyectoId,
+      proyecto: proyectoId.trim(),
       tema,
       medio,
       link,
       fecha: new Date(`${fecha}T${hora}:00`),
       duracionHoras,
       colaboradores: colaboradoresSeleccionados,
-      //administradores, // lo puse para la validacion
-    };  
-    
+    };
   
-      try {
-        const response = await axios.get(`http://localhost:4000/api/proyecto/${proyectoId}`);
-        if (response && !response.data) {
-          console.log('holaaaaaaaa');
-          alert('No se encontró ningún proyecto con el ID proporcionado!');
-          return; // Exit the function early
-        }
-        alert('Tarea creada.');
-      
-        // Aquí, si la respuesta contiene datos y un ID de proyecto, puedes proceder con la creación de la reunión
-        setDatosGuardados(datos);
-        await axios.post('http://localhost:4000/api/reunion', datos);
-        console.log('Reunión creada exitosamente');
-        // Limpiar los campos después de crear la reunión
-        setProyectoId('');
-        setTema('');
-        setMedio('');
-        setLink('');
-        setFecha('');
-        setHora('');
-        setDuracionHoras('');
-        setColaboradores([]);
-      } catch (error) {
-        alert('No se encontró ningún proyecto con el ID proporcionado.');
-        setProyectoId('');
-        setTema('');
-        setMedio('');
-        setLink('');
-        setFecha('');
-        setHora('');
-        setDuracionHoras('');
-        setColaboradores([]);
-        console.error('Error al crear la reunión:', error);
+    const correosParticipantes = [...correosColaboradores]; // Copia los correos de los colaboradores
+    // Concatena los correos de los administradores a la lista
+    administradores.forEach(administrador => {
+      correosParticipantes.push(administrador.correo);
+    });
+
+    try {
+      const response = await axios.get(`http://localhost:4000/api/proyecto/${proyectoId.trim()}`);
+      if (!response.data) {
+        alert('No se encontró ningún proyecto con el ID proporcionado!');
+        return; // Salir de la función temprano si no se encontró el proyecto
       }
-      
+      alert('Reunión creada.');
+
+      // Crear la reunión en el backend
+      await axios.post('http://localhost:4000/api/reunion', datos);
+
+      // Enviar correos electrónicos a los participantes de la reunión
+      const asunto = `Nueva reunión sobre el tema: ${tema}`;
+      const mensaje = `Se ha programado una nueva reunión sobre el tema: ${tema}. La reunión se llevará a cabo el ${fecha} a las ${hora} horas. Por favor, únete a la reunión a través del siguiente enlace: ${link}.`;
+      const datosCorreo = {
+        listaCorreos: correosParticipantes,
+        asunto,
+        mensaje
+      };
+      enviarCorreo(datosCorreo);
+
+      console.log('Reunión creada exitosamente');
+      // Limpiar los campos después de crear la reunión
+      setProyectoId('');
+      setTema('');
+      setMedio('');
+      setLink('');
+      setFecha('');
+      setHora('');
+      setDuracionHoras('');
+      setColaboradores([]);
+    } catch (error) {
+      alert('No se encontró ningún proyecto con el ID proporcionado.');
+      setProyectoId('');
+      setTema('');
+      setMedio('');
+      setLink('');
+      setFecha('');
+      setHora('');
+      setDuracionHoras('');
+      setColaboradores([]);
+      console.error('Error al crear la reunión:', error);
+    }
   };
-  
-  
 
   return (
     <div className='SimpleContainer'>
@@ -147,25 +169,26 @@ const CrearReunion = () => {
       </p>
       <br />
       <p>
-        Colaboradores:
-        <select className='DropDownSimple' multiple value={colaboradores} onChange={(e) => setColaboradores(Array.from(e.target.selectedOptions, option => option.value))}>
-          {colaboradoresDisponibles.map(colaborador => (
-            <option key={colaborador._id} value={colaborador._id}>{colaborador.nombre} - {colaborador._id}</option>
-          ))}
-        </select>
-      </p>
-      <br />
-      <br />
-      <br />
-      <br />
-      <p>
-        Administradores:
-        <select className='DropDownSimple' multiple value={administradores} onChange={(e) => setAdministradores(Array.from(e.target.selectedOptions, option => option.value))}>
-          {administradoresDisponibles.map(administrador => (
-            <option key={administrador._id} value={administrador._id}>{administrador.nombre} - {administrador._id}</option>
-          ))}
-        </select>
-      </p>
+  Colaboradores:
+  <select className='DropDownSimple' multiple value={colaboradores.map(colaborador => colaborador._id)} onChange={(e) => setColaboradores(Array.from(e.target.selectedOptions, option => colaboradoresDisponibles.find(colaborador => colaborador._id === option.value)))}>
+    {colaboradoresDisponibles.map(colaborador => (
+      <option key={colaborador._id} value={colaborador._id}>{colaborador.nombre} - {colaborador._id}</option>
+    ))}
+  </select>
+</p>
+<br />
+<br />
+<br />
+<br />
+<p>
+  Administradores:
+  <select className='DropDownSimple' multiple value={administradores.map(administrador => administrador._id)} onChange={(e) => setAdministradores(Array.from(e.target.selectedOptions, option => administradoresDisponibles.find(administrador => administrador._id === option.value)))}>
+    {administradoresDisponibles.map(administrador => (
+      <option key={administrador._id} value={administrador._id}>{administrador.nombre} - {administrador._id}</option>
+    ))}
+  </select>
+</p>
+
       <br />
       <br />
       <br />
