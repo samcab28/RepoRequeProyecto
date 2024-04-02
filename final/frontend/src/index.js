@@ -10,8 +10,8 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
-/*const http = require("http");
+/*
+const http = require("http");
 const express = require("express");
 const path = require("path");
 const { Server } = require("socket.io");
@@ -27,10 +27,11 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(express.static(path.resolve("./frontend/proyectos")));
+app.use(express.static(path.resolve("./chat")));
 
 app.get("/", (req, res) => {
-  return res.sendFile("/frontend/proyectos/ForoProdAd.js");
+  return res.sendFile("/chat/index.html");
 });
 
-server.listen(9000, () => console.log(`Server Started at PORT:9000`));*/
+server.listen(9000, () => console.log(`Server Started at PORT:9000`));
+*/
