@@ -27,6 +27,14 @@ const { Server } = require("socket.io");
 const cors = require('cors');
 app.use(cors());
 
+const mongoose = require('mongoose');
+const messageRouter = require('./routes/MessageRoute');
+// Middleware para parsear JSON en las solicitudes
+app.use(express.json());
+
+// Rutas para los mensajes
+app.use('/api/messages', messageRouter);
+
 //llamada a la database
 require('./database');
 

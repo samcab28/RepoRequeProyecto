@@ -2,12 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Message = require('../models/MessageModel');
 
-router.post('/', async (req, res) => {
-  const { content } = req.body;
+router.get('/', async (req, res) => {
   try {
-    const newMessage = new Message({ content });
-    await newMessage.save();
-    res.status(201).send(newMessage);
+    const messages = await Message.find();
+    res.status(200).send(messages);
   } catch (error) {
     res.status(500).send(error);
   }

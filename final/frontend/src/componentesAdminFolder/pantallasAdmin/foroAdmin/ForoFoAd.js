@@ -1,53 +1,83 @@
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+import { useEffect, useState } from "react";
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:4000");
 
-const Foro = () => {
+
+function ForoFoAd() {
+  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]); // Estado para almacenar los mensajes recibidos
-  const [socket, setSocket] = useState(null); // Estado para almacenar la instancia de socket
+  const [messageReceived, setMessageReceived] = useState("");
+  const [username, setUsername] = useState(""); // Estado para almacenar el nombre de usuario
+
+  function sendMessage() {
+    console.log(message);
+    /*socket.emit("send_message", { message: message });*/
+    const messageWithUsername = `${username}: ${message}`;
+    socket.emit("send_message", { message: messageWithUsername });
+    setMessage(""); // Limpiar el campo de entrada después de enviar el mensaje
+  }
 
   useEffect(() => {
-    // Crea una instancia de socket y almacénala en el estado
-    const newSocket = io('http://localhost:3000/admin');
-    console.log('LUCAS');
-    // Configura el socket para manejar mensajes entrantes
-    newSocket.on('message', (message) => {
-      console.log('MENSAJE: ',{message});
-      setMessages(prevMessages => [...prevMessages, message]);
+    console.log(socket);
+
+    socket.on("connect_error", (err) => {
+      // the reason of the error, for example "xhr poll error"
+      console.log(err.message);
+    
+      // some additional description, for example the status code of the initial HTTP response
+      console.log(err.description);
+    
+      // some additional context, for example the XMLHttpRequest object
+      console.log(err.context);
     });
 
-    // Almacena el socket en el estado
-    setSocket(newSocket);
+    socket.on("receive_message", (data) => {
+      console.log("MINCHUS");
+      setMessageReceived(data.message);
+      setMessages(prevMessages => [...prevMessages, data.message]); // Actualizar el estado de mensajes al recibir un nuevo mensaje
+    });
 
-    // Limpia el socket al desmontar el componente
+    // Limpiar el event listener cuando el componente se desmonta
     return () => {
-      newSocket.disconnect();
+      socket.off("receive_message");
     };
-  }, []);
-
-  const handleSend = () => {
-    
-    if (socket) { // Asegúrate de que el socket esté definido
-      const messageInput = document.getElementById("message");
-      const message = messageInput.value;
-      console.log(message);
-      socket.emit('user-message', message);
-    }
-  };
+  }, [messages]);
 
   return (
-    <div>
-      <h1>Foro General</h1>
-      <input type="text" id="message" placeholder="Enter Message" />
-      <button onClick={handleSend}>Send</button>
-      {/* Mostrar los mensajes en el DOM */}
-      <div id="messages">
-        {messages.map((message, index) => (
-          <p key={index}>{message}</p>
-        ))}
+    <div className="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh' }}>
+      <div style={{ flex: 1 }}>
+        <h2 style = {{color: '#ffffff' }}>Foro General</h2>
+        {/*Mostrar el historial de mensajes*/}
+        <ul style={{ textAlign: 'left' }}>
+          {messages.map((msg, index) => (
+            <li key={index}>{msg}</li>
+          ))}
+        </ul>
+      </div>
+      {/* Formulario para enviar mensajes */}
+      <div style={{ height: '60px', maxWidth: '400px', width: '100%', background: '#fff', position: 'fixed', 
+                    bottom: 0, left: 0, right: 0, borderTop: '1px solid #ccc', display: 'flex', justifyContent: 'center', 
+                    alignItems: 'center', margin: 'auto' }}>
+        <input
+          placeholder="Message"
+          onChange={(e) => {
+            setMessage(e.target.value);
+          }}
+          style={{ width: 'calc(100%-120px)', marginRight: '10px', maxWidth: 'calc(100% - 120px)' }}
+        />
+        <button onClick={sendMessage} style={{ width: '100px' }}>Send</button>
       </div>
     </div>
   );
-};
+  
+  
+  
+  
+  
+  
+  
+  
+  
+}
 
-export default Foro;
-
+export default ForoFoAd;
