@@ -27,4 +27,5 @@ app.use('/api/proyecto',require('./routes/ProyectoRoute'));
 app.use('/api/reunion',require('./routes/ReunionRoute'));
 app.use('/api/burndown', require('./routes/BurndownRoute'));
 app.use('/api/sendEmail', require('./routes/SendEmailRoute'));
+app.use('/api/message', require('./routes/messageRoute'));
 module.exports = app;

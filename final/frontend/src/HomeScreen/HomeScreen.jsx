@@ -1,29 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const HomeScreen = () => {
   const [nombre, setNombre] = useState('');
   const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState({ role: '', authenticated: false });
-
-  useEffect(() => {
-    // Verificar si hay información de usuario en el almacenamiento local al cargar la página
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      // Si hay información de usuario, establecer el estado loggedIn en consecuencia
-      setLoggedIn(JSON.parse(storedUser));
-    }
-  }, []);
 
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://localhost:4000/api/login', { nombre, password });
 
       if (response && response.data !== null) {
-        setLoggedIn({ role: response.data.role, authenticated: true });
-        // Almacenar la información del usuario en el almacenamiento local
-        localStorage.setItem('user', JSON.stringify({ role: response.data.role, authenticated: true }));
+        localStorage.setItem('username', nombre); // Guardar el nombre de usuario en el localStorage
+        // Redireccionar a la página correspondiente según el rol del usuario
+        if (response.data.role === 'admin') {
+          window.location.href = '/admin';
+        } else if (response.data.role === 'usuario') {
+          window.location.href = '/usuario';
+        }
       } else {
         alert('Usuario o contraseña incorrectos');
       }
@@ -62,20 +56,6 @@ const HomeScreen = () => {
       </form>
       <div>
         <button onClick={handleLogin} className='button'>Iniciar Sesión</button>
-        {loggedIn.authenticated && (
-          <div>
-            {loggedIn.role === 'admin' && (
-              <Link to="/admin">
-                <button className='button'>Admin</button>
-              </Link>
-            )}
-            {loggedIn.role === 'usuario' && (
-              <Link to="/usuario">
-                <button className='button'>Usuario</button>
-              </Link>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );
