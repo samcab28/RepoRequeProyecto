@@ -5,6 +5,7 @@ const TareasProUsu = () => {
   const [tareas, setTareas] = useState([]);
   const [selectedProjectId, setSelectedProjectId] = useState('');
   const [projectsList, setProjectsList] = useState([]);
+  const [responsablesMap, setResponsablesMap] = useState({});
 
   const fetchProjects = useCallback(async () => {
     try {
@@ -20,6 +21,17 @@ const TareasProUsu = () => {
     fetchProjects();
   }, [fetchProjects]);
 
+  const fetchResponsableName = async (responsableId) => {
+    try {
+      const response = await axios.get(`http://localhost:4000/api/colaborador/${responsableId}`);
+      const responsable = response.data;
+      return responsable.nombre; 
+    } catch (error) {
+      console.error('Error fetching responsable:', error);
+      return 'Desconocido';
+    }
+  };
+
   const handleProjectSelect = async () => {
     try {
       console.log('Proyecto seleccionado:', selectedProjectId);
@@ -28,6 +40,14 @@ const TareasProUsu = () => {
       const project = response.data;
       setTareas(project.tareas);
       console.log('Tareas del proyecto:', project.tareas);
+
+      // Crear un mapa de responsables para evitar múltiples solicitudes HTTP para el mismo ID de responsable
+      const uniqueResponsableIds = new Set(project.tareas.map(tarea => tarea.responsable));
+      const newResponsablesMap = {};
+      for (const responsableId of uniqueResponsableIds) {
+        newResponsablesMap[responsableId] = await fetchResponsableName(responsableId);
+      }
+      setResponsablesMap(newResponsablesMap);
     } catch (error) {
       console.error('Error fetching project:', error);
     }
@@ -54,7 +74,7 @@ const TareasProUsu = () => {
               <h3 style={{color: "black"}}>{tarea.nombre}</h3>
               <p style={{color: "black"}}><strong>Descripción:</strong> {tarea.descripcion}</p>
               <p></p>
-              <p style={{color: "black"}}><strong>Responsable:</strong> {tarea.responsable}</p>
+              <p style={{color: "black"}}><strong>Responsable:</strong> {responsablesMap[tarea.responsable]}</p>
             </div>
           ))}
         </div>
@@ -65,7 +85,7 @@ const TareasProUsu = () => {
               <h3 style={{color: "black"}}>{tarea.nombre}</h3>
               <p style={{color: "black"}}><strong>Descripción:</strong> {tarea.descripcion}</p>
               <p></p>
-              <p style={{color: "black"}}><strong>Responsable:</strong> {tarea.responsable}</p>
+              <p style={{color: "black"}}><strong>Responsable:</strong> {responsablesMap[tarea.responsable]}</p>
             </div>
           ))}
         </div>
@@ -76,7 +96,7 @@ const TareasProUsu = () => {
               <h3 style={{color: "black"}}>{tarea.nombre}</h3>
               <p style={{color: "black"}}><strong>Descripción:</strong> {tarea.descripcion}</p>
               <p></p>
-              <p style={{color: "black"} }><strong>Responsable:</strong> {tarea.responsable}</p>
+              <p style={{color: "black"} }><strong>Responsable:</strong> {responsablesMap[tarea.responsable]}</p>
             </div>
           ))}
         </div>
