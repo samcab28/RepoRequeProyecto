@@ -8,7 +8,7 @@ function ForoFoAd() {
 
   const fetchMessages = async () => {
     try {
-        const response = await axios.get('http://localhost:4000/api/foro/660cff915b1492661bdb0e50/mensaje');
+        const response = await axios.get('http://localhost:4000/api/foro/660d8e2d783f0dbbe89eb362/mensaje');
         const mensajes = response.data;
         
         // Obtener el nombre y el departamento del autor de cada mensaje
@@ -87,7 +87,7 @@ function ForoFoAd() {
      //const nombreAutor = response.data.nombre;
       // Realizar la solicitud POST para enviar el mensaje
       await axios.post(
-        'http://localhost:4000/api/foro/660cff915b1492661bdb0e50/mensaje',
+        'http://localhost:4000/api/foro/660d8e2d783f0dbbe89eb362/mensaje',
         { nombreAutor, idAutor, contenido: mensaje }
       );
 
@@ -101,7 +101,7 @@ function ForoFoAd() {
 
   return (
     <div className="container">
-      <h1>Chat de administradores</h1>
+      <h1>Chat de colaboradores</h1>
       <div className="messages">
     {mensajesForo.map((mensaje, index) => (
         <div key={index} className="message">

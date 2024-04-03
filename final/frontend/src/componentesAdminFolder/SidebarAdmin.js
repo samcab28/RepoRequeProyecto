@@ -21,6 +21,7 @@ import InformesInfAd from './pantallasAdmin/informes/InformesInfAd';
 
 //importaciones de pantalla de foro
 import ForoFoAd from './pantallasAdmin/foroAdmin/ForoFoAd';
+import ForoFoCol from './pantallasAdmin/foroAdmin/ForoFoCol';
 
 const SidebarWrapper = styled.div`
   width: 250px;
@@ -83,7 +84,8 @@ const Sidebar = ({ setCurrentScreen }) => {
           { text: 'Informes', onClick: () => { handleOptionClick(<InformesInfAd />)} }
         ]} />
         <DropDown position='flex' title={'Foro'} options={[
-          { text: 'Foro general', onClick: () => { handleOptionClick(<ForoFoAd />)} }
+          { text: 'Foro general admin', onClick: () => { handleOptionClick(<ForoFoAd />)} },
+          { text: 'Foro general colab', onClick: () => { handleOptionClick(<ForoFoCol />)} }
         ]} />
         
         <SidebarButton />
