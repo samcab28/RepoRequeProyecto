@@ -14,8 +14,9 @@ function ForoFoUs() {
         // Obtener el nombre y el departamento del autor de cada mensaje
         const mensajesConAutor = await Promise.all(mensajes.map(async (mensaje) => {
             const autor = await dataColab(mensaje.idAutor);
-            const admin = await dataAdmin(mensaje.idAutor);
+            
             if (!autor) {
+              const admin = await dataAdmin(mensaje.idAutor);
               return {...mensaje, nombreAutor: admin.nombre, departamentoAutor: admin.departamento};
             }
             return {...mensaje, nombreAutor: autor.nombre, departamentoAutor: autor.departamento};

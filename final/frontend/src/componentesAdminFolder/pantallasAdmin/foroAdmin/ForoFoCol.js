@@ -5,6 +5,7 @@ import '../adminStyle.css';
 function ForoFoAd() {
   const [mensaje, setMensaje] = useState('');
   const [mensajesForo, setMensajesForo] = useState([]);
+  const [triggerFetch, setTriggerFetch] = useState(false);
 
   const fetchMessages = async () => {
     try {
@@ -14,8 +15,11 @@ function ForoFoAd() {
         // Obtener el nombre y el departamento del autor de cada mensaje
         const mensajesConAutor = await Promise.all(mensajes.map(async (mensaje) => {
             const autor = await dataAdmin(mensaje.idAutor);
-            const colab = await dataColab(mensaje.idAutor);
+            
             if (!autor) {
+              console.log("COLABORADOR");
+              const colab = await dataColab(mensaje.idAutor);
+              console.log(colab);
               return {...mensaje, nombreAutor: colab.nombre, departamentoAutor: colab.departamento};
             }
             return {...mensaje, nombreAutor: autor.nombre, departamentoAutor: autor.departamento};
@@ -27,31 +31,18 @@ function ForoFoAd() {
     }
 };
 
+// Llamar a fetchMessages dentro de un useEffect para ejecutarlo de manera asíncrona
+useEffect(() => {
+    fetchMessages();
+}, [triggerFetch]);
 
-  const dataAdmin = async (idAutor) => {
-    try {
-        // Realizar la solicitud GET para obtener la información del usuario
-        const response = await axios.get(`http://localhost:4000/api/Admin/${idAutor}`);
 
-        console.log(response);
-        if (!response || !response.data) {
-            console.error('Error: Datos del administrador no encontrados');
-            return null;
-        }
 
-        return response.data;
-    } catch (error) {
-        console.error('Error al obtener datos del administrador:', error);
-        return null;
-    }
-};
-
-const dataColab = async (idAutor) => {
+const dataAdmin = async (idAutor) => {
   try {
       // Realizar la solicitud GET para obtener la información del usuario
-      const response = await axios.get(`http://localhost:4000/api/colaborador/${idAutor}`);
-
-      console.log(response);
+      const response = await axios.get(`http://localhost:4000/api/Admin/${idAutor}`);
+      //console.log("HOLA MINCHUS: ", response);
       if (!response || !response.data) {
           console.error('Error: Datos del administrador no encontrados');
           return null;
@@ -60,6 +51,23 @@ const dataColab = async (idAutor) => {
       return response.data;
   } catch (error) {
       console.error('Error al obtener datos del administrador:', error);
+      return null;
+  }
+};
+
+
+const dataColab = async (idAutor) => {
+  try {
+      // Realizar la solicitud GET para obtener la información del usuario
+      const response = await axios.get(`http://localhost:4000/api/colaborador/${idAutor}`);
+      if (!response && !response.data) {
+        console.error('Error: Datos del colaborador no encontrados');
+        return null;
+      }
+
+      return response.data;
+  } catch (error) {
+      console.error('Error al obtener datos del colaborador:', error);
       return null;
   }
 };
