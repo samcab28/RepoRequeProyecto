@@ -13,7 +13,6 @@ import EquipoEquiUsu from './pantallasUsuario/miEquipo/EquipoEquiUsu';
 
 //import de pantallas de mi proyecto
 import BCProUsu from './pantallasUsuario/miProyecto/BCProUsu';
-import ForoProUsu from './pantallasUsuario/miProyecto/ForoProUsu';
 import InformeProUsu from './pantallasUsuario/miProyecto/InformeProUsu';
 import TareasProUsu from './pantallasUsuario/miProyecto/TareasProUsu';
 
@@ -35,17 +34,7 @@ const SidebarNav = styled.nav`
   flex-direction: column;
 `;
 
-const SidebarLink = styled(Link)`
-  color: white;
-  text-decoration: none;
-  padding: 10px 20px;
-  margin-bottom: 5px;
-  border-left: 3px solid transparent;
 
-  &:hover {
-    border-left: 3px solid #fff;
-  }
-`;
 
 const StyledButton = styled.button`
   width: 50%;
@@ -79,7 +68,6 @@ const Sidebar = ({ setCurrentScreen }) => {
       <SidebarHeader>Usuarios</SidebarHeader>
       <SidebarNav style={{}}>
         <DropDown position='flex' className={'space-x-8'} title={'Mi Proyecto'} options={[
-          { text: 'Foro', onClick: () => { handleOptionClick(<ForoProUsu />)} },
           { text: 'Informe', onClick: () => { handleOptionClick(<InformeProUsu />) } },
           { text: 'Burndown Chart', onClick: () => { handleOptionClick(<BCProUsu />) } },
           { text: 'Tareas', onClick: () => { handleOptionClick(<TareasProUsu />) } },
