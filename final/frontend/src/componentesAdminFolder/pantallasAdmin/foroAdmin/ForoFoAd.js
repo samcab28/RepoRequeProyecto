@@ -8,12 +8,42 @@ function ForoFoAd() {
 
   const fetchMessages = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/foro/660cff915b1492661bdb0e50/mensaje');
-      setMensajesForo(response.data);
+        const response = await axios.get('http://localhost:4000/api/foro/660cff915b1492661bdb0e50/mensaje');
+        const mensajes = response.data;
+        
+        // Obtener el nombre y el departamento del autor de cada mensaje
+        const mensajesConAutor = await Promise.all(mensajes.map(async (mensaje) => {
+            const autor = await dataAdmin(mensaje.idAutor);
+            if (!autor) {
+                return {...mensaje, nombreAutor: 'No encontrado', departamentoAutor: 'No encontrado'};
+            }
+            return {...mensaje, nombreAutor: autor.nombre, departamentoAutor: autor.departamento};
+        }));
+        
+        setMensajesForo(mensajesConAutor);
     } catch (error) {
-      console.error('Error al obtener mensajes:', error);
+        console.error('Error al obtener mensajes:', error);
     }
-  };
+};
+
+
+  const dataAdmin = async (idAutor) => {
+    try {
+        // Realizar la solicitud GET para obtener la información del usuario
+        const response = await axios.get(`http://localhost:4000/api/Admin/${idAutor}`);
+
+        console.log(response);
+        if (!response || !response.data) {
+            console.error('Error: Datos del administrador no encontrados');
+            return null;
+        }
+
+        return response.data;
+    } catch (error) {
+        console.error('Error al obtener datos del administrador:', error);
+        return null;
+    }
+};
 
   useEffect(() => {
     fetchMessages();
@@ -22,6 +52,7 @@ function ForoFoAd() {
   const handleChange = (e) => {
     setMensaje(e.target.value);
   };
+
 
   const enviarMensaje = async () => {
 
@@ -71,14 +102,14 @@ function ForoFoAd() {
   return (
     <div className="container">
       <h1>Pruebas de foro de Administradores</h1>
-
       <div className="messages">
-        {mensajesForo.map((mensaje, index) => (
-          <div key={index} className="message">
-            <p>{mensaje.idAutor}: {mensaje.contenido}</p>
-          </div>
-        ))}
-      </div>
+    {mensajesForo.map((mensaje, index) => (
+        <div key={index} className="message">
+            <p>{mensaje.nombreAutor} - {mensaje.departamentoAutor}: {mensaje.contenido}</p>
+        </div>
+    ))}
+</div>
+
 
       <div className="footer">
         <input type="text" value={mensaje} onChange={handleChange} />
