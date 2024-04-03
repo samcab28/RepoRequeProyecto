@@ -1,6 +1,8 @@
 const Foro = require('../models/ForoModel');
 const adminCtrl = require('../models/AdminModel');
 const colaboradorCtrl = require('../models/ColaboradorModel');
+
+const Proyecto = require('../models/ProyectoModel');
 const foroCtrl = {};
 
 foroCtrl.getForos = async (req, res) => {
@@ -39,6 +41,52 @@ foroCtrl.getColaboradoresYAdminsIds = async (req, res) => {
         res.status(500).json({ message: 'Failed to get colaboradores and admins IDs', error: error.message });
     }
 };
+
+foroCtrl.getParticipantes = async (req, res) => {
+    const { proyecto } = req.params;
+
+    try {
+        // Obtener información del proyecto
+        const proyectoInfo = await Proyecto.findById(proyecto);
+        if (!proyectoInfo) {
+            return res.status(404).json({ message: 'Proyecto no encontrado' });
+        }
+
+        // Obtener los IDs de colaboradores y el ID del responsable del proyecto
+        const colaboradoresYResponsableIds = obtenerIdsColaboradoresYResponsable(proyectoInfo.colaboradores, proyectoInfo.responsable);
+        
+        res.json(colaboradoresYResponsableIds);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to get participantes', error: error.message });
+    }
+};
+foroCtrl.postParticipantes = async (req, res) => {
+    const { foroId } = req.params; // Obtén el ID del foro de los parámetros de la solicitud
+    const { proyecto } = req.body; // Obtén el ID del proyecto
+    try {
+        // Obtener información del proyecto
+        const proyectoInfo = await Proyecto.findById(proyecto);
+        if (!proyectoInfo) {
+            return res.status(404).json({ message: 'Proyecto no encontrado' });
+        }
+
+        // Obtener los IDs de colaboradores y el ID del responsable del proyecto
+        const colaboradoresYResponsableIds = obtenerIdsColaboradoresYResponsable(proyectoInfo.colaboradores, proyectoInfo.responsable);
+
+        const foro = await Foro.findById(foroId); // Busca el foro por su ID
+        if (!foro) {
+            return res.status(404).json({ message: 'Foro no encontrado' });
+        }
+
+        // Asignar los participantes al array 'colaboradores' del foro
+        foro.colaboradores = colaboradoresYResponsableIds.map(id => ({ idParticipante: id }));
+        await foro.save(); // Guarda los cambios en el foro
+        res.json({ message: 'Participantes asignados exitosamente', colaboradores: colaboradoresYResponsableIds });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al asignar participantes', error: error.message });
+    }
+};
+
 //----------------------------------------------
 
 
@@ -75,6 +123,9 @@ foroCtrl.postMessage = async (req, res) => {
         res.status(500).json({ message: 'Error al enviar el mensaje', error: error.message });
     }
 };
+
+
+
 
 
 module.exports = foroCtrl;

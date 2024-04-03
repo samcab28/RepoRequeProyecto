@@ -8,8 +8,7 @@ const mensajeSchema = new Schema({
 });
 
 const colaboradoresSchema = new Schema({
-  nombre: { type: String, required: true, trim: true },
-  departamento: { type: String, required: true, trim: true },
+  idParticipante: {type: Schema.Types.ObjectId, ref: 'Colaborador', required: true}
 });
 
 const ForoSchema = new Schema({
