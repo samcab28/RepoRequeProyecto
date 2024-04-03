@@ -8,15 +8,9 @@ const mensajeSchema = new Schema({
 });
 
 
-const colaboradoresSchema = new Schema({
-  nombre: { type: String, required: true, trim: true },
-  departamento: { type: String, required: true, trim: true },
-});
-
 const ForoSchema = new Schema({
-  proyecto: { type: Schema.Types.ObjectId, ref: 'Proyecto', required: true },
+  proyecto: { type: Schema.Types.ObjectId, ref: 'Proyecto', required: false },
   mensaje: { type: [mensajeSchema], default: [], required: false },
-  colaboradores: { type: [colaboradoresSchema], default: [], required: false },
 });
 
 module.exports = model('Foro', ForoSchema);
