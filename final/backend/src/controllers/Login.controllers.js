@@ -1,7 +1,6 @@
 const AdminModel = require('../models/AdminModel');
 const ColabModel = require('../models/ColaboradorModel');
 
-
 const LoginCtrl = {};
 
 LoginCtrl.isAdmin = async (req, res) => {
@@ -15,9 +14,9 @@ LoginCtrl.isAdmin = async (req, res) => {
         
         // Verifica el valor de isAdmin y llama a la función de autenticación correspondiente
         if (isAdmin) {
-            return true 
+            return true;
         } else {
-            return false 
+            return false;
         }
     } catch (error) {
         console.error('Error al verificar si el usuario es admin:', error);
@@ -69,4 +68,28 @@ LoginCtrl.loginColab = async (req, res) => {
     }
 };
 
+<<<<<<< Updated upstream
+=======
+LoginCtrl.getId = async (req, res) => {
+    const { nombre } = req.body;
+
+    try {
+        const admin = await AdminModel.findOne({ nombre });
+        
+        if (admin) {
+            console.log("ID administrador recientemente logeado:", admin._id.toString());
+            return admin._id.toString(); // Devolver el ID del usuario colaborador
+        } else{
+            const colab = await ColabModel.findOne({ nombre });
+            console.log("ID colaborador recientemente logeado:", colab._id.toString());
+            return colab._id.toString(); // Devolver el ID del usuario colaborador
+        }
+    } catch (error) {
+        console.error('Error al obtener el ID del usuario:', error);
+        res.status(500).json({ message: 'Error al obtener el ID del usuario' }); // Devolver una respuesta si hay un error
+        return null;
+    }
+};
+
+>>>>>>> Stashed changes
 module.exports = LoginCtrl;

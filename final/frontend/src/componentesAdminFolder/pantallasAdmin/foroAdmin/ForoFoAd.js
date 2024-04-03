@@ -4,6 +4,7 @@ const socket = io.connect("http://localhost:4000");
 
 
 function ForoFoAd() {
+<<<<<<< Updated upstream
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]); // Estado para almacenar los mensajes recibidos
   const [messageReceived, setMessageReceived] = useState("");
@@ -16,6 +17,25 @@ function ForoFoAd() {
     socket.emit("send_message", { message: messageWithUsername });
     setMessage(""); // Limpiar el campo de entrada después de enviar el mensaje
   }
+=======
+  const [mensaje, setMensaje] = useState('');
+  const [mensajesForo, setMensajesForo] = useState([]);
+  const [idAutor, setIdAutor] = useState('');
+
+  const fetchMessages = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/foro/660cff915b1492661bdb0e50/mensaje');
+      setMensajesForo(response.data);
+      
+      // Obtener el ID del autor utilizando el endpoint del router
+      const idAutorResponse = await axios.post('http://localhost:4000/api/login', { nombre: 'nombreDelAutor' });
+      const idAutor = idAutorResponse.data.userId;
+      setIdAutor(idAutor);
+    } catch (error) {
+      console.error('Error al obtener mensajes:', error);
+    }
+  };
+>>>>>>> Stashed changes
 
   useEffect(() => {
     console.log(socket);
@@ -31,6 +51,7 @@ function ForoFoAd() {
       console.log(err.context);
     });
 
+<<<<<<< Updated upstream
     socket.on("receive_message", (data) => {
       console.log("MINCHUS");
       setMessageReceived(data.message);
@@ -42,6 +63,23 @@ function ForoFoAd() {
       socket.off("receive_message");
     };
   }, [messages]);
+=======
+  const enviarMensaje = async () => {
+    try {
+      // Realiza la solicitud POST para enviar el mensaje
+      await axios.post(
+        'http://localhost:4000/api/foro/660cff915b1492661bdb0e50/mensaje',
+        { idAutor, contenido: mensaje }
+      );
+
+      console.log('Mensaje enviado:', mensaje);
+      setMensaje('');
+      fetchMessages();
+    } catch (error) {
+      console.error('Error al enviar mensaje:', error);
+    }
+  };
+>>>>>>> Stashed changes
 
   return (
     <div className="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh' }}>
