@@ -8,14 +8,15 @@ function ForoFoAd() {
 
   const fetchMessages = async () => {
     try {
-        const response = await axios.get('http://localhost:4000/api/foro/660d8e2d783f0dbbe89eb362/mensaje');
+        const response = await axios.get('http://localhost:4000/api/foro/660d9165783f0dbbe89eb5d4/mensaje');
         const mensajes = response.data;
         
         // Obtener el nombre y el departamento del autor de cada mensaje
         const mensajesConAutor = await Promise.all(mensajes.map(async (mensaje) => {
             const autor = await dataAdmin(mensaje.idAutor);
+            const colab = await dataColab(mensaje.idAutor);
             if (!autor) {
-                return {...mensaje, nombreAutor: 'No encontrado', departamentoAutor: 'No encontrado'};
+              return {...mensaje, nombreAutor: colab.nombre, departamentoAutor: colab.departamento};
             }
             return {...mensaje, nombreAutor: autor.nombre, departamentoAutor: autor.departamento};
         }));
@@ -43,6 +44,24 @@ function ForoFoAd() {
         console.error('Error al obtener datos del administrador:', error);
         return null;
     }
+};
+
+const dataColab = async (idAutor) => {
+  try {
+      // Realizar la solicitud GET para obtener la información del usuario
+      const response = await axios.get(`http://localhost:4000/api/colaborador/${idAutor}`);
+
+      console.log(response);
+      if (!response || !response.data) {
+          console.error('Error: Datos del administrador no encontrados');
+          return null;
+      }
+
+      return response.data;
+  } catch (error) {
+      console.error('Error al obtener datos del administrador:', error);
+      return null;
+  }
 };
 
   useEffect(() => {
@@ -87,7 +106,7 @@ function ForoFoAd() {
      //const nombreAutor = response.data.nombre;
       // Realizar la solicitud POST para enviar el mensaje
       await axios.post(
-        'http://localhost:4000/api/foro/660d8e2d783f0dbbe89eb362/mensaje',
+        'http://localhost:4000/api/foro/660d9165783f0dbbe89eb5d4/mensaje',
         { nombreAutor, idAutor, contenido: mensaje }
       );
 
