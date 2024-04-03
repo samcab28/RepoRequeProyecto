@@ -24,14 +24,43 @@ function ForoFoAd() {
   };
 
   const enviarMensaje = async () => {
-    try {
-      // Aquí se debe obtener el ID del autor desde el estado o desde algún otro lugar
-      const idAutor = '660b42636f0d167dccbe4913'; // Aquí debes reemplazar 'idDelAutor' con el ID del autor real
 
-      // Realiza la solicitud POST para enviar el mensaje
+    try {
+
+      //---------------------------------------------------------------------------
+      // Obtener el ID del autor del localStorage
+      const idAutor = localStorage.getItem('userId');
+     
+
+
+      // Verificar que el ID del autor esté presente
+      if (!idAutor) {
+        console.error('Error: ID del autor no encontrado en localStorage');
+        return;
+      }
+      console.log("holaaaaaaaaa: ", idAutor);
+
+      // Realizar la solicitud GET para obtener la información del usuario
+    const response = await axios.get(`http://localhost:4000/api/Admin/${idAutor}`);
+    let nombreAutor = ' ';
+    // Verificar que se haya obtenido la información del usuario correctamente
+    if (response && response.data) {
+      //caso ser administrador
+      nombreAutor = response.data.nombre;
+      console.log(nombreAutor);
+    } else {
+      //caso ser colaborador
+      const colab = await axios.get(`http://localhost:4000/api/colaborador/${idAutor}`);
+      nombreAutor = colab.data.nombre;
+      console.log(nombreAutor);
+    }
+     //---------------------------------------------------------------------------
+    
+     //const nombreAutor = response.data.nombre;
+      // Realizar la solicitud POST para enviar el mensaje
       await axios.post(
         'http://localhost:4000/api/foro/660cff915b1492661bdb0e50/mensaje',
-        { idAutor, contenido: mensaje }
+        { idAutor, nombreAutor, contenido: mensaje }
       );
 
       console.log('Mensaje enviado:', mensaje);

@@ -34,7 +34,8 @@ LoginCtrl.loginAdmin = async (req, res) => {
             const data = {
                 nombre: admin.nombre,
                 password: admin.password,
-                role: 'admin'
+                role: 'admin',
+                id: admin._id // Agrega el ID del usuario al objeto de respuesta
             };
             // Devolver la información como respuesta JSON
             return data;
@@ -56,7 +57,8 @@ LoginCtrl.loginColab = async (req, res) => {
             const data = {
                 nombre: colab.nombre,
                 password: colab.password,
-                role: 'usuario'
+                role: 'usuario',
+                id: colab_id // Agrega el ID del usuario al objeto de respuesta
             };
             // Devolver la información como respuesta JSON
             return data; 

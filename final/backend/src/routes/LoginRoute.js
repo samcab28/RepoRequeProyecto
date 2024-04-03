@@ -1,7 +1,7 @@
 //LoginRoute.js
 const { Router } = require('express');
 const router = Router();
-
+let id;
 const { loginAdmin, loginColab, isAdmin, getIdAdmin, getIdColab } = require('../controllers/Login.controllers');
 
 router.route('/')
@@ -16,6 +16,7 @@ router.route('/')
                 if (loginResult) {
                     // Si el login como administrador tiene éxito, obtén el ID del usuario administrador
                     const userId = await getIdAdmin(req, res);
+                    id = userId;
                     loginResult.userId = userId; // Agrega el ID del usuario a los resultados del login
                 }
                 res.json(loginResult);
@@ -25,6 +26,7 @@ router.route('/')
                 if (loginResult) {
                     // Si el login como administrador tiene éxito, obtén el ID del usuario colaborador
                     const userId = await getIdColab(req, res);
+                    id = userId;
                     loginResult.userId = userId; // Agrega el ID del usuario a los resultados del login
                 }
                 res.json(loginResult);
