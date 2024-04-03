@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 
-const { createForo, getForos } = require('../controllers/Foro.controllers');
+const { createForo, getForos,postMessage, getMessages } = require('../controllers/Foro.controllers');
 const colaboradorCtrl = require('../controllers/Colaborador.controllers');
 const adminCtrl = require('../controllers/Admin.controllers');
 const proyectoCtrl = require('../controllers/Proyecto.controllers');
@@ -42,5 +42,10 @@ router.get('/:proyecto/participantes', async (req, res) => {
         res.status(500).json({ message: 'Failed to get participantes', error: error.message });
     }
 });
+
+router.route('/:foroId/mensaje')
+    .get(getMessages)
+    .post(postMessage);
+
 
 module.exports = router;
