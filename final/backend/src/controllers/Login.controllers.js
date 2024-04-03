@@ -69,4 +69,28 @@ LoginCtrl.loginColab = async (req, res) => {
     }
 };
 
+LoginCtrl.getId = async (req, res) => {
+    const { nombre } = req.body;
+
+    try {
+        const admin = await AdminModel.findOne({ nombre });
+        
+        if (admin) {
+            console.log("ID administrador recientemente logeado:", admin._id.toString());
+            return admin._id.toString(); // Devolver el ID del usuario colaborador
+        } else{
+            const colab = await ColabModel.findOne({ nombre });
+            console.log("ID colaborador recientemente logeado:", colab._id.toString());
+            return colab._id.toString(); // Devolver el ID del usuario colaborador
+        }
+    } catch (error) {
+        console.error('Error al obtener el ID del usuario:', error);
+        res.status(500).json({ message: 'Error al obtener el ID del usuario' }); // Devolver una respuesta si hay un error
+        return null;
+    }
+};
+
+//------------------------------------------------------------
+
+
 module.exports = LoginCtrl;
