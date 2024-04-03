@@ -58,7 +58,7 @@ LoginCtrl.loginColab = async (req, res) => {
                 nombre: colab.nombre,
                 password: colab.password,
                 role: 'usuario',
-                id: colab_id // Agrega el ID del usuario al objeto de respuesta
+                id: colab._id // Agrega el ID del usuario al objeto de respuesta
             };
             // Devolver la información como respuesta JSON
             return data; 

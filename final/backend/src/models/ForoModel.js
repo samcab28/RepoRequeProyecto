@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const mensajeSchema = new Schema({
+  /*nombreAutor: {type:String, required: true, trim: true},*/
   idAutor: {type: Schema.Types.ObjectId, ref: 'Colaborador', required: true},
   contenido: { type: String, required: true, trim: true },
 }, {
