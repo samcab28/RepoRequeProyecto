@@ -78,4 +78,25 @@ colaboradorCtrl.updateColaborador = async (req, res) => {
     }
 };
 
+
+const Proyecto = require('../models/ProyectoModel');
+
+
+colaboradorCtrl.getProyectosColaborador = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Buscar todos los proyectos donde el colaborador está presente
+        const proyectos = await Proyecto.find({ colaboradores: id });
+
+        // Obtener solo los IDs de los proyectos
+        const proyectoIds = proyectos.map(proyecto => proyecto._id);
+
+        res.json({ proyectos: proyectoIds });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to get projects for collaborator', error: error.message });
+    }
+};
+
+
 module.exports = colaboradorCtrl;

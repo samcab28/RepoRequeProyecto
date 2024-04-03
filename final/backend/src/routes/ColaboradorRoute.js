@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const router = Router();
+const colaboradorCtrl = require('../controllers/Colaborador.controllers');
 
-const { getColaboradores, createColaborador, getColaboradorById, deleteColaborador, updateColaborador } = require('../controllers/Colaborador.controllers');
+const { getColaboradores, createColaborador, getColaboradorById, deleteColaborador, updateColaborador, getProyectosColaborador } = require('../controllers/Colaborador.controllers');
 
 router.route('/')
     .get(getColaboradores)
@@ -23,5 +24,8 @@ router.route('/:id')
     .get(getColaboradorById)
     .put(updateColaborador)
     .delete(deleteColaborador);
+
+
+router.get('/:id/proyectos', colaboradorCtrl.getProyectosColaborador);
 
 module.exports = router;
