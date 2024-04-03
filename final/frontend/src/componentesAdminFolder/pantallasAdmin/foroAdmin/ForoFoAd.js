@@ -6,16 +6,16 @@ function ForoFoAd() {
   const [mensaje, setMensaje] = useState('');
   const [mensajesForo, setMensajesForo] = useState([]);
 
-  useEffect(() => {
-    async function fetchMessages() {
-      try {
-        const response = await axios.get('http://localhost:4000/api/foro/660cff915b1492661bdb0e50/mensaje');
-        setMensajesForo(response.data);
-      } catch (error) {
-        console.error('Error al obtener mensajes:', error);
-      }
+  const fetchMessages = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/foro/660cff915b1492661bdb0e50/mensaje');
+      setMensajesForo(response.data);
+    } catch (error) {
+      console.error('Error al obtener mensajes:', error);
     }
+  };
 
+  useEffect(() => {
     fetchMessages();
   }, []);
 
@@ -25,9 +25,18 @@ function ForoFoAd() {
 
   const enviarMensaje = async () => {
     try {
-      await axios.post('http://localhost:4000/api/foro/660cff915b1492661bdb0e50/mensaje', { idAutor: 'idDelAutor', contenido: mensaje });
+      // Aquí se debe obtener el ID del autor desde el estado o desde algún otro lugar
+      const idAutor = '660b42636f0d167dccbe4913'; // Aquí debes reemplazar 'idDelAutor' con el ID del autor real
+
+      // Realiza la solicitud POST para enviar el mensaje
+      await axios.post(
+        'http://localhost:4000/api/foro/660cff915b1492661bdb0e50/mensaje',
+        { idAutor, contenido: mensaje }
+      );
+
       console.log('Mensaje enviado:', mensaje);
-      setMensaje('');// Actualiza la lista de mensajes después de enviar uno nuevo
+      setMensaje('');
+      fetchMessages();
     } catch (error) {
       console.error('Error al enviar mensaje:', error);
     }
@@ -44,8 +53,6 @@ function ForoFoAd() {
           </div>
         ))}
       </div>
-
-
 
       <div className="footer">
         <input type="text" value={mensaje} onChange={handleChange} />
