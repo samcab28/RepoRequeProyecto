@@ -5,7 +5,7 @@ npm run dev, declaracion en scrips de package.json
 
 */
 //inicializacion de variables de .env
-/*require('dotenv').config();
+require('dotenv').config();
 const app = require('./app');
 
 //llamada a la database
@@ -14,19 +14,21 @@ require('./database');
 //llamada del servidor, ayudar a elegibilidad del codigo
 const port = app.get('port');
 app.listen(port, () => {
-    console.log(Server is running on port ${port});
-});*/
+    console.log('Server is running on port ${port}');
+});
 
 //inicializacion de variables de .env
 //inicializacion de variables de .env
-require('dotenv').config();
+
+
+/*require('dotenv').config();
 
 const express = require('express');
 const app = require('./app');
 const http = require('http');
 const { Server } = require("socket.io");
 const cors = require('cors');
-const Message = require('./models/messageModel'); // Importar el modelo de mensaje
+//const Message = require('./models/messageModel'); // Importar el modelo de mensaje
 
 app.use(cors());
 
@@ -82,3 +84,4 @@ server.listen(port, () => {
 
 module.exports = { port };
 
+*/
