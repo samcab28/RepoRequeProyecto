@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 
-const { createForo, getForos } = require('../controllers/Foro.controllers');
+const { createForo, getForos, postMessage, getMessages } = require('../controllers/Foro.controllers');
 const colaboradorCtrl = require('../controllers/Colaborador.controllers');
 const adminCtrl = require('../controllers/Admin.controllers');
 
@@ -19,6 +19,11 @@ router.get('/ids', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Failed to get colaboradores and admins IDs', error: error.message });
     }
-});
+}); 
+
+// Ruta para enviar un mensaje al foro
+router.route('/:foroId/mensaje')
+    .get(getMessages)
+    .post(postMessage);
 
 module.exports = router;

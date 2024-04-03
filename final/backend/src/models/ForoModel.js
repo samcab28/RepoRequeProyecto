@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const mensajeSchema = new Schema({
-  nombre: { type: String, required: true, trim: true },
+  idAutor: {type: Schema.Types.ObjectId, ref: 'Colaborador', required: true},
   contenido: { type: String, required: true, trim: true },
 }, {
   timestamps: true, // Esto agrega automáticamente los campos 'createdAt' y 'updatedAt'

@@ -40,4 +40,41 @@ foroCtrl.getColaboradoresYAdminsIds = async (req, res) => {
     }
 };
 //----------------------------------------------
+
+
+
+//mensajes
+
+foroCtrl.getMessages = async (req, res) => {
+    const { foroId } = req.params; // Obtén el ID del foro de los parámetros de la solicitud
+    try {
+        const foro = await Foro.findById(foroId); // Busca el foro por su ID
+        if (!foro) {
+            return res.status(404).json({ message: 'Foro no encontrado' });
+        }
+        const mensajes = foro.mensaje; // Obtiene los mensajes del foro
+        res.json(mensajes);
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los mensajes del foro', error: error.message });
+    }
+};
+
+foroCtrl.postMessage = async (req, res) => {
+    const { foroId } = req.params; // Obtén el ID del foro de los parámetros de la solicitud
+    const { idAutor, contenido } = req.body; // Obtén el ID del autor y el contenido del mensaje
+    try {
+        const foro = await Foro.findById(foroId); // Busca el foro por su ID
+        if (!foro) {
+            return res.status(404).json({ message: 'Foro no encontrado' });
+        }
+        const newMessage = { idAutor, contenido }; // Crea un nuevo mensaje
+        foro.mensaje.push(newMessage); // Agrega el nuevo mensaje al campo 'mensaje' del foro
+        await foro.save(); // Guarda los cambios en el foro
+        res.json({ message: 'Mensaje enviado exitosamente', mensaje: newMessage });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al enviar el mensaje', error: error.message });
+    }
+};
+
+
 module.exports = foroCtrl;
