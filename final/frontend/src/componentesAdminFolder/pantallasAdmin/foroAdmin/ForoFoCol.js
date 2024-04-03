@@ -8,7 +8,7 @@ function ForoFoAd() {
 
   const fetchMessages = async () => {
     try {
-        const response = await axios.get('http://localhost:4000/api/foro/660d9165783f0dbbe89eb5d4/mensaje');
+        const response = await axios.get('http://localhost:4000/api/foro/660d97e3783f0dbbe89eba1a/mensaje');
         const mensajes = response.data;
         
         // Obtener el nombre y el departamento del autor de cada mensaje
@@ -106,7 +106,7 @@ const dataColab = async (idAutor) => {
      //const nombreAutor = response.data.nombre;
       // Realizar la solicitud POST para enviar el mensaje
       await axios.post(
-        'http://localhost:4000/api/foro/660d9165783f0dbbe89eb5d4/mensaje',
+        'http://localhost:4000/api/foro/660d97e3783f0dbbe89eba1a/mensaje',
         { nombreAutor, idAutor, contenido: mensaje }
       );
 
