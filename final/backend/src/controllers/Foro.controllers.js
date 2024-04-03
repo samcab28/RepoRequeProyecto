@@ -1,6 +1,7 @@
 const Foro = require('../models/ForoModel');
 const adminCtrl = require('../models/AdminModel');
 const colaboradorCtrl = require('../models/ColaboradorModel');
+const Proyecto = require('../models/ProyectoModel');
 const foroCtrl = {};
 
 foroCtrl.getForos = async (req, res) => {
@@ -37,6 +38,25 @@ foroCtrl.getColaboradoresYAdminsIds = async (req, res) => {
         res.json(idsUnificados);
     } catch (error) {
         res.status(500).json({ message: 'Failed to get colaboradores and admins IDs', error: error.message });
+    }
+};
+
+foroCtrl.getParticipantes = async (req, res) => {
+    const { proyecto } = req.params;
+
+    try {
+        // Obtener información del proyecto
+        const proyectoInfo = await Proyecto.findById(proyecto);
+        if (!proyectoInfo) {
+            return res.status(404).json({ message: 'Proyecto no encontrado' });
+        }
+
+        // Obtener los IDs de colaboradores y el ID del responsable del proyecto
+        const colaboradoresYResponsableIds = obtenerIdsColaboradoresYResponsable(proyectoInfo.colaboradores, proyectoInfo.responsable);
+        
+        res.json(colaboradoresYResponsableIds);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to get participantes', error: error.message });
     }
 };
 //----------------------------------------------

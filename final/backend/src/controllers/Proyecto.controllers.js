@@ -2,6 +2,13 @@ const Proyecto = require('../models/ProyectoModel');
 
 const proyectoCtrl = {};
 
+
+proyectoCtrl.obtenerIdsColaboradoresYResponsable = (colaboradores, responsable) => {
+    const idsColaboradores = colaboradores.map(colaborador => colaborador._id);
+    const idResponsable = responsable._id;
+    return [...idsColaboradores, idResponsable];
+};
+
 proyectoCtrl.getProyectos = async (req, res) => {
     try {
         const proyectos = await Proyecto.find();
