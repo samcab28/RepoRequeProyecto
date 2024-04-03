@@ -76,6 +76,8 @@ function ForoFoAd() {
         {mensajesForo.map((mensaje, index) => (
           <div key={index} className="message">
             <p>{mensaje.idAutor}: {mensaje.contenido}</p>
+            <p>Creado en: {new Date(mensaje.createdAt).toLocaleString()}</p>
+            <p></p>
           </div>
         ))}
       </div>

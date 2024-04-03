@@ -26,7 +26,7 @@ router.route('/')
                 if (loginResult) {
                     // Si el login como administrador tiene éxito, obtén el ID del usuario colaborador
                     const userId = await getIdColab(req, res);
-                    id = userId;
+                    id = userId;                    
                     loginResult.userId = userId; // Agrega el ID del usuario a los resultados del login
                 }
                 res.json(loginResult);
