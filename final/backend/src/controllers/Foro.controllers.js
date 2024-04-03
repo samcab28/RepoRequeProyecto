@@ -1,4 +1,6 @@
 const Foro = require('../models/ForoModel');
+const adminCtrl = require('../models/AdminModel');
+const colaboradorCtrl = require('../models/ColaboradorModel');
 const foroCtrl = {};
 
 foroCtrl.getForos = async (req, res) => {
@@ -26,5 +28,16 @@ foroCtrl.createForo = async (req, res) => {
         res.status(500).json({ message: 'Error al crear el foro', error: error.message });
     }
 };
-
+//----------------------------------------------
+foroCtrl.getColaboradoresYAdminsIds = async (req, res) => {
+    try {
+        const colaboradorIds = await colaboradorCtrl.getColaboradorIds();
+        const adminIds = await adminCtrl.getAdminIds();
+        const idsUnificados = colaboradorIds.concat(adminIds);
+        res.json(idsUnificados);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to get colaboradores and admins IDs', error: error.message });
+    }
+};
+//----------------------------------------------
 module.exports = foroCtrl;

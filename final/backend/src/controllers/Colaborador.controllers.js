@@ -10,7 +10,16 @@ colaboradorCtrl.getColaboradores = async (req, res) => {
         res.status(500).json({ message: 'Failed to get colaboradores', error: error.message });
     }
 };
-
+//-----------------------------------------------
+colaboradorCtrl.getColaboradorIds = async () => {
+    try {
+        const colaboradores = await Colaborador.find().select('_id');
+        return colaboradores.map(colaborador => colaborador._id);
+    } catch (error) {
+        throw new Error('Failed to get colaborador IDs');
+    }
+};
+//-----------------------------------------------
 colaboradorCtrl.getColaboradorById = async (req, res) => {
     const { id } = req.params;
 

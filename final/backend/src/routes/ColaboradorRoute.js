@@ -5,7 +5,19 @@ const { getColaboradores, createColaborador, getColaboradorById, deleteColaborad
 
 router.route('/')
     .get(getColaboradores)
+    //.get(getColaboradoresId)
     .post(createColaborador);
+
+
+// En la ruta correspondiente
+router.get('/ids', async (req, res) => {
+    try {
+        const colaboradorIds = await colaboradorCtrl.getColaboradorIds();
+        res.json(colaboradorIds);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to get colaborador IDs', error: error.message });
+    }
+});
 
 router.route('/:id')
     .get(getColaboradorById)

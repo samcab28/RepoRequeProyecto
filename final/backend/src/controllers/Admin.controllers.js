@@ -10,7 +10,16 @@ adminCtrl.getAdmins = async (req, res) => {
         res.status(500).json({ message: 'Failed to get admins', error: error.message });
     }
 };
-
+//----------------------------------------------
+adminCtrl.getAdminIds = async () => {
+    try {
+        const admins = await Admin.find().select('_id');
+        return admins.map(admin => admin._id);
+    } catch (error) {
+        throw new Error('Failed to get admin IDs');
+    }
+};
+//----------------------------------------------
 adminCtrl.getAdminById = async (req, res) => {
     const { id } = req.params;
 
