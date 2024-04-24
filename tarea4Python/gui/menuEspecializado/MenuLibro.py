@@ -19,6 +19,12 @@ class MenuLibro:
 
             if opcion == 1:
                 #llamada a crear
+
+                # no se ha terminado la funcion, hablar acerca del estado del libro
+                print("Crear libro")
+                LibroNombre = input("Ingrese el nombre del libro")
+                LibroAutor = input("Ingrese el autor del libro")
+
                 continue
             elif opcion == 2:
                 # llamada a borrar

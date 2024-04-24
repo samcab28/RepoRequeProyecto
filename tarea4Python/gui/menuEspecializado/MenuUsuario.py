@@ -1,3 +1,6 @@
+from controller.usuarioController.usuarioCRUD.CrearUsuario import CrearUsuario
+from controller.usuarioController.usuarioCRUD.ConsultaUsuario import ConsultaUsuario
+
 class MenuUsuario:
     def __init__(self):
         self.__init__
@@ -19,12 +22,17 @@ class MenuUsuario:
 
             if opcion == 1:
                 #llamada a crear
+                print("Crear Usuario")
+                NombreUsuario = input("digite el nombre del usuario: ")
+                CrearUsuario.crearUsuario(NombreUsuario)
+
                 continue
             elif opcion == 2:
                 # llamada a borrar
                 continue
             elif opcion == 3:
                 #llamada a consultar
+                ConsultaUsuario.mostrarUsuarios()
                 continue
             elif opcion == 4:
                 #llamada a modificar
