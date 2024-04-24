@@ -1,3 +1,5 @@
+from controller.libroContoller.libroCRUD.ConsutaLibro import ConsultaLibro
+from controller.libroContoller.libroCRUD.CrearLibro import CrearLibro
 class MenuLibro:
     def __init__(self):
         self.__init__
@@ -22,8 +24,10 @@ class MenuLibro:
 
                 # no se ha terminado la funcion, hablar acerca del estado del libro
                 print("Crear libro")
-                LibroNombre = input("Ingrese el nombre del libro")
-                LibroAutor = input("Ingrese el autor del libro")
+                LibroISBN = input("Ingrese el ISBN del libro: ")
+                LibroNombre = input("Ingrese el nombre del libro: ")
+                LibroAutor = input("Ingrese el autor del libro: ")
+                CrearLibro.crearLibro(LibroISBN,LibroNombre,LibroAutor,1)
 
                 continue
             elif opcion == 2:
@@ -31,6 +35,8 @@ class MenuLibro:
                 continue
             elif opcion == 3:
                 #llamada a consultar
+
+                ConsultaLibro.mostrarLibros()
                 continue
             elif opcion == 4:
                 #llamada a modificar
