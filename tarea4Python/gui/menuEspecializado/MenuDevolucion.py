@@ -1,5 +1,4 @@
 
-
 class MenuDevolucion:
     def __init__(self):
         self.__init__
@@ -13,7 +12,11 @@ class MenuDevolucion:
             print("4. Modificar devolucion")
             print("0. Regresar menu principal")
 
-            opcion = int(input("digite una opcion: "))
+            try:
+                opcion = int(input("digite una opcion: "))
+            except ValueError:
+                print("Error: Por favor, ingrese un número entero.")
+                continue
 
             if opcion == 1:
                 #llamada a crear
@@ -29,7 +32,7 @@ class MenuDevolucion:
                 continue
 
             elif opcion == 0:
-                continue
+                break
             else:
                 print("Error a la hora de digitar un digito: ")
                 continue
