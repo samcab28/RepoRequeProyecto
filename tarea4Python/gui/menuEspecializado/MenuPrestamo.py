@@ -4,6 +4,7 @@ from controller.usuarioController.usuarioCRUD.ConsultaUsuario import ConsultaUsu
 from controller.libroContoller.libroCRUD.ConsutaLibro import ConsultaLibro
 from controller.prestamoController.prestamoCRUD.CrearPrestamo import CrearPrestamo
 from controller.prestamoController.prestamoCRUD.ConsultaPrestamo import ConsultaPrestamo
+from controller.prestamoController.prestamoCRUD.ModPrestamo import ModificarPrestamo
 class MenuPrestamo:
     def __init__(self):
         self.__init__
@@ -55,6 +56,12 @@ class MenuPrestamo:
                 continue
             elif opcion == 4:
                 #llamada a modificar
+                print("\n\nModificar préstamo (FECHA DE ENTREGA)")
+                ConsultaPrestamo.mostrarPrestamos()
+                idPrestamo = int(input("\nIngrese el ID del prestamo"))
+                cantidad_dias = int(input("Digite la nueva cantidad de dias para el préstamo: "))
+                ModificarPrestamo.modificarPrestamoFecha(idPrestamo, cantidad_dias)
+
                 continue
 
             elif opcion == 0:
