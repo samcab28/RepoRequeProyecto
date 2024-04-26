@@ -3,17 +3,19 @@ from modelo.PrestamoDevModel import PrestamoDev
 class HistorialUsuario:
 
     @staticmethod
-    def mostralHistorialUsuario(id_usuario):
-        usuario_encontrado = False
-        for prestamo_id, prestamo in PrestamoDev.PrestamoDevAlmacenamiento.items():
-            if prestamo.id_Usuario == id_usuario:
-                usuario_encontrado = True
-                if prestamo.estado_Prestamo == 1:
-                    print(
-                        f"ID: {prestamo_id},  Estado: En préstamo, Usuario: {prestamo.id_Usuario}, Libro: {prestamo.id_Libro}, Fecha de inicio: {prestamo.fecha_Inicio}, Fecha de entrega: {prestamo.fecha_Entrega}")
-                else:
-                    print(
-                        f"ID: {prestamo_id},  Estado: Devuelto, Usuario: {prestamo.id_Usuario}, Libro: {prestamo.id_Libro}, Fecha de inicio: {prestamo.fecha_Inicio}, Fecha de entrega: {prestamo.fecha_Entrega}")
+    def mostralHistorialUsuario(usuario_id):
+        usuario_id = int(usuario_id)
 
-        if not usuario_encontrado:
-            print("Usuario no ha hecho movimientos")
+        prestamoEncontrado = False
+        for id_prestamo, prestamo in PrestamoDev.PrestamoDevAlmacenamiento.items():
+
+            if prestamo.estado_Prestamo == 1 and prestamo.id_Usuario == usuario_id:
+                print(f"ID: {id_prestamo}, Estado: En préstamo, Usuario: {prestamo.id_Usuario}, Libro: {prestamo.id_Libro}, Fecha de inicio: {prestamo.fecha_Inicio}, Fecha de entrega: {prestamo.fecha_Entrega}")
+                prestamoEncontrado = True
+
+            if prestamo.estado_Prestamo == 0 and prestamo.id_Usuario == usuario_id:
+                print(f"ID: {id_prestamo}, Estado: Devolución, Usuario: {prestamo.id_Usuario}, Libro: {prestamo.id_Libro}, Fecha de inicio: {prestamo.fecha_Inicio}, Fecha de entrega: {prestamo.fecha_Entrega}")
+                devolucionEncontrada = True
+
+        if not prestamoEncontrado:
+            print("El usuario no tiene préstamos asignados")
