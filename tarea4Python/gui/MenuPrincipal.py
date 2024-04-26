@@ -2,6 +2,7 @@ from gui.menuEspecializado.MenuDevolucion import MenuDevolucion
 from gui.menuEspecializado.MenuLibro import MenuLibro
 from gui.menuEspecializado.MenuPrestamo import MenuPrestamo
 from gui.menuEspecializado.MenuUsuario import MenuUsuario
+from controller.prestamoController.HistorialCompleto import ConsultaHistorial
 
 # instancias
 menuDevolucion = MenuDevolucion()
@@ -20,6 +21,7 @@ class MenuPrincipal:
             print("2. Usuario")
             print("3. Préstamo")
             print("4. Devolucion")
+            print("5. Historial completo")
             print("0. Salir del programa")
 
             try:
@@ -47,6 +49,10 @@ class MenuPrincipal:
                 ##llamada a menude devolucion
                 menuDevolucion.ejecutarMenuDevolucion()
                 continue
+
+            elif opcion == 5:
+                ##llamada a historial completo
+                ConsultaHistorial.mostrarHistorial()
 
             elif opcion == 0:
                 break

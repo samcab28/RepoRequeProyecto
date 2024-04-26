@@ -3,6 +3,7 @@ from datetime import datetime
 from controller.usuarioController.usuarioCRUD.CrearUsuario import CrearUsuario
 from controller.libroContoller.libroCRUD.CrearLibro import  CrearLibro
 from controller.prestamoController.prestamoCRUD.CrearPrestamo import CrearPrestamo
+from controller.devolucionController.devolucionCRUD.CrearDevolucion import CrearDevolucion
 
 
 def ejecutar():
@@ -36,3 +37,11 @@ def ejecutar():
     CrearPrestamo.crearPrestamo(1,1,fecha_prestamo, 10)
     CrearPrestamo.crearPrestamo(3, 7, fecha_prestamo, 15)
     CrearPrestamo.crearPrestamo(5, 5, fecha_prestamo, 12)
+    CrearPrestamo.crearPrestamo(5, 8, fecha_prestamo, 12)
+    CrearPrestamo.crearPrestamo(7, 9, fecha_prestamo, 12)
+
+
+    #crear devoluciones
+    CrearDevolucion.CrearDevolucionId(1)
+    CrearDevolucion.CrearDevolucionId(4)
+
