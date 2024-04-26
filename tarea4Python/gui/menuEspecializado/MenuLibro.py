@@ -1,5 +1,6 @@
 from controller.libroContoller.libroCRUD.ConsutaLibro import ConsultaLibro
 from controller.libroContoller.libroCRUD.CrearLibro import CrearLibro
+from controller.libroContoller .libroCRUD.BorrarLibro import BorrarLibro
 class MenuLibro:
     def __init__(self):
         self.__init__
@@ -32,6 +33,11 @@ class MenuLibro:
                 continue
             elif opcion == 2:
                 # llamada a borrar
+                print("Borrar libro")
+                print("Libros disponibles para borrar: ")
+                ConsultaLibro.mostrarLibros()
+                idLibro = input("Ingrese el id del libro a borrar")
+                BorrarLibro.borrarLibroId(idLibro)
                 continue
             elif opcion == 3:
                 #llamada a consultar

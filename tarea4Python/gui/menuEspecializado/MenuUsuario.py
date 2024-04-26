@@ -1,5 +1,6 @@
 from controller.usuarioController.usuarioCRUD.CrearUsuario import CrearUsuario
 from controller.usuarioController.usuarioCRUD.ConsultaUsuario import ConsultaUsuario
+from controller.usuarioController.usuarioCRUD.BorrarUsuario import BorrarUsuario
 
 class MenuUsuario:
     def __init__(self):
@@ -28,7 +29,11 @@ class MenuUsuario:
 
                 continue
             elif opcion == 2:
-                # llamada a borrar
+                print("borrar usuario")
+                print("usuarios disponibles para borrar:")
+                ConsultaUsuario.mostrarUsuarios()
+                idUsuario = input("digite el id del usuario a borrar")
+                BorrarUsuario.borrarUsuarioId(idUsuario)
                 continue
             elif opcion == 3:
                 #llamada a consultar
