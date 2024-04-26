@@ -34,7 +34,7 @@ class MenuPrestamo:
                 #mostrar los id de usuario:
                 print("usuarios disponibles:")
                 ConsultaUsuario.mostrarUsuarios()
-                IdUsuario = input("Ingrese el Id del usuario")
+                IdUsuario = int(input("Ingrese el Id del usuario"))
 
                 print("libros disponibles:")
                 LibrosDisponibles.mostrarLibrosDisponibles()
