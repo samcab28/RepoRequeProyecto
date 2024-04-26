@@ -19,6 +19,8 @@ class MenuPrestamo:
 
             if opcion == 1:
                 #llamada a crear
+                print("Crear prestamo")
+                #llama
                 continue
             elif opcion == 2:
                 # llamada a borrar
