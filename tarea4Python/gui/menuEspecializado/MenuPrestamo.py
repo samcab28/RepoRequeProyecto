@@ -1,3 +1,9 @@
+from datetime import datetime
+
+from controller.usuarioController.usuarioCRUD.ConsultaUsuario import ConsultaUsuario
+from controller.libroContoller.libroCRUD.ConsutaLibro import ConsultaLibro
+from controller.prestamoController.prestamoCRUD.CrearPrestamo import CrearPrestamo
+from controller.prestamoController.prestamoCRUD.ConsultaPrestamo import ConsultaPrestamo
 class MenuPrestamo:
     def __init__(self):
         self.__init__
@@ -20,13 +26,32 @@ class MenuPrestamo:
             if opcion == 1:
                 #llamada a crear
                 print("Crear prestamo")
-                #llama
+                #mostrar los id de usuario:
+                print("usuarios disponibles:")
+                ConsultaUsuario.mostrarUsuarios()
+                IdUsuario = input("Ingrese el Id del usuario")
+
+                print("libros disponibles:")
+                ConsultaLibro.mostrarLibros()
+                IdLibro = input("Ingrese el Id del libro")
+
+                fecha_prestamo = datetime.now()
+
+
+                try:
+                    cantidad_dias = int(input("digite la cantidad de dias que del prestamo"))
+                except ValueError:
+                    print("Error: Por favor, ingrese un número entero.")
+                    continue
+
+                CrearPrestamo.crearPrestamo(IdUsuario, IdLibro, fecha_prestamo, cantidad_dias)
                 continue
             elif opcion == 2:
                 # llamada a borrar
                 continue
             elif opcion == 3:
                 #llamada a consultar
+                ConsultaPrestamo.mostrarPrestamos()
                 continue
             elif opcion == 4:
                 #llamada a modificar
