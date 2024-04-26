@@ -1,10 +1,8 @@
 from controller.usuarioController.usuarioCRUD.CrearUsuario import CrearUsuario
 from controller.usuarioController.usuarioCRUD.ConsultaUsuario import ConsultaUsuario
-<<<<<<< Updated upstream
-=======
 from controller.usuarioController.usuarioCRUD.BorrarUsuario import BorrarUsuario
 from controller.usuarioController.usuarioCRUD.ModUsuario import ModificarUsuario
->>>>>>> Stashed changes
+
 
 class MenuUsuario:
     def __init__(self):
@@ -34,6 +32,11 @@ class MenuUsuario:
                 continue
             elif opcion == 2:
                 # llamada a borrar
+                print("Borrar usuario")
+                print("usuarios disponibles para borrar:")
+                ConsultaUsuario.mostrarUsuarios()
+                idUsuario = input("digite el id del usuario a borrar")
+                BorrarUsuario.borrarUsuarioId(idUsuario)
                 continue
             elif opcion == 3:
                 #llamada a consultar

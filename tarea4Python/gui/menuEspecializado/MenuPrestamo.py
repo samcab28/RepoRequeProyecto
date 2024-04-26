@@ -5,6 +5,7 @@ from controller.libroContoller.libroCRUD.ConsutaLibro import ConsultaLibro
 from controller.prestamoController.prestamoCRUD.CrearPrestamo import CrearPrestamo
 from controller.prestamoController.prestamoCRUD.ConsultaPrestamo import ConsultaPrestamo
 from controller.prestamoController.prestamoCRUD.ModPrestamo import ModificarPrestamo
+from controller.prestamoController.prestamoCRUD.BorrarPrestamo import BorrarPrestamo
 class MenuPrestamo:
     def __init__(self):
         self.__init__
@@ -49,6 +50,11 @@ class MenuPrestamo:
                 continue
             elif opcion == 2:
                 # llamada a borrar
+                print("borrar prestamo")
+                print("prestamos disponibles para borrado:")
+                ConsultaPrestamo.mostrarPrestamos()
+                id_prestamo = input("Ingrese el id del prestamo a borrar")
+                BorrarPrestamo.borrarPrestamoId(id_prestamo)
                 continue
             elif opcion == 3:
                 #llamada a consultar

@@ -1,10 +1,7 @@
 from controller.libroContoller.libroCRUD.ConsutaLibro import ConsultaLibro
 from controller.libroContoller.libroCRUD.CrearLibro import CrearLibro
-<<<<<<< Updated upstream
-=======
 from controller.libroContoller.libroCRUD.BorrarLibro import BorrarLibro
 from controller.libroContoller.libroCRUD.ModLibro import ModificarLibro
->>>>>>> Stashed changes
 class MenuLibro:
     def __init__(self):
         self.__init__
@@ -76,6 +73,12 @@ class MenuLibro:
                 continue
             elif opcion == 2:
                 # llamada a borrar
+                # llamada a borrar
+                print("Borrar libro")
+                print("Libros disponibles para borrar: ")
+                ConsultaLibro.mostrarLibros()
+                idLibro = input("Ingrese el id del libro a borrar")
+                BorrarLibro.borrarLibroId(idLibro)
                 continue
             elif opcion == 3:
                 #llamada a consultar
