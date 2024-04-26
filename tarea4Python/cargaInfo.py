@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from controller.usuarioController.usuarioCRUD.CrearUsuario import CrearUsuario
 from controller.libroContoller.libroCRUD.CrearLibro import  CrearLibro
 from controller.prestamoController.prestamoCRUD.CrearPrestamo import CrearPrestamo
@@ -28,3 +30,9 @@ def ejecutar():
     CrearLibro.crearLibro("9788420483890", "Don Quijote de la Mancha", "Miguel de Cervantes")
     CrearLibro.crearLibro("9788423338649", "Los Pilares de la Tierra", "Ken Follett")
     CrearLibro.crearLibro("9788497593029", "El alquimista", "Paulo Coelho")
+
+    #crear prestamos
+    fecha_prestamo = datetime.now()
+    CrearPrestamo.crearPrestamo(1,1,fecha_prestamo, 10)
+    CrearPrestamo.crearPrestamo(3, 7, fecha_prestamo, 15)
+    CrearPrestamo.crearPrestamo(5, 5, fecha_prestamo, 12)
