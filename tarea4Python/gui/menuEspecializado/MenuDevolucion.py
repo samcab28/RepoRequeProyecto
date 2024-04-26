@@ -1,5 +1,6 @@
 from controller.prestamoController.prestamoCRUD.ConsultaPrestamo import ConsultaPrestamo
-
+from controller.devolucionController.devolucionCRUD.ConsultaDevolucion import ConsultaDevolucion
+from controller.devolucionController.devolucionCRUD.CrearDevolucion import CrearDevolucion
 class MenuDevolucion:
     def __init__(self):
         self.__init__
@@ -30,12 +31,15 @@ class MenuDevolucion:
                     print("Error: Por favor, ingrese un número entero.")
                     continue
 
+                CrearDevolucion.CrearDevolucionId(id_devolucion)
+
                 continue
             elif opcion == 2:
                 # llamada a borrar
                 continue
             elif opcion == 3:
                 #llamada a consultar
+                ConsultaDevolucion.mostrarDevolucion()
                 continue
             elif opcion == 4:
                 #llamada a modificar
