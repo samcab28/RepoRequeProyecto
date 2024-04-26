@@ -9,11 +9,12 @@ def ejecutar():
     CrearUsuario.crearUsuario("Pamela Mortaya")
     CrearUsuario.crearUsuario("Josi Marin")
     CrearUsuario.crearUsuario("Luis Urbina")
-    CrearUsuario.crearUsuario("Jamie Solano")
+    CrearUsuario.crearUsuario("Jaime Solano")
     CrearUsuario.crearUsuario("Keylor Morataya")
     CrearUsuario.crearUsuario("Ricardo Mortaya")
     CrearUsuario.crearUsuario("CUCO")
     CrearUsuario.crearUsuario("Lucas")
+    CrearUsuario.crearUsuario("Minchurila")
     CrearUsuario.crearUsuario("Patri")
 
     #crear libros
