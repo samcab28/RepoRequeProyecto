@@ -7,6 +7,7 @@ from controller.prestamoController.prestamoCRUD.ConsultaPrestamo import Consulta
 from controller.prestamoController.prestamoCRUD.ModPrestamo import ModificarPrestamo
 from controller.prestamoController.prestamoCRUD.BorrarPrestamo import BorrarPrestamo
 from controller.libroContoller.ConsultaLibroDisponible import  LibrosDisponibles
+from controller.prestamoController.PrestamoPorUsuario import PrestamoUsuario
 class MenuPrestamo:
     def __init__(self):
         self.__init__
@@ -18,6 +19,7 @@ class MenuPrestamo:
             print("2. Borrar prestamo")
             print("3. Consultar prestamo")
             print("4. Modificar prestamo")
+            print("5. Consultar prestamo por id")
             print("0. Regresar menu principal")
 
             try:
@@ -70,6 +72,17 @@ class MenuPrestamo:
                 ModificarPrestamo.modificarPrestamoFecha(idPrestamo, cantidad_dias)
 
                 continue
+
+
+            elif opcion == 5:
+                #llamada a consulta por id
+                print("Consulta prestamo por id de usuario")
+                print("usuarios disponibles: ")
+                ConsultaUsuario.mostrarUsuarios()
+
+
+                idUsuario = int(input("digite el id del usuario a filtrar"))
+                PrestamoUsuario.prestamoUsuarioId(idUsuario)
 
             elif opcion == 0:
                 break

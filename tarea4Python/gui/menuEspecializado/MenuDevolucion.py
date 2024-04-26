@@ -2,6 +2,8 @@ from controller.prestamoController.prestamoCRUD.ConsultaPrestamo import Consulta
 from controller.devolucionController.devolucionCRUD.ConsultaDevolucion import ConsultaDevolucion
 from controller.devolucionController.devolucionCRUD.CrearDevolucion import CrearDevolucion
 from controller.devolucionController.devolucionCRUD.BorrarDevolucion import BorrarPrestamo
+from controller.devolucionController.DevolucionPorUsuario import DevolucionUsuario
+from controller.usuarioController.usuarioCRUD.ConsultaUsuario import ConsultaUsuario
 class MenuDevolucion:
     def __init__(self):
         self.__init__
@@ -12,6 +14,7 @@ class MenuDevolucion:
             print("1. Crear devolucion")
             print("2. Borrar devolucion")
             print("3. Consultar devolucion")
+            print("4. Consultar por usuario id")
             print("0. Regresar menu principal")
 
             try:
@@ -46,6 +49,18 @@ class MenuDevolucion:
                 #llamada a consultar
                 ConsultaDevolucion.mostrarDevolucion()
                 continue
+
+            elif opcion == 4:
+                #llamada a consultar por usuario id
+                print("devolucion usuario por id")
+                print("id disponibles:")
+                ConsultaUsuario.mostrarUsuarios()
+                try:
+                    usuario_id = int(input("digite el id a filtrar"))
+                except:
+                    print("error, digite un numero entero")
+                    continue
+                DevolucionUsuario.devolucionUsuarioId(usuario_id)
 
             elif opcion == 0:
                 break

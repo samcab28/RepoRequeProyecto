@@ -36,9 +36,11 @@ def ejecutar():
     fecha_prestamo = datetime.now()
     CrearPrestamo.crearPrestamo(1,1,fecha_prestamo, 10)
     CrearPrestamo.crearPrestamo(3, 7, fecha_prestamo, 15)
+
     CrearPrestamo.crearPrestamo(5, 5, fecha_prestamo, 12)
     CrearPrestamo.crearPrestamo(5, 8, fecha_prestamo, 12)
     CrearPrestamo.crearPrestamo(7, 9, fecha_prestamo, 12)
+    CrearPrestamo.crearPrestamo(3, 4, fecha_prestamo, 16)
 
 
     #crear devoluciones

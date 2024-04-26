@@ -2,13 +2,14 @@ from gui.menuEspecializado.MenuDevolucion import MenuDevolucion
 from gui.menuEspecializado.MenuLibro import MenuLibro
 from gui.menuEspecializado.MenuPrestamo import MenuPrestamo
 from gui.menuEspecializado.MenuUsuario import MenuUsuario
-from controller.prestamoController.HistorialCompleto import ConsultaHistorial
+from gui.menuEspecializado.MenuHistorial import  MenuHistorial
 
 # instancias
 menuDevolucion = MenuDevolucion()
 menuLibro = MenuLibro()
 menuPrestamo = MenuPrestamo()
 menuUsuario = MenuUsuario()
+menuHistorial = MenuHistorial()
 
 class MenuPrincipal:
     def __init__(self):
@@ -52,7 +53,8 @@ class MenuPrincipal:
 
             elif opcion == 5:
                 ##llamada a historial completo
-                ConsultaHistorial.mostrarHistorial()
+                menuHistorial.ejecutarMenuHistoria()
+                continue
 
             elif opcion == 0:
                 break

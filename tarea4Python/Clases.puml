@@ -1,0 +1,41 @@
+@startuml
+
+class Libro {
+    - contadorId: int = 1
+    - LibroAlmacenamiento: dict = {}
+    + generarIdLibro(): int
+    - id_libro: int
+    - isbn: str
+    - nombre: str
+    - autor: str
+    - estado: int
+    + __init__(id_libro: int, isbn: str, nombre: str, autor: str, estado: int)
+}
+
+class PrestamoDev {
+    - contadorId: int = 1
+    - PrestamoDevAlmacenamiento: dict = {}
+    + generarIdPrestamoDev(): int
+    - id_PrestamoDev: int
+    - estado_Prestamo: int
+    - id_Usuario: int
+    - id_Libro: int
+    - fecha_Inicio: date
+    - dias_Prestamo: int
+    - fecha_Entrega: date
+    + __init__(id_PrestamoDev: int, estado_Prestamo: int, id_Usuario: int, id_Libro: int, fecha_Inicio: date, dias_Prestamo: int, fecha_Entrega: date)
+}
+
+class Usuario {
+    - contadorId: int = 1
+    - UsuarioAlmacenamiento: dict = {}
+    + generarId(): int
+    - id_usuario: int
+    - nombre: str
+    + __init__(id_usuario: int, nombre: str)
+}
+
+Libro o-- PrestamoDev : contiene
+PrestamoDev o-- Usuario : realizado por
+
+@enduml
