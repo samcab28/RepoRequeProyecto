@@ -6,6 +6,7 @@ from controller.prestamoController.prestamoCRUD.CrearPrestamo import CrearPresta
 from controller.prestamoController.prestamoCRUD.ConsultaPrestamo import ConsultaPrestamo
 from controller.prestamoController.prestamoCRUD.ModPrestamo import ModificarPrestamo
 from controller.prestamoController.prestamoCRUD.BorrarPrestamo import BorrarPrestamo
+from controller.libroContoller.ConsultaLibroDisponible import  LibrosDisponibles
 class MenuPrestamo:
     def __init__(self):
         self.__init__
@@ -34,7 +35,7 @@ class MenuPrestamo:
                 IdUsuario = input("Ingrese el Id del usuario")
 
                 print("libros disponibles:")
-                ConsultaLibro.mostrarLibros()
+                LibrosDisponibles.mostrarLibrosDisponibles()
                 IdLibro = input("Ingrese el Id del libro")
 
                 fecha_prestamo = datetime.now()

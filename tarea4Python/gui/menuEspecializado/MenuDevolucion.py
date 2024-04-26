@@ -1,6 +1,7 @@
 from controller.prestamoController.prestamoCRUD.ConsultaPrestamo import ConsultaPrestamo
 from controller.devolucionController.devolucionCRUD.ConsultaDevolucion import ConsultaDevolucion
 from controller.devolucionController.devolucionCRUD.CrearDevolucion import CrearDevolucion
+from controller.devolucionController.devolucionCRUD.BorrarDevolucion import BorrarPrestamo
 class MenuDevolucion:
     def __init__(self):
         self.__init__
@@ -35,6 +36,11 @@ class MenuDevolucion:
                 continue
             elif opcion == 2:
                 # llamada a borrar
+                print("Borrar Devolucion")
+                print("Devoluciones disponibles para borrar: ")
+                ConsultaDevolucion.mostrarDevolucion()
+                idDevolucion = input("digite el id de la devolucion que desea borrar")
+                BorrarPrestamo.borrarDevolucionId(idDevolucion)
                 continue
             elif opcion == 3:
                 #llamada a consultar
