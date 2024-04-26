@@ -1,6 +1,10 @@
 from controller.usuarioController.usuarioCRUD.CrearUsuario import CrearUsuario
 from controller.usuarioController.usuarioCRUD.ConsultaUsuario import ConsultaUsuario
+<<<<<<< Updated upstream
+=======
 from controller.usuarioController.usuarioCRUD.BorrarUsuario import BorrarUsuario
+from controller.usuarioController.usuarioCRUD.ModUsuario import ModificarUsuario
+>>>>>>> Stashed changes
 
 class MenuUsuario:
     def __init__(self):
@@ -29,11 +33,7 @@ class MenuUsuario:
 
                 continue
             elif opcion == 2:
-                print("borrar usuario")
-                print("usuarios disponibles para borrar:")
-                ConsultaUsuario.mostrarUsuarios()
-                idUsuario = input("digite el id del usuario a borrar")
-                BorrarUsuario.borrarUsuarioId(idUsuario)
+                # llamada a borrar
                 continue
             elif opcion == 3:
                 #llamada a consultar
@@ -41,6 +41,13 @@ class MenuUsuario:
                 continue
             elif opcion == 4:
                 #llamada a modificar
+
+                print("\n\nModificar Usuario (NOMBRE)")
+                ConsultaUsuario.mostrarUsuarios()
+                idUsuario = int(input("Digite el ID del usuario a modificar: "))
+                nombreUsuario = input("Digite el nuevo nombre del usuario: ")
+
+                ModificarUsuario.modificarLibroNombre(idUsuario, nombreUsuario)
                 continue
 
             elif opcion == 0:
