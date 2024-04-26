@@ -34,7 +34,12 @@ class MenuPrestamo:
                 #mostrar los id de usuario:
                 print("usuarios disponibles:")
                 ConsultaUsuario.mostrarUsuarios()
-                IdUsuario = int(input("Ingrese el Id del usuario"))
+
+                try:
+                    IdUsuario = int(input("Ingrese el Id del usuario"))
+                except:
+                    print("error, el id debe de ser un numero entero")
+                    continue
 
                 print("libros disponibles:")
                 LibrosDisponibles.mostrarLibrosDisponibles()
