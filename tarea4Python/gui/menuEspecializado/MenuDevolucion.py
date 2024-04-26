@@ -1,3 +1,4 @@
+from controller.prestamoController.prestamoCRUD.ConsultaPrestamo import ConsultaPrestamo
 
 class MenuDevolucion:
     def __init__(self):
@@ -19,7 +20,16 @@ class MenuDevolucion:
                 continue
 
             if opcion == 1:
-                #llamada a crear
+                print("Crear devolucion")
+                print("digite el id del prestamo a devolver, prestamos disponibles:")
+                ConsultaPrestamo.mostrarPrestamos()
+
+                try:
+                    id_devolucion = int(input("digite el id del prestamo a devolver"))
+                except ValueError:
+                    print("Error: Por favor, ingrese un número entero.")
+                    continue
+
                 continue
             elif opcion == 2:
                 # llamada a borrar
