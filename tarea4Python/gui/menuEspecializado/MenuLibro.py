@@ -27,7 +27,7 @@ class MenuLibro:
                 LibroISBN = input("Ingrese el ISBN del libro: ")
                 LibroNombre = input("Ingrese el nombre del libro: ")
                 LibroAutor = input("Ingrese el autor del libro: ")
-                CrearLibro.crearLibro(LibroISBN,LibroNombre,LibroAutor,1)
+                CrearLibro.crearLibro(LibroISBN,LibroNombre,LibroAutor)
 
                 continue
             elif opcion == 2:
