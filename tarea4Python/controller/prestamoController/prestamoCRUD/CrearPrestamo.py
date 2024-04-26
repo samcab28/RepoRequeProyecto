@@ -11,6 +11,6 @@ class CrearPrestamo:
         nuevo_Prestamo = PrestamoDev(idPrestamo, 1, Usuario, Libro, FechaInicio, CantidadDias, FechaDevolucion)
         if idPrestamo not in PrestamoDev.PrestamoDevAlmacenamiento:
             PrestamoDev.PrestamoDevAlmacenamiento[idPrestamo] = nuevo_Prestamo
-            CambiarEstadoLibro.cambiarEstado(Libro)
+            CambiarEstadoLibro.cambiarEstado(int(Libro))
         else:
             raise ValueError("El préstamo ya existe")
