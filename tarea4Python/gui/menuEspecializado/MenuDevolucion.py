@@ -25,7 +25,7 @@ class MenuDevolucion:
 
             if opcion == 1:
                 print("Crear devolucion")
-                print("digite el id del prestamo a devolver, prestamos disponibles:")
+                print("Prestamos disponibles:")
                 ConsultaPrestamo.mostrarPrestamos()
 
                 try:

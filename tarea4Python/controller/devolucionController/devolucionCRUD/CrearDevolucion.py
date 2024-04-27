@@ -18,5 +18,5 @@ class CrearDevolucion:
             else:
                 print("error en el estado del prestamo")
         else:
-            print("error prestamo innexistente")
+            print("error prestamo inexistente")
 

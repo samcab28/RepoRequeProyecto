@@ -38,18 +38,23 @@ class MenuPrestamo:
                 try:
                     IdUsuario = int(input("Ingrese el Id del usuario"))
                 except:
-                    print("error, el id debe de ser un numero entero")
+                    print("ERROR: el ID debe de ser un numero entero")
                     continue
 
                 print("libros disponibles:")
                 LibrosDisponibles.mostrarLibrosDisponibles()
-                IdLibro = input("Ingrese el Id del libro")
+
+                try:
+                    IdLibro = input("Ingrese el Id del libro")
+                except:
+                    print("ERROR: el ID debe de ser un numero entero")
+                    continue
 
                 fecha_prestamo = datetime.now()
 
 
                 try:
-                    cantidad_dias = int(input("digite la cantidad de dias que del prestamo"))
+                    cantidad_dias = int(input("Digite la cantidad de dias del prestamo"))
                 except ValueError:
                     print("Error: Por favor, ingrese un número entero.")
                     continue
