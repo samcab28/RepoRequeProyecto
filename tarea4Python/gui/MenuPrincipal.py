@@ -18,17 +18,17 @@ class MenuPrincipal:
     def ejecutarMenuPrincipal(self):
         while True:
             print("\n\nBievenido al Menu Principal:")
-            print("1. Libro")
-            print("2. Usuario")
-            print("3. Préstamo")
-            print("4. Devolucion")
-            print("5. Historial completo")
-            print("0. Salir del programa")
+            print("\t1. Libro")
+            print("\t2. Usuario")
+            print("\t3. Préstamo")
+            print("\t4. Devolucion")
+            print("\t5. Historial completo")
+            print("\n\t0. Salir del programa")
 
             try:
-                opcion = int(input("digite una opcion: "))
+                opcion = int(input("\nDigite una opcion: "))
             except ValueError:
-                print("Error: Por favor, ingrese un número entero.")
+                print("\nError: Por favor, ingrese un número entero.")
                 continue
 
             if opcion == 1:
@@ -60,5 +60,5 @@ class MenuPrincipal:
                 break
 
             else:
-                print("Error a la hora de digitar  un digito: ")
+                print("\n\nError a la hora de ingresar una opción")
                 continue

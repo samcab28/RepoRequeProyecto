@@ -15,58 +15,58 @@ class MenuPrestamo:
     def ejecutarMenuPrestamo(self):
         while True:
             print("\n\nBienvenido al Menu de Prestamo")
-            print("1. Crear prestamo")
-            print("2. Borrar prestamo")
-            print("3. Consultar prestamo")
-            print("4. Modificar prestamo")
-            print("5. Consultar prestamo por id")
-            print("0. Regresar menu principal")
+            print("\t1. Crear prestamo")
+            print("\t2. Borrar prestamo")
+            print("\t3. Consultar prestamo")
+            print("\t4. Modificar prestamo")
+            print("\t5. Consultar prestamo por id")
+            print("\n\t0. Regresar menu principal")
 
             try:
-                opcion = int(input("digite una opcion: "))
+                opcion = int(input("\nDigite una opcion: "))
             except ValueError:
-                print("Error: Por favor, ingrese un número entero.")
+                print("\nError: Por favor, ingrese un número entero.")
                 continue
 
             if opcion == 1:
                 #llamada a crear
-                print("Crear prestamo")
+                print("\n\nCrear préstamo")
                 #mostrar los id de usuario:
-                print("usuarios disponibles:")
+                print("\nnUsuarios disponibles:")
                 ConsultaUsuario.mostrarUsuarios()
 
                 try:
-                    IdUsuario = int(input("Ingrese el Id del usuario"))
+                    IdUsuario = int(input("\nIngrese el Id del usuario: "))
                 except:
-                    print("ERROR: el ID debe de ser un numero entero")
+                    print("\nERROR: el ID debe de ser un numero entero")
                     continue
 
-                print("libros disponibles:")
+                print("\n\nLibros disponibles:")
                 LibrosDisponibles.mostrarLibrosDisponibles()
 
                 try:
-                    IdLibro = input("Ingrese el Id del libro")
+                    IdLibro = input("\nIngrese el ID del libro: ")
                 except:
-                    print("ERROR: el ID debe de ser un numero entero")
+                    print("\nERROR: el ID debe de ser un numero entero")
                     continue
 
                 fecha_prestamo = datetime.now()
 
 
                 try:
-                    cantidad_dias = int(input("Digite la cantidad de dias del prestamo"))
+                    cantidad_dias = int(input("\nDigite la cantidad de dias del préstamo: "))
                 except ValueError:
-                    print("Error: Por favor, ingrese un número entero.")
+                    print("\nError: Por favor, ingrese un número entero.")
                     continue
 
                 CrearPrestamo.crearPrestamo(IdUsuario, IdLibro, fecha_prestamo, cantidad_dias)
                 continue
             elif opcion == 2:
                 # llamada a borrar
-                print("borrar prestamo")
-                print("prestamos disponibles para borrado:")
+                print("\n\nBorrar préstamo")
+                print("\nPréstamos disponibles para borrado:")
                 ConsultaPrestamo.mostrarPrestamos()
-                id_prestamo = input("Ingrese el id del prestamo a borrar")
+                id_prestamo = input("\nIngrese el ID del préstamo a borrar: ")
                 BorrarPrestamo.borrarPrestamoId(id_prestamo)
                 continue
             elif opcion == 3:
@@ -77,7 +77,7 @@ class MenuPrestamo:
                 #llamada a modificar
                 print("\n\nModificar préstamo (FECHA DE ENTREGA)")
                 ConsultaPrestamo.mostrarPrestamos()
-                idPrestamo = int(input("\nIngrese el ID del prestamo"))
+                idPrestamo = int(input("\nIngrese el ID del prestamo: "))
                 cantidad_dias = int(input("Digite la nueva cantidad de dias para el préstamo: "))
                 ModificarPrestamo.modificarPrestamoFecha(idPrestamo, cantidad_dias)
 
@@ -86,16 +86,14 @@ class MenuPrestamo:
 
             elif opcion == 5:
                 #llamada a consulta por id
-                print("Consulta prestamo por id de usuario")
-                print("usuarios disponibles: ")
+                print("\n\nConsulta prestamo por ID de usuario")
+                print("\nUsuarios disponibles: ")
                 ConsultaUsuario.mostrarUsuarios()
-
-
-                idUsuario = int(input("digite el id del usuario a filtrar"))
+                idUsuario = int(input("\nDigite el ID del usuario a filtrar: "))
                 PrestamoUsuario.prestamoUsuarioId(idUsuario)
 
             elif opcion == 0:
                 break
             else:
-                print("Error a la hora de digitar un digito: ")
+                print("\n\nError a la hora de ingresar una opción")
                 continue

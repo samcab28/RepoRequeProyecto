@@ -9,75 +9,75 @@ class MenuLibro:
     def ejecutarMenuModificar(self):
         while True:
             print("\nMenú de modificar")
-            print("1. Nombre Libro")
-            print("2. Autor Libro")
-            print("3. ISBN Libro")
-            print("0. Regresar menu libro")
+            print("\t1. Nombre Libro")
+            print("\t2. Autor Libro")
+            print("\t3. ISBN Libro")
+            print("\n\t0. Regresar menu libro")
 
             try:
-                opcion = int(input("Escoga la opcion que desea modificar: "))
+                opcion = int(input("\tEscoga la opcion que desea modificar: "))
                 if opcion != 0:
                     idLibro = int(input("Escoga el id del libro: "))
             except ValueError:
-                print("Error: Por favor, ingrese un número entero.")
+                print("\nError: Por favor, ingrese un número entero.")
                 continue
 
             if opcion == 1:
                 #llamada a modificar nombre
-                print("Nombre libro")
-                nombreNuevo = input("Escribe el nuevo nombre del libro: ")
+                print("\n\nNombre libro")
+                nombreNuevo = input("\nEscribe el nuevo nombre del libro: ")
                 ModificarLibro.modificarLibroNombre(idLibro, nombreNuevo)
                 continue
             elif opcion == 2:
                 # llamada a modificar autor
-                print("Autor libro")
-                autorNuevo = input("Escribe el nuevo autor del libro: ")
+                print("\n\nAutor libro")
+                autorNuevo = input("\nEscribe el nuevo autor del libro: ")
                 ModificarLibro.modificarLibroAutor(idLibro, autorNuevo)
                 continue
             elif opcion == 3:
                 #llamada a modificar ISBN
-                print("ISBN libro")
-                isbnNuevo = input("Escribe el nuevo ISBN del libro: ")
+                print("\n\nISBN libro")
+                isbnNuevo = input("\nEscribe el nuevo ISBN del libro: ")
                 ModificarLibro.modificarLibroISBN(idLibro, isbnNuevo)
                 continue
             elif opcion == 0:
                 break
             else:
-                print("Error: datos inválidos ")
+                print("\nError: datos inválidos ")
                 continue
     def ejecutarMenuLibro(self):
         while True:
             print("\n\nBienvenido al Menu de Libro")
-            print("1. Crear Libro")
-            print("2. Borrar Libro")
-            print("3. Consultar Libro")
-            print("4. Modificar Libro")
-            print("0. Regresar menu principal")
+            print("\t1. Crear Libro")
+            print("\t2. Borrar Libro")
+            print("\t3. Consultar Libro")
+            print("\t4. Modificar Libro")
+            print("\n\t0. Regresar menu principal")
 
             try:
-                opcion = int(input("digite una opcion: "))
+                opcion = int(input("\nDigite una opcion: "))
             except ValueError:
-                print("Error: Por favor, ingrese un número entero.")
+                print("\nError: Por favor, ingrese un número entero.")
                 continue
 
             if opcion == 1:
                 #llamada a crear
 
                 # no se ha terminado la funcion, hablar acerca del estado del libro
-                print("Crear libro")
-                LibroISBN = input("Ingrese el ISBN del libro: ")
-                LibroNombre = input("Ingrese el nombre del libro: ")
-                LibroAutor = input("Ingrese el autor del libro: ")
+                print("\n\nCrear libro")
+                LibroISBN = input("\nIngrese el ISBN del libro: ")
+                LibroNombre = input("\nIngrese el nombre del libro: ")
+                LibroAutor = input("\nIngrese el autor del libro: ")
                 CrearLibro.crearLibro(LibroISBN,LibroNombre,LibroAutor)
 
                 continue
             elif opcion == 2:
                 # llamada a borrar
                 # llamada a borrar
-                print("Borrar libro")
-                print("Libros disponibles para borrar: ")
+                print("\n\nBorrar libro")
+                print("\nLibros disponibles para borrar: \n")
                 ConsultaLibro.mostrarLibros()
-                idLibro = input("Ingrese el id del libro a borrar")
+                idLibro = input("\nIngrese el id del libro a borrar: ")
                 BorrarLibro.borrarLibroId(idLibro)
                 continue
             elif opcion == 3:
@@ -95,5 +95,5 @@ class MenuLibro:
             elif opcion == 0:
                 break
             else:
-                print("Error a la hora de digitar un digito: ")
+                print("\n\nError a la hora de ingresar una opción")
                 continue

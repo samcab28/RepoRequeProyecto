@@ -11,35 +11,36 @@ class MenuUsuario:
     def ejecutarMenuUsuario(self):
         while True:
             print("\n\nBienvenido al Menu de Usuario")
-            print("1. Crear Usuario")
-            print("2. Borrar Usuario")
-            print("3. Consultar Usuario")
-            print("4. Modificar Usuario")
-            print("0. Regresar menu principal")
+            print("\t1. Crear Usuario")
+            print("\t2. Borrar Usuario")
+            print("\t3. Consultar Usuario")
+            print("\t4. Modificar Usuario")
+            print("\n\t0. Regresar menu principal")
 
             try:
-                opcion = int(input("digite una opcion: "))
+                opcion = int(input("\nDigite una opcion: "))
             except ValueError:
                 print("Error: Por favor, ingrese un número entero.")
                 continue
 
             if opcion == 1:
                 #llamada a crear
-                print("Crear Usuario")
-                NombreUsuario = input("digite el nombre del usuario: ")
+                print("\n\nCrear Usuario")
+                NombreUsuario = input("\nDigite el nombre del usuario: ")
                 CrearUsuario.crearUsuario(NombreUsuario)
 
                 continue
             elif opcion == 2:
                 # llamada a borrar
-                print("Borrar usuario")
-                print("usuarios disponibles para borrar:")
+                print("\n\nBorrar usuario")
+                print("\nUsuarios disponibles para borrar:\n")
                 ConsultaUsuario.mostrarUsuarios()
-                idUsuario = input("digite el id del usuario a borrar")
+                idUsuario = input("\nDigite el id del usuario a borrar: ")
                 BorrarUsuario.borrarUsuarioId(idUsuario)
                 continue
             elif opcion == 3:
                 #llamada a consultar
+                print("\n\nLista de Usuarios: \n")
                 ConsultaUsuario.mostrarUsuarios()
                 continue
             elif opcion == 4:
@@ -47,14 +48,13 @@ class MenuUsuario:
 
                 print("\n\nModificar Usuario (NOMBRE)")
                 ConsultaUsuario.mostrarUsuarios()
-                idUsuario = int(input("Digite el ID del usuario a modificar: "))
-                nombreUsuario = input("Digite el nuevo nombre del usuario: ")
+                idUsuario = int(input("\nDigite el ID del usuario a modificar: "))
+                nombreUsuario = input("\nDigite el nuevo nombre del usuario: ")
 
                 ModificarUsuario.modificarLibroNombre(idUsuario, nombreUsuario)
                 continue
-
             elif opcion == 0:
                 break
             else:
-                print("Error a la hora de digitar un digito: ")
+                print("\n\nError a la hora de ingresar una opción")
                 continue

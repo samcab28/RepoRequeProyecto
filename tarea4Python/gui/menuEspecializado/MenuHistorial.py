@@ -8,30 +8,30 @@ class MenuHistorial:
 
     def ejecutarMenuHistoria(self):
         while True:
-            print("\n\nBienvenido al menu de historial")
-            print("este menu incluye la informacion completa de prestamos y devoluciones")
-            print("1. mostrar historial")
-            print("2. mostrar historial por usuario")
-            print("0. regresar menu principal")
+            print("\n\nBienvenido al menú de historial")
+            print("\n\tEste menú incluye la información completa de préstamos y devoluciones")
+            print("\t1. Mostrar historial")
+            print("\t2. Mostrar historial por usuario")
+            print("\n\t0. Regresar menú principal")
 
             try:
-                opcion = int(input("digite una opcion:"))
+                opcion = int(input("\nDigite una opcion: "))
             except:
-                print("Error: Por favor, ingrese un numero entero")
+                print("\nError: Por favor, ingrese un numero entero")
                 continue
 
             if opcion == 1:
-                print("Mostrar historial completo")
+                print("\n\nMostrar historial completo:\n")
                 ConsultaHistorial.mostrarHistorial()
 
             if opcion ==2:
-                print("Mostrar historial por usuario")
+                print("\n\nMostrar historial por usuario:\n")
                 ConsultaUsuario.mostrarUsuarios()
 
                 try:
-                    userId = int(input("digite el id del usuario a filtrar"))
+                    userId = int(input("\nDigite el ID del usuario a filtrar: "))
                 except:
-                    print("digite un numero entero")
+                    print("\nERROR: digite un número entero")
                     continue
 
                 HistorialUsuario.mostralHistorialUsuario(userId)
@@ -40,5 +40,5 @@ class MenuHistorial:
                 break
 
             else:
-                print("Error a la hora de digitar:")
+                ##print("\n\nError a la hora de ingresar una opción")
                 continue

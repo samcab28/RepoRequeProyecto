@@ -7,6 +7,7 @@ class HistorialUsuario:
         usuario_id = int(usuario_id)
 
         prestamoEncontrado = False
+        devolucionEncontrada = True
         for id_prestamo, prestamo in PrestamoDev.PrestamoDevAlmacenamiento.items():
 
             if prestamo.estado_Prestamo == 1 and prestamo.id_Usuario == usuario_id:
@@ -19,3 +20,5 @@ class HistorialUsuario:
 
         if not prestamoEncontrado:
             print("El usuario no tiene préstamos asignados")
+        if not devolucionEncontrada:
+            print("El usuario no tiene devoluciones realizadas")
